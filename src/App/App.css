@@ -1,0 +1,620 @@
+/*
+ * Copyright (c) 2018 Open990.org, Inc.. All rights reserved.
+ */
+
+@import url('https://fonts.googleapis.com/css?family=Lato:300,400,700,900|Roboto+Condensed');
+
+html,
+body,
+#root {
+    font-family: 'Roboto Condensed', sans-serif;
+    height: 100%;
+}
+
+body {
+    margin: 0;
+    padding: 0;
+}
+
+h1,
+h2,
+h3,
+h4 {
+    font-family: 'Lato', sans-serif;
+}
+
+.App {
+    text-align: center;
+}
+
+main {
+    flex: 1 0 auto;
+}
+
+footer {
+    flex-shrink: 0;
+}
+
+.App-logo {
+    animation: App-logo-spin infinite 20s linear;
+    height: 80px;
+}
+
+.App-header {
+    background-color: #222;
+    height: 150px;
+    padding: 20px;
+    color: white;
+}
+
+.App-title {
+    font-size: 1.5em;
+}
+
+.App-intro {
+    font-size: large;
+}
+
+.Table__itemCount {
+    font-size: 14px;
+}
+
+.Table__pagination {
+    display: flex;
+    justify-content: space-between;
+    padding: 20px 10px;
+}
+@media screen and (max-width:600px) {
+    .Table__pagination {
+        padding: 20px 0px;
+    }
+    .ReactTable .rt-tbody .rt-td:nth-child(even) {
+        background: rgba(227, 227, 227, 0.7)!important;
+    }
+    .Table__visiblePagesWrapper button {
+        width: 20px!important;
+        height: 20px!important;
+        padding: 0!important;
+    }
+    .Table__visiblePagesWrapper {
+        display: flex;
+        align-items:center;
+    }
+}
+
+.Table__pageButton {
+    font-size: 15px;
+    outline: none;
+    border: none;
+    background-color: transparent;
+    cursor: pointer;
+}
+
+.Table__pageButton:disabled {
+    cursor: not-allowed;
+    color: gray;
+}
+
+.Table__pageButton--active {
+    color: white;
+    font-weight: bold;
+    border-radius: 100px;
+    background-color: #8553ff;
+    width: 32px;
+    height: 32px;
+}
+
+.Table__visiblePagesWrapper button {
+    width: 32px;
+    height: 32px;
+}
+
+.Table__nextPageWrapper>button,
+.Table__prevPageWrapper>button {
+    display: flex;
+    align-items: center;
+    font-weight: bold;
+    color: #8553ff;
+}
+
+@media screen and (max-width: 960px) {
+    .ReactTable .rt-tbody .rt-td:nth-child(even) {
+        background: rgba(227, 227, 227, 0.7) !important;
+    }
+
+    .ReactTable.-striped .rt-tr.-odd {
+        background: none;
+    }
+
+    .ReactTable.-striped .rt-tr.-even {
+        background: rgba(227, 227, 227, 0.7);
+    }
+
+    .ReactTable.-highlight .rt-tbody .rt-tr:not(.-padRow):hover {
+        background-color: rgba(247, 247, 247, 0.05) !important;
+    }
+}
+
+.ReactTable .-pagination .-btn {
+    color: #8553ff !important;
+    font-weight: bold;
+    background: transparent !important;
+}
+
+.ReactTable .-pagination .-btn[disabled] {
+    color: #9995a3 !important;
+    cursor: default;
+}
+
+.ReactTable.-striped .rt-tr.-even {
+    background: rgba(0,0,0,0.03) !important;
+}
+
+.ReactTable.-striped .rt-tr.-odd {
+    background: none !important;
+}
+
+.expansion-panel-summary {
+    flex-direction: row-reverse;
+    padding-left: 0px !important;
+    min-height: 52px !important;
+}
+
+.expansion-panel-summary > div:first-child {
+    position: relative;
+    left: -5px;
+}
+
+.expansion-panel-summary > div:last-child {
+    position: relative;
+    top: 22px;
+    right: unset;
+    transform: translateY(-50%) rotate(270deg) !important
+}
+
+.expansion-panel-summary {
+    background: white;
+    color: black;
+}
+
+.expansion-panel-summary.always, .expansion-panel-summary[aria-expanded=true].expand {
+    background: #6839d3;
+}
+
+.expansion-panel-summary.always:hover, .expansion-panel-summary[aria-expanded=true].expand:hover {
+    background: #8863dc;
+}
+
+.expansion-panel-summary.always span, .expansion-panel-summary[aria-expanded=true].expand span,
+.expansion-panel-summary.always p, .expansion-panel-summary[aria-expanded=true].expand p {
+    color: white;
+    font-weight: bold;
+}
+
+.expansion-panel-details > div {
+    margin-top: 0 !important;
+}
+
+#sidebar {
+    text-align: left;
+}
+
+#sidebar span, #sidebar h2 {
+    color: black;
+}
+
+#sidebar h2 + div {
+    padding-top: 4px !important;
+}
+
+#sidebar span:hover {
+    color: #6839d3
+}
+
+.expansion-panel-summary.top-level span {
+    color: white;
+}
+
+.expansion-panel-summary.top-level > div:first-child {
+    margin: 0px 0 !important;
+}
+
+.expansion-panel-summary > div:first-child {
+    transition-duration: 300ms !important;
+}
+
+.expansion-panel-details .rt-th:first-child, .expansion-panel-details .rt-td:first-child {
+    flex: 2;
+    padding-left: 40px !important;
+    text-align: left;
+}
+
+@media screen and (max-width: 600px) {
+    .expansion-panel-details .rt-th:first-child, .expansion-panel-details .rt-td:first-child {
+        flex: 1.8;
+    }
+}
+
+@media screen and (min-width: 600px) and (max-width: 1280px) {
+    .expansion-panel-details .rt-th:first-child, .expansion-panel-details .rt-td:first-child {
+        flex: 1.6;
+    }
+}
+
+@media screen and (min-width: 1280px) {
+    .expansion-panel-details .rt-th:first-child, .expansion-panel-details .rt-td:first-child {
+        flex: 1.6;
+    }
+}
+
+@media screen and (max-width: 600px) {
+    .react-table-container-2.maximized .rt-th:first-child,
+    .react-table-container-2.maximized .rt-td:first-child {
+        flex: 1.4 !important;
+    }
+}
+
+@media screen and (min-width: 600px) and (max-width: 1280px) {
+    .react-table-container-2.maximized .rt-th:first-child,
+    .react-table-container-2.maximized .rt-td:first-child {
+        flex: 0.76 !important;
+    }
+}
+
+@media screen and (min-width: 1280px) {
+    .react-table-container-2.maximized .rt-th:first-child,
+    .react-table-container-2.maximized .rt-td:first-child {
+        flex: 0.51 !important;
+    }
+}
+
+.react-table-container-0 {
+    width: calc(100% - 20px);
+    border: 1px solid rgba(0,0,0,0.1);
+    overflow-x: scroll;
+}
+
+.react-table-container-0.maximized {
+    overflow-x: hidden;
+}
+
+.react-table-container-0 .ReactTable {
+    border: none !important;
+}
+
+.expansion-panel-summary.top-level + div > div > div > .expansion-panel-details {
+    padding-right: 0px !important;
+    padding-left: 12px !important;
+    padding-top: 0;
+    padding-bottom: 11px;
+}
+
+.expansion-panel-summary.top-level + div > div > div > .expansion-panel-details > div > .react-table-container-0 {
+    width: calc(100% - 14px);
+}
+
+@media screen and (max-width: 1280px) {
+    .react-table-container-2:not(.maximized) {
+        width: 125%;
+    }
+}
+
+@media screen and (max-width: 600px) {
+    .react-table-container-2:not(.maximized) {
+        width: 158%;
+    }
+}
+
+.OrganizationProfilePage > div > div > div > div:last-child > div:first-child .react-table-container-2.maximized .rt-thead {
+    display: none;
+    height: 0;
+}
+
+@media screen and (max-width: 960px) and (min-width: 600px) {
+    #org-profile {
+        padding-left: 40px !important;
+    }
+}
+
+@media screen and (max-width: 600px) {
+    #org-profile {
+        padding-left: 20px !important;
+    }
+}
+
+.OrganizationProfilePage > div > div > div > div:last-child:not(:first-child) {
+    margin-top: 15px;
+}
+
+.mobile-sidebar-button {
+    position: fixed;
+    top: calc(50% - 10px);
+    color: #6839d3;
+    left: 12px;
+    cursor: pointer;
+}
+
+@media screen and (min-width: 960px) {
+    .mobile-sidebar-button {
+        display: none;
+    }
+
+    .mobile-sidebar {
+        display: none;
+    }
+
+    .mobile-sidebar-dialog {
+        display: none;
+    }
+
+    body {
+        overflow-y: scroll !important;
+    }
+}
+
+.mobile-sidebar-dialog {
+    width: 300px !important;
+}
+
+.mobile-sidebar-dialog > div > div {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.desktop-sidebar svg {
+    position: relative;
+    left: 5px;
+}
+
+#sidebar > div > div {
+    padding-left: 0;
+}
+
+.react-table-container-2 .ReactTable .rt-tbody .rt-td:nth-child(even) {
+    background: rgba(227, 227, 227, 0.7) !important;
+}
+
+.expansion-panel-summary:not(.top-level) > div:first-child {
+    margin: 12px 0 !important;
+}
+
+#sidebar * {
+    cursor: default;
+}
+
+#sidebar span {
+    cursor: pointer !important;
+}
+
+.ReactTable .rt-tbody .rt-td {
+    text-overflow: clip !important;
+    white-space: normal !important;
+}
+
+.mobile-sidebar-button-container {
+    position: fixed;
+    z-index: 99999;
+    top: calc(50% - 10px);
+    color: #6839d3;
+    left: 0;
+    cursor: pointer;
+    width: 36px;
+    height: 100%;
+    top: 56px;
+}
+
+.ReactTable .rt-tbody .rt-tr-group, .ReactTable .rt-tr {
+    overflow: hidden !important;
+}
+
+body {
+    padding-right: 0 !important;
+}
+
+.SearchPage {
+    width: 100%;
+}
+
+@media screen and (min-width: 600px) and (max-width: 960px) {
+    .SearchPage {
+        margin-left: 10px;
+    }
+}
+
+#desktop-sidebar > div > div {
+    height: calc(100vh - 90px)
+}
+
+#search-params {
+    color: black;
+    width: 200px;
+}
+
+#search-params > h3 {
+    margin-top: 0;
+    font-weight: 900;
+    font-size: 16px;
+}
+
+#search-params > h5 {
+    margin-bottom: 20px;
+    font-size: 15px;
+    text-transform: uppercase;
+    text-align: left;
+}
+
+#search-params > .form-group > label {
+    font-size: 11px;
+    font-weight: 500;
+    margin-bottom: 5px;
+    display: block;
+    text-align: left;
+}
+
+#search-params > .form-group > * {
+    width: 100%;
+}
+
+#search-params > .form-group > input {
+    display: block;
+    width: 100%;
+    border: 1px solid #ced4da;
+}
+
+#search-params > .form-group > select {
+    display: block;
+    width: 100%;
+}
+
+#search-params > .form-group {
+    margin-bottom: 15px;
+    height: 60px;
+}
+
+#search-params > hr {
+    margin-top: 30px;
+    margin-bottom: 0;
+    width: 100%;
+    border: 0.5px solid #939393;
+}
+
+#search-params > button {
+    margin-top: 40px;
+    background-color: #f2f2f2;
+    border: 1px solid #f2f2f2;
+    border-radius: 2px;
+    color: #757575;
+    cursor: pointer;
+    font-size: 13px;
+    font-weight: bold;
+    min-width: 54px;
+    padding: 0 16px;
+    text-align: center;
+    padding: 10px;
+}
+
+.SearchPage > .loader {
+    display: flex;
+    justify-content: center;
+    margin-top: 100px;
+}
+
+.SearchPage *[role=columnheader] {
+    justify-content: left;
+    font-weight: bold;
+}
+
+.react-table-container-0 .ReactTable .rt-thead .rt-resizable-header-content {
+    font-weight: bold
+}
+
+.SearchPage .ReactTable .rt-table {
+    border: none;
+}
+
+html {
+    scroll-behavior: auto;
+}
+
+.mui-fixed {
+    z-index: 9999999 !important;
+}
+
+.pagination-bottom * {
+    font-family: system-ui !important;
+}
+
+.multiple-select > div > div > div > div > div > div:first-child {
+    white-space: normal !important;
+}
+
+.multiple-select label {
+    margin-right: 25px;
+}
+
+.category-select > div {
+    /* margin-top: 20px; */
+}
+
+.range-labels {
+    position: relative;
+    display: flex;
+    justify-content: space-between;
+    margin-top: 6px;
+    font-size: 14px;
+}
+
+.range-labels > .min {
+
+}
+
+.range-labels > .max {
+
+}
+
+[aria-live=assertive] + div + div {
+    text-align: left;
+}
+
+[aria-live=assertive] + div + div * {
+    text-align: left;
+}
+
+.form-group > div > label, .form-group > div > div > label {
+    /* font-size: 15px; */
+    text-align: left;
+}
+
+.state-select label {
+    display: none;
+}
+
+.desktop-sidebar h2 {
+    text-align: left;
+}
+
+.multiple-select > div > div > div > div > div:last-child:first-child::after {
+    content: ' Select a focus';
+}
+
+@media screen and (max-width: 960px) {
+    .search-helper-container {
+        position: absolute;
+        z-index: 999999;
+        width: calc(100% - 30px) !important;
+    }
+}
+
+.search-helper-container > .bg {
+    display: none;
+}   
+
+@media screen and (max-width: 960px) {
+    .search-helper-container > .bg {
+        display: block;
+        position: absolute;
+        width: 99999px;
+        height: 99999px;
+        left: -999px;
+        top: -99px;
+        background: rgba(0,0,0,0.1);
+        z-index: -1;
+    }
+}
+
+/* .search-helper-container > div:not(.bg) {
+    z-index: 10000001;
+} */
+
+.multiple-select > .placeholder {
+    text-align: left;
+    opacity: 0.5;
+    position: relative;
+    top: -28px;
+    z-index: 4;
+}
+
+.multiple-select > div:not(.placeholder) {
+    z-index: 5;
+}
