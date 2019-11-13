@@ -9,7 +9,6 @@ import apiClient from 'App/ApiClient';
 import { orgASProps } from 'Common/autosuggestProperties'
 import {orgSearch} from "App/routes";
 import { withRouter, Link } from 'react-router-dom';
-import {exampleSearch, homePeople} from "../App/routes";
 import Grid from '@material-ui/core/Grid';
 import { styles } from 'HomePage/HomeBannerStyles';
 

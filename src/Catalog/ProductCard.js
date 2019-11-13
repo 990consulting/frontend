@@ -10,7 +10,6 @@ import Grid from '@material-ui/core/Grid';
 import Paper from '@material-ui/core/Paper';
 import { styles } from "Catalog/productCardStyles";
 
-import { inquiriesMail } from 'App/routes'
 class ProductCard extends React.Component {
 
   iconElement() {
@@ -21,7 +20,7 @@ class ProductCard extends React.Component {
   }
 
   titleElement() {
-    const { classes, headerText, title } = this.props;
+    const { classes, title } = this.props;
     return (<Grid item xs={10} className={classes.headerText}>
       {title}
     </Grid>)

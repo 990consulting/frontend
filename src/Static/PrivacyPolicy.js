@@ -16,9 +16,7 @@ import classNames from 'classnames';
 
 import {
   termsOfService,
-  mail,
-  consulting,
-  Open990
+  mail
 } from 'App/routes';
 
 class PrivacyPolicy extends React.Component {

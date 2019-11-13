@@ -20,20 +20,15 @@ import faLinkedin from '@fortawesome/fontawesome-free-brands/faLinkedin';
 import faEnvelope from '@fortawesome/fontawesome-free-solid/faEnvelope';
 
 import {
-  mail,
-  root,
+  mail,  
   davidMail,
-  heatherMail,
-  consulting,
+  heatherMail,  
   broadinstitute,
   charitynavigator,
   charitynavigatorNineHundr,
   princeton,
   borensteinGit,
-  borensteinLinkedIn,
-  theatlantic,
-  kqed,
-  cnn,
+  borensteinLinkedIn,      
   kugelmassLinkedIn
 } from 'App/routes';
 
@@ -186,7 +181,7 @@ const Contact = ({
                     <a href={mail}>
                       inquiries@open990.org
                     </a>
-                    <p className={classes.textContent}>Researchers, nonprofit professionals, fundraising consultants, journalists, donors...welcome! Your input guides what variables we display from the data we acquire from <a target="_blank" href="https://appliednonprofitresearch.com"> Applied Nonprofit Research</a>. Not seeing what you need? Drop us a line.
+                    <p className={classes.textContent}>Researchers, nonprofit professionals, fundraising consultants, journalists, donors...welcome! Your input guides what variables we display from the data we acquire from <a target="_blank" rel="noopener noreferrer" href="https://appliednonprofitresearch.com"> Applied Nonprofit Research</a>. Not seeing what you need? Drop us a line.
                     </p>
                   </Grid>
                 </Grid>
@@ -208,7 +203,7 @@ const Contact = ({
                           a research affiliate of the Center for the Study of Social Organization and a graduate student
                           fellow of the Woodrow Wilson Scholars. Prior to her doctoral work, she was a program manager at a
                           nonprofit that provides assessment tools to colleges.
-                          She is a partner at <a target="_blank" href="https://appliednonprofitresearch.com"> Applied Nonprofit Research</a>, which donates its data feed to Open990.
+                          She is a partner at <a target="_blank" rel="noopener noreferrer" href="https://appliednonprofitresearch.com"> Applied Nonprofit Research</a>, which donates its data feed to Open990.
                           Heather also holds an M.A. in Quantitative
                           Methods in the Social Sciences from Columbia University.</p>
 
@@ -240,7 +235,7 @@ const Contact = ({
                           spreadsheets.
                           Prior to Charity Navigator, he worked as a computational biologist at the <a
                               href={broadinstitute}>Broad Institute of MIT and Harvard</a>. He is also the founder of
-                          <a target="_blank" href="https://appliednonprofitresearch.com"> Applied Nonprofit Research</a>, which donates
+                          <a target="_blank" rel="noopener noreferrer" href="https://appliednonprofitresearch.com"> Applied Nonprofit Research</a>, which donates
                           its data feed to Open990. He holds a Ph.D.
                           in
                           Quantitative and Computational Biology from <a

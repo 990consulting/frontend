@@ -8,7 +8,7 @@ import { withRouter, Link } from 'react-router-dom';
 import withStyles from '@material-ui/core/styles/withStyles';
 import Home from 'HomePage/Home';
 import { peopleASProps } from 'Common/autosuggestProperties'
-import {homeOrg, peopleSearch} from "../App/routes";
+import { peopleSearch} from "../App/routes";
 import Grid from '@material-ui/core/Grid';
 import { styles } from 'HomePage/HomeBannerStyles';
 

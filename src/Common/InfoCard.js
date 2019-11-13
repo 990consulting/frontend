@@ -11,7 +11,6 @@ import Paper from '@material-ui/core/Paper';
 import Button from '@material-ui/core/Button';
 
 import classNames from 'classnames';
-import {Link} from "react-router-dom";
 
 const styles = (theme) => ({
   cardTitle: {
@@ -191,7 +190,7 @@ class InfoCard extends Component {
 
     if (extHref) {
       return (
-          <a target="_blank" href={extHref} className={classNames(classes.link, classes.extendedLink)}>
+          <a target="_blank" rel="noopener noreferrer" href={extHref} className={classNames(classes.link, classes.extendedLink)}>
             {button}
           </a>
       )

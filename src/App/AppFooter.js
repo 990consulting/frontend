@@ -3,18 +3,15 @@
  */
 
 import React, {Component} from 'react';
-
 import withStyles from '@material-ui/core/styles/withStyles';
 import Grid from '@material-ui/core/Grid';
-import { withRouter, Link } from 'react-router-dom';
-
+import { Link } from 'react-router-dom';
 import MaxContainer from 'hoc/MaxContainer';
 
 import {
   termsOfService,
   privacyPolicy,
-  copyrightPolicy,
-  aws
+  copyrightPolicy  
 } from 'App/routes';
 
 const styles = (theme) => ({
@@ -64,7 +61,7 @@ class AppFooter extends Component {
           <Grid item xs={12} className={classes.container}>
             <Grid container>
               <Grid item xs={12}>
-                Copyrights © 2019 Open990.org. All Rights Reserved. The nonprofit data displayed on this Site are donated by <a href="https://appliednonprofitresearch.com" target="_blank">Applied Nonprofit Research, LLC</a>, which owns the copyright thereto. Found a mistake? <Link to="/contact">Let us know.</Link>
+                Copyrights © 2019 Open990.org. All Rights Reserved. The nonprofit data displayed on this Site are donated by <a href="https://appliednonprofitresearch.com" target="_blank" rel="noopener noreferrer">Applied Nonprofit Research, LLC</a>, which owns the copyright thereto. Found a mistake? <Link to="/contact">Let us know.</Link>
               </Grid>
               <Grid item xs={12}>
                 <div className={classes.copyrightLinks}>

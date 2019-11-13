@@ -1,4 +1,3 @@
-import { nominalTypeHack } from "prop-types";
 
 /*
  * Copyright (c) 2018 Open990.org, Inc.. All rights reserved.

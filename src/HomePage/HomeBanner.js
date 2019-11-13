@@ -7,15 +7,11 @@ import withStyles from '@material-ui/core/styles/withStyles';
 import MaxContainer from 'hoc/MaxContainer';
 import withViewCheck from 'hoc/withViewCheck';
 import AutosuggestField from 'Common/AutosuggestField';
-import { withRouter, Link } from 'react-router-dom';
+import { withRouter } from 'react-router-dom';
 import classNames from 'classnames';
 import Grid from '@material-ui/core/Grid';
 import HomeBannerTabs from 'HomePage/HomeBannerTabs';
 import { styles } from 'HomePage/HomeBannerStyles';
-
-import {
-  exampleSearch
-} from 'App/routes';
 
 class HomeBanner extends React.Component {
   constructor(props) {
@@ -52,17 +48,6 @@ class HomeBanner extends React.Component {
   
   render() {
     const {classes, activeTab, asProps, afterContent} = this.props;
-    const einLink = (
-      <Link to={exampleSearch}>
-        13-5562162
-      </Link>
-    );
-    
-    const nameLink = (
-      <Link to={exampleSearch}>
-        Helen Keller International
-      </Link>
-    );
     
     const onSubmitClick = this.onSubmitclick.bind(this);
     

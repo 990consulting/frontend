@@ -9,7 +9,6 @@ import { BrowserRouter } from 'react-router-dom';
 import React from 'react';
 import ReactDOM from 'react-dom';
 import { MuiThemeProvider } from '@material-ui/core/styles/index';
-
 import App from 'App/App.js';
 
 import theme from 'theme';

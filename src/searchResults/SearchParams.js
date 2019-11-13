@@ -9,7 +9,7 @@ import { formOptions } from '../Static/Resources'
 
 import TextField from '@material-ui/core/TextField';
 
-import { SingleSelect, MultipleSelect, components } from "react-select-material-ui";
+import { SingleSelect, MultipleSelect } from "react-select-material-ui";
 import debounce from 'lodash/debounce';
 import InputRange from 'react-input-range';
 import "react-input-range/lib/css/index.css";
@@ -249,7 +249,7 @@ class SearchParams extends React.Component {
         const param = params[param_name];
         let value = getParameterByName(param_name);
 
-        if(param.type == 'range') {
+        if(param.type === 'range') {
             value = {
                 min: getParameterByName(param_name + '_min'),
                 max: getParameterByName(param_name + '_max')
@@ -287,7 +287,13 @@ class SearchParams extends React.Component {
 
   loadFocusOptions = (category) => {
     if(this.state.params.ntee_code) {
-        this.state.params.ntee_code.value = null
+        this.setState({
+            params: {
+                ntee_code: {
+                    value: null
+                }
+            }
+        })
     }
     
     this.setState({focusOptions: null});
@@ -332,10 +338,10 @@ class SearchParams extends React.Component {
             return params[param_name].value.length && (param_name + "=" + params[param_name].value.join(','))
         } else if(params[param_name].value.min !== undefined && params[param_name].value.max !== undefined) {
             const q = []
-            if(params[param_name].value.min != params[param_name].min) {
+            if(params[param_name].value.min !== params[param_name].min) {
                 q.push(`${param_name}_min=${this.linearToParam(params[param_name], params[param_name].value.min)}`)
             } 
-            if(params[param_name].value.max != params[param_name].max) {
+            if(params[param_name].value.max !== params[param_name].max) {
                 q.push(`${param_name}_max=${this.linearToParam(params[param_name], params[param_name].value.max)}`)
             }
             return q.length > 0 ? q.join('&') : ''
@@ -437,7 +443,7 @@ class SearchParams extends React.Component {
                         )
 
                         formGroup.push(<div className="state-select">
-                            <SingleSelect placeholder={label} label={label} name={param_name} value={(options.find(x => (x.value||"") == (value||"")))||""} options={options} onChange={e => this.onParamChange({target: {
+                            <SingleSelect placeholder={label} label={label} name={param_name} value={(options.find(x => (x.value||"") === (value||"")))||""} options={options} onChange={e => this.onParamChange({target: {
                                 name: param_name,
                                 value: e
                             }})} />
@@ -484,7 +490,7 @@ class SearchParams extends React.Component {
                         formGroup.push(<div className="category-select">
                             <SingleSelect placeholder={label} 
                             // label={label} 
-                            name={param_name} value={(options.find(x => (x.value || "") == (value || "")))||""} options={options} onChange={e => this.onParamChange({target: {
+                            name={param_name} value={(options.find(x => (x.value || "") === (value || "")))||""} options={options} onChange={e => this.onParamChange({target: {
                                 name: param_name,
                                 value: e
                             }})} />
@@ -528,7 +534,7 @@ class SearchParams extends React.Component {
 
                         formGroup.push(<SingleSelect placeholder={label} 
                             // label={label} 
-                            name={param_name} value={(options.find(x => (x.value || "") == (value || "")))||""} options={options} onChange={e => this.onParamChange({target: {
+                            name={param_name} value={(options.find(x => (x.value || "") === (value || "")))||""} options={options} onChange={e => this.onParamChange({target: {
                             name: param_name,
                             value: e
                         }})} />)
@@ -557,10 +563,7 @@ class SearchParams extends React.Component {
                             </div>
                         </div>)
 
-                             
-
                         break;
-
                 }
 
                 elems.push(<div className="form-group">
@@ -580,7 +583,7 @@ class SearchParams extends React.Component {
   }
 
   linearToLog(x) {
-    if(x == 0) {
+    if(x === 0) {
         return 0
     } else {
         return Math.round(Math.pow(10, x))
@@ -592,9 +595,9 @@ class SearchParams extends React.Component {
   }
 
   linearToLabel(param, value) {
-      if(param.min == value) {
+      if(param.min === value) {
           return 'None'
-      } else if(param.max == value) {
+      } else if(param.max === value) {
           return 'Max'
       } else {
           return `${param.prefix}${this.numberWithCommas(this.linearToLog(value))}`
@@ -602,9 +605,9 @@ class SearchParams extends React.Component {
   }
 
   linearToParam(param, value) {
-    if(param.min == value) {
+    if(param.min === value) {
         return '0'
-    } else if(param.max == value) {
+    } else if(param.max === value) {
         return 'max'
     } else {
         //console.log('here', value, this.linearToLog(value))
@@ -613,9 +616,9 @@ class SearchParams extends React.Component {
   }
 
   paramToLinear(param, value) {
-      if(value == 'max') {
+      if(value === 'max') {
           return param.max;
-      } else if(value == 0) {
+      } else if(value === 0) {
           return 0;
       } else {
           return Math.round(Math.log10(parseInt(value)))
@@ -623,7 +626,7 @@ class SearchParams extends React.Component {
   }
 
   hideSidebar = () => {
-    if(window.getComputedStyle(document.getElementsByClassName("mobile-sidebar")[0]).display != "none") {
+    if(window.getComputedStyle(document.getElementsByClassName("mobile-sidebar")[0]).display !== "none") {
       document.querySelector("svg[data-icon=bars]").parentElement.click()
     }
   }

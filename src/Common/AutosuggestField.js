@@ -26,7 +26,8 @@ import {
 class AutosuggestField extends PureComponent {
   state = {
     value: '',
-    suggestions: []
+    suggestions: [],
+    suggestionUrl: ''
   };
   
   renderInputComponent = (inputProps) => {
@@ -105,6 +106,9 @@ class AutosuggestField extends PureComponent {
   getSuggestionValue = (suggestion) => {
     const {history} = this.props;
     const url = suggestion.url || root;
+    this.setState({
+      suggestionUrl: url
+    });
     history.push(url);
     return suggestion.label;
   };
@@ -134,12 +138,19 @@ class AutosuggestField extends PureComponent {
     });
   };
 
+  onSuggestionSelected = () =>{   
+    this.setState({
+      value: ''
+    });
+    window.location = this.state.suggestionUrl;
+  }
+
   handleChange = name => (event, {newValue}) => {
     this.setState({
       value: newValue,
     }, () => {
       if (!this.props.onChangeValue) return;
-      this.props.onChangeValue(newValue)
+      this.props.onChangeValue(newValue);
     });
   };
 
@@ -157,6 +168,7 @@ class AutosuggestField extends PureComponent {
       suggestions: this.state.suggestions,
       onSuggestionsFetchRequested: this.handleSuggestionsFetchRequested,
       onSuggestionsClearRequested: this.handleSuggestionsClearRequested,
+      onSuggestionSelected: this.onSuggestionSelected,
       getSuggestionValue: this.getSuggestionValue,
       renderSuggestion: this.renderSuggestion,
     };

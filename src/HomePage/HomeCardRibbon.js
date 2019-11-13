@@ -10,11 +10,7 @@ import Grid from '@material-ui/core/Grid';
 import InfoCard from 'Common/InfoCard';
 import MaxContainer from 'hoc/MaxContainer';
 
-import {
-  benchmark,
-  customData,
-  catalog
-} from 'App/routes';
+import { catalog } from 'App/routes';
 
 const styles = (theme) => ({
   container: {

@@ -18,8 +18,7 @@ import faBars from '@fortawesome/fontawesome-free-solid/faBars';
 
 class DesktopSidebar extends React.Component {
   render() {
-    const {
-      scrollToTop,
+    const {      
       collapsed,
       toggleCollapse,
       classes,

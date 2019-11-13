@@ -9,7 +9,6 @@ import { withRouter } from 'react-router-dom';
 import withStyles from '@material-ui/core/styles/withStyles';
 import { styles } from 'searchResults/searchStyles';
 import SearchParams from './SearchParams'
-import Popover from '@material-ui/core/Popover';
 //import apiClient from 'App/ApiClient';
 
 class SearchResults extends React.Component {
@@ -83,7 +82,7 @@ class SearchResults extends React.Component {
                     maxWidth: '480px',
                     display: 'inline-block'
                 }}>
-              Please select your search parameters in the <a href="#" onClick={this.focusOnSidebar}>sidebar</a> on the left.
+              Please select your search parameters in the <a href="/#" onClick={this.focusOnSidebar}>sidebar</a> on the left.
             </div>
             <div className="bg"  onClick={() => this.setState({popoverClosed: true})}/>
     </div>
