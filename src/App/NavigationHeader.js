@@ -11,31 +11,18 @@ import withStyles from '@material-ui/core/styles/withStyles';
 import Menu from '@material-ui/core/Menu';
 import MenuItem from '@material-ui/core/MenuItem';
 import Hidden from '@material-ui/core/Hidden'
-import ClickAwayListener from '@material-ui/core/ClickAwayListener';
-import Grow from '@material-ui/core/Grow';
-import Paper from '@material-ui/core/Paper';
-import Popper from '@material-ui/core/Popper';
-import MenuList from '@material-ui/core/MenuList';
 import Button from '@material-ui/core/Button';
-
 import withViewCheck from 'hoc/withViewCheck';
 import AutosuggestField from 'Common/AutosuggestField';
-
-import DownIcon from '@material-ui/icons/KeyboardArrowDown';
 import SearchIcon from '@material-ui/icons/Search';
 import Logo from 'assets/Logo.svg';
-import LinkIcon from 'assets/external-link.svg';
 import MenuIcon from '@material-ui/icons/Menu';
-
 import { styles } from 'App/NavigationHeaderStyles';
 import apiClient from 'App/ApiClient';
 import { orgASProps } from "../Common/autosuggestProperties";
-import { consulting } from 'App/routes';
 import {
-  contact,
-  benchmark,
-  root,
-  customData,
+  contact,  
+  root,  
   catalog,
   resources
 } from 'App/routes';
@@ -109,32 +96,29 @@ class NavigationHeader extends Component {
   
   submit() {
     //console.log("submit triggered (NavigationHeader)");
-    const {history} = this.props;
+    //const {history} = this.props;
     const {searchValue} = this.state;
     
     apiClient.searchOrganizationByQuery(searchValue)
       .then(res => res.data)
       .then(url => {
-        history.push(url);
-        this.setState({ searchValue: '' })
+        //this.props.history.push(url);
+        window.location = url;
+        this.setState({ value: '' })
       })
   }
   
   onSubmitclick = (event) => {
-    //console.log("onSubmitClick triggered (NavigationHeader)");
-    event.preventDefault();
     this.submit();
   };
 
   render() {
     const { 
-        classes, 
-        isViewXs, 
+        classes,         
         isViewSm, 
     } = this.props;
     const { 
-        anchorEl, 
-        openMenuList, 
+        anchorEl,          
         isSearchBarActive 
     } = this.state;
     const open = Boolean(anchorEl);
@@ -249,14 +233,4 @@ class NavigationHeader extends Component {
     );
   }
 }
-/*
-                    <AutosuggestField
-                      {...orgASProps}
-                      onSearchClick={onSubmitClick}
-                      onChangeValue={this.onSearchChange}
-                      additionaClasses={classes.bootstrapRoot}
-                      small={true}
-                    />
-
- */
 export default withStyles(styles)(withViewCheck()(withRouter(NavigationHeader)));

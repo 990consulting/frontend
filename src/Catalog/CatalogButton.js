@@ -4,7 +4,6 @@ import Grid from '@material-ui/core/Grid';
 import { styles } from "Catalog/productCardStyles";
 import { withRouter } from 'react-router-dom';
 import withStyles from '@material-ui/core/styles/withStyles';
-import {inquiriesMail} from "App/routes";
 
 class CatalogButton extends React.Component {
     render() {

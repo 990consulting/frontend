@@ -4,31 +4,13 @@
 
 import React, { Fragment } from 'react';
 import { Helmet } from 'react-helmet';
-
-import NavLink from 'react-router-dom/NavLink';
 import { withRouter } from 'react-router-dom';
 import classNames from 'classnames';
-
 import withStyles from '@material-ui/core/styles/withStyles';
 import Grid from '@material-ui/core/Grid';
-
 import ProductCard from 'Catalog/ProductCard';
-
 import MaxContainer from 'hoc/MaxContainer';
 import apiClient from 'App/ApiClient';
-
-import {
-  root,
-  pro,
-  benchmark,
-  api,
-  orgSearch,
-  resources
-} from 'App/routes';
-
-import apiIcon from '../Static/icons/api.png';
-import benchmarkIcon from '../Static/icons/benchmark.png';
-import customIcon from '../Static/icons/custom.png';
 import foundationIcon from '../Static/icons/foundations.png';
 
 import cardText from 'Catalog/catalogText';
@@ -110,18 +92,6 @@ const Catalog = ({
                    history
                  }) => {
   
-  const advancedSearchLink = (
-    <NavLink to={orgSearch} className={classes.link}>
-      {'Advanced Search'}
-    </NavLink>
-  );
-
-  const variableLevelLink = (
-    <NavLink to={resources} className={classes.link}>
-      {'variable-level files'}
-    </NavLink>
-  );
-
   const doDownload = (dataset) => {
     apiClient.downloadDataset(dataset)
         .then(res => {
@@ -132,11 +102,6 @@ const Catalog = ({
           link.click();
           document.body.removeChild(link);
         });
-  };
-
-  const linkTo = (link) => {
-    if(!link) return;
-    history.push(link);
   };
 
   return (

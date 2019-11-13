@@ -4,6 +4,7 @@
   "private": true,
   "dependencies": {
     "@babel/polyfill": "^7.7.0",
+    "core-js": "^3.4.1",
     "@fortawesome/fontawesome": "^1.1.8",
     "@fortawesome/fontawesome-free-brands": "^5.0.13",
     "@fortawesome/fontawesome-free-regular": "^5.0.13",
@@ -30,7 +31,7 @@
     "react-loader-spinner": "^2.0.6",
     "react-router": "^4.3.1",
     "react-router-dom": "^4.3.1",
-    "react-scripts": "^2.1.8",
+    "react-scripts": "^3.2.0",
     "react-select": "^2.3.0",
     "react-select-material-ui": "1.1.2",
     "react-table": "^6.10.3",

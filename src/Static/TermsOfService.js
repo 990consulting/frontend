@@ -17,9 +17,7 @@ import {
   copyrightPolicy,
   privacyPolicy,
   mail,
-  consulting,
-  openData,
-  Open990
+  consulting
 } from 'App/routes';
 
 class TermsOfService extends React.Component {
