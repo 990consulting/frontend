@@ -96,13 +96,13 @@ class NavigationHeader extends Component {
   
   submit() {
     //console.log("submit triggered (NavigationHeader)");
-    const {history} = this.props;
+    //const {history} = this.props;
     const {searchValue} = this.state;
     
     apiClient.searchOrganizationByQuery(searchValue)
       .then(res => res.data)
       .then(url => {
-        //history.push(url);
+        //this.props.history.push(url);
         window.location = url;
         this.setState({ value: '' })
       })
