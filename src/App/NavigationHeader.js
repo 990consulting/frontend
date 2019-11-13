@@ -102,14 +102,13 @@ class NavigationHeader extends Component {
     apiClient.searchOrganizationByQuery(searchValue)
       .then(res => res.data)
       .then(url => {
-        history.push(url);
-        this.setState({ searchValue: '' })
+        //history.push(url);
+        window.location = url;
+        this.setState({ value: '' })
       })
   }
   
   onSubmitclick = (event) => {
-    //console.log("onSubmitClick triggered (NavigationHeader)");
-    //event.preventDefault();
     this.submit();
   };
 
@@ -234,14 +233,4 @@ class NavigationHeader extends Component {
     );
   }
 }
-/*
-                    <AutosuggestField
-                      {...orgASProps}
-                      onSearchClick={onSubmitClick}
-                      onChangeValue={this.onSearchChange}
-                      additionaClasses={classes.bootstrapRoot}
-                      small={true}
-                    />
-
- */
 export default withStyles(styles)(withViewCheck()(withRouter(NavigationHeader)));
