@@ -123,7 +123,7 @@ class OrgDataTable extends Component {
 							>
 								Earliest ({earliestPeriod})
 							</span>
-							{`  --  `}
+							{`  ·  `}
 							<span 
 								onClick={this.scrollToEnd} 
 								role="button" 
