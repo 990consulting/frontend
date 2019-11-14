@@ -229,6 +229,16 @@ footer {
     text-align: left;
 }
 
+.table-period-control {
+    padding: .4rem;
+    font-size: .8rem;
+}
+
+.table-period-control span {
+    cursor: pointer;
+    text-decoration: underline;
+}
+
 @media screen and (max-width: 600px) {
     .expansion-panel-details .rt-th:first-child, .expansion-panel-details .rt-td:first-child {
         flex: 1.8;
