@@ -20,9 +20,12 @@ class OrgDataTable extends Component {
 		this.handleOnScroll = this.handleOnScroll.bind(this);
 		this.scrollToBegin = this.scrollToBegin.bind(this);
 		this.scrollToEnd = this.scrollToEnd.bind(this);
+		this.updateTable = this.updateTable.bind(this);
 	}
 	
 	componentDidMount() {
+		window.addEventListener('resize', this.updateTable);
+
 		apiClient.getTableData(this.props.table_id)
 			.then(
 				(result) => {
@@ -30,26 +33,27 @@ class OrgDataTable extends Component {
 					this.setState({
 						isLoaded: true,
 						rows: rows
-					}, () => {
-						if (this.columnsByYear()) {
-							document.querySelectorAll('.rt-tr').forEach(row => {
-								const column = row.querySelector('.sticky-column');
-								const ghostColumn = row.querySelector('.sticky-ghost');
-								const nextColumn = row.querySelector('.non-sticky');
-								
-								if (column && ghostColumn) {
-									column.style.width = `${ghostColumn.offsetWidth}px`;
-									column.style.height = `${ghostColumn.offsetHeight}px`;
-									if (nextColumn)
-										nextColumn.style.marginLeft = `${ghostColumn.offsetWidth}px`;
-									ghostColumn.remove();
-								}
-							});
-						}
-					});
+					}, this.updateTable.bind(this));
 				}
 			);
+	}
 
+	componentWillUnmount () {
+		window.removeEventListener('resize', this.updateTable);
+	}
+
+	updateTable () {
+		if (this.columnsByYear()) {
+			document.querySelectorAll('.rt-tr').forEach(row => {
+				const column = row.querySelector('.sticky-column');
+				const ghostColumn = row.querySelector('.sticky-ghost');
+				
+				if (column && ghostColumn) {
+					column.style.width = `${ghostColumn.offsetWidth}px`;
+					column.style.height = `${ghostColumn.offsetHeight}px`;
+				}
+			});
+		}
 	}
 
 	createYearColumns() {
@@ -60,10 +64,16 @@ class OrgDataTable extends Component {
 			headerClassName: 'sticky-column',
 			className: 'sticky-column',
 			accessor: "label"
-		},{
+		}, {
 			Header: '',
 			headerClassName: 'sticky-ghost',
 			className: 'sticky-ghost',
+			width: "40%",
+			accessor: "label"
+		}, {
+			Header: '',
+			headerClassName: 'sticky-ghost-twin',
+			className: 'sticky-ghost-twin',
 			width: "40%"
 		}] : [{
 			Header: '',
@@ -139,7 +149,6 @@ class OrgDataTable extends Component {
 			const {periods, table_id} = this.props;
 			const columns = this.createColumns();
 			const width = 40 + 20 * (columns.length - 1);
-			const isMaximized = width < 100;
 			const earliestPeriod = periods[periods.length - 1];
 			const latestPeriod = periods[0];
 
@@ -167,11 +176,11 @@ class OrgDataTable extends Component {
 					)}
 					<div 
 						id={table_id}
-						className={"react-table-container-0" + (isMaximized ? ' maximized' : '')} 
+						className={"react-table-container-0"} 
 						onScroll={this.handleOnScroll}
 					>
 						<div className="react-table-container-1">
-							<div className={"react-table-container-2" + (isMaximized ? ' maximized' : '')}>
+							<div className={"react-table-container-2"}>
 								<ReactTable
 									columns={this.createColumns()}
 									data={this.state.rows}

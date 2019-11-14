@@ -298,18 +298,6 @@ footer {
     width: calc(100% - 14px);
 }
 
-@media screen and (max-width: 1280px) {
-    .react-table-container-2:not(.maximized) {
-        width: 125%;
-    }
-}
-
-@media screen and (max-width: 600px) {
-    .react-table-container-2:not(.maximized) {
-        width: 158%;
-    }
-}
-
 .OrganizationProfilePage > div > div > div > div:last-child > div:first-child .react-table-container-2.maximized .rt-thead {
     display: none;
     height: 0;
@@ -407,8 +395,19 @@ footer {
     border-right: 1px solid rgba(0,0,0,0.05);
 }
 
+.sticky .sticky-ghost-twin {
+    display: none;
+}
+
 .sticky .sticky-ghost {
     flex: 1.8 !important;
+}
+
+@media (max-width: 768px) {
+    .expansion-panel-details .sticky .rt-td,
+    .expansion-panel-details .sticky .rt-th {
+        padding: 10px !important;
+    }
 }
 
 .expansion-panel-summary:not(.top-level) > div:first-child {
