@@ -121,7 +121,7 @@ class OrgDataTable extends Component {
 								role="button" 
 								onKeyDown={this.scrollToBegin}
 							>
-								Earliest ({earliestPeriod})
+								Latest ({latestPeriod})
 							</span>
 							{`  ·  `}
 							<span 
@@ -129,7 +129,7 @@ class OrgDataTable extends Component {
 								role="button" 
 								onKeyDown={this.scrollToEnd}
 							>
-								Latest ({latestPeriod})
+								Earliest ({earliestPeriod})
 							</span>
 						</div>
 					)}
