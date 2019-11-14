@@ -30,14 +30,42 @@ class OrgDataTable extends Component {
 					this.setState({
 						isLoaded: true,
 						rows: rows
+					}, () => {
+						if (this.columnsByYear()) {
+							document.querySelectorAll('.rt-tr').forEach(row => {
+								const column = row.querySelector('.sticky-column');
+								const ghostColumn = row.querySelector('.sticky-ghost');
+								const nextColumn = row.querySelector('.non-sticky');
+								
+								if (column && ghostColumn) {
+									column.style.width = `${ghostColumn.offsetWidth}px`;
+									column.style.height = `${ghostColumn.offsetHeight}px`;
+									if (nextColumn)
+										nextColumn.style.marginLeft = `${ghostColumn.offsetWidth}px`;
+									ghostColumn.remove();
+								}
+							});
+						}
 					});
 				}
 			);
+
 	}
 
 	createYearColumns() {
 		const {periods} = this.props;
-		const columns = [{
+		const columns = this.columnsByYear() ? [{
+			Header: '',
+			width: "40%",
+			headerClassName: 'sticky-column',
+			className: 'sticky-column',
+			accessor: "label"
+		},{
+			Header: '',
+			headerClassName: 'sticky-ghost',
+			className: 'sticky-ghost',
+			width: "40%"
+		}] : [{
 			Header: '',
 			width: "40%",
 			accessor: "label"
@@ -47,6 +75,8 @@ class OrgDataTable extends Component {
 				Header: periods[i],
 				width: "20%",
 				accessor: periods[i],
+				headerClassName: 'non-sticky',
+				className: 'non-sticky',
 				Cell: row => ReactHtmlParser(row.value)
 			};
 			columns.push(column)
@@ -81,13 +111,15 @@ class OrgDataTable extends Component {
 	handleOnScroll (event) {
 		if (this.props.scrollAll)
 			document.getElementsByClassName('react-table-container-0').forEach(element => {
-				if (element.id !== this.props.table_id)
-					element.scrollLeft = event.target.scrollLeft;
+				const table = element.querySelector('.rt-table');
+
+				if (element.id !== this.props.table_id && table)
+					table.scrollLeft = event.target.scrollLeft;
 			});
 	}
 
 	scrollTo (x) {
-		document.getElementsByClassName('react-table-container-0').forEach(element => {
+		document.getElementsByClassName('rt-table').forEach(element => {
 			element.scrollLeft = x;
 		});
 	}
@@ -138,13 +170,14 @@ class OrgDataTable extends Component {
 						className={"react-table-container-0" + (isMaximized ? ' maximized' : '')} 
 						onScroll={this.handleOnScroll}
 					>
-						<div className="react-table-container-1" style={{width: (isMaximized ? 100 : width) + '%'}}>
+						<div className="react-table-container-1">
 							<div className={"react-table-container-2" + (isMaximized ? ' maximized' : '')}>
 								<ReactTable
 									columns={this.createColumns()}
 									data={this.state.rows}
 									showPagination={false}
 									minRows={0}
+									className={this.columnsByYear() ? 'sticky' : ''}
 									scroll={{x: true}}
 								/>
 							</div>

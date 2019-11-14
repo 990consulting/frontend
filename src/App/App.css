@@ -281,11 +281,6 @@ footer {
 .react-table-container-0 {
     width: calc(100% - 20px);
     border: 1px solid rgba(0,0,0,0.1);
-    overflow-x: scroll;
-}
-
-.react-table-container-0.maximized {
-    overflow-x: hidden;
 }
 
 .react-table-container-0 .ReactTable {
@@ -383,6 +378,37 @@ footer {
 
 .react-table-container-2 .ReactTable .rt-tbody .rt-td:nth-child(even) {
     background: rgba(227, 227, 227, 0.7) !important;
+}
+
+.react-table-container-2 .ReactTable.sticky .rt-tbody,
+.react-table-container-2 .ReactTable.sticky .rt-thead {
+    width: 240%;
+}
+
+.sticky .rt-tr .rt-th:first-child,
+.sticky .rt-tr .rt-td:first-child {
+    position: absolute;
+    background: #fff;
+    z-index: 200;
+    border-right: 1px solid rgba(0,0,0,0.05);
+}
+
+.rt-thead {
+    box-shadow: none !important;
+}
+
+.rt-th {
+    border-bottom: 1px solid rgba(0,0,0,0.05);
+}
+
+.sticky-column.rt-th {
+    z-index: 999 !important;
+    background: #fff;
+    border-right: 1px solid rgba(0,0,0,0.05);
+}
+
+.sticky .sticky-ghost {
+    flex: 1.8 !important;
 }
 
 .expansion-panel-summary:not(.top-level) > div:first-child {
