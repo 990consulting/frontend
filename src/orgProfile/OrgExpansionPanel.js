@@ -17,6 +17,7 @@ class OrgExpansionPanel extends React.Component {
             key={childData.table_id}
             table_id={table_id}
             periods={this.props.periods}
+            scrollAll={this.props.scrollAllTables}
           />
         );
     }
@@ -27,6 +28,7 @@ class OrgExpansionPanel extends React.Component {
               <Grid container spacing={24}>
                   <Grid item xs={12}>
                       <OrgExpansionPanel
+                        scrollAllTables
                         raw={childData}
                         periods={this.props.periods}
                       />

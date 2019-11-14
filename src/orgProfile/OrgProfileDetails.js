@@ -11,14 +11,20 @@ import Grid from '@material-ui/core/Grid';
 class OrgProfileDetails extends React.Component {
   constructChild(i) {
     let childContent = this.props.body[i];
+
     return (<Grid item key = {childContent.card_id} xs={12}>
       <Grid container spacing={24}>
         <Grid item xs={12}>
-          <OrgExpansionPanel periods={this.props.periods} raw={childContent} />
+          <OrgExpansionPanel 
+            scrollAllTables
+            periods={this.props.periods} 
+            raw={childContent} 
+          />
         </Grid>
       </Grid>
     </Grid>);
   }
+
   constructTopLevelPanels() {
     let children = [];
     for (let i = 0; i < this.props.body.length; i++) {

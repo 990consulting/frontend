@@ -16,7 +16,7 @@ class OrganizationProfile extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      sidebarCollapsed: undefined
+      sidebarCollapsed: props.sidebarCollapsed
     };
   }
   
