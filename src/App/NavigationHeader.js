@@ -102,13 +102,14 @@ class NavigationHeader extends Component {
     apiClient.searchOrganizationByQuery(searchValue)
       .then(res => res.data)
       .then(url => {
-        //this.props.history.push(url);
-        window.location = url;
-        this.setState({ value: '' })
+        this.props.history.push(url);
+        //window.location = url;
+        this.setState({ searchValue: '' })
       })
   }
   
   onSubmitclick = (event) => {
+    event.preventDefault();
     this.submit();
   };
 

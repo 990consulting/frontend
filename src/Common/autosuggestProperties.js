@@ -8,7 +8,9 @@ export const orgASProps = {
   slug: "name_org",
   placeholder: "Name of organization...",
   suggestion: apiClient.getListOfOrganizationSuggestion,
-  baseUrl: "/search/org/"
+  baseUrl: "/search/org/",
+  mobileSearchSuggestions: 3,
+  desktopSearchSuggestion: 10
 };
 
 export const peopleASProps = {

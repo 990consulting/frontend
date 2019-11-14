@@ -24,11 +24,14 @@ import {
 } from 'App/routes';
 
 class AutosuggestField extends PureComponent {
-  state = {
-    value: '',
-    suggestions: [],
-    suggestionUrl: ''
-  };
+  constructor(props){
+    super(props);
+    this.state = {
+      value: '',
+      suggestions: [],
+      suggestionUrl: ''
+    };
+  }
   
   renderInputComponent = (inputProps) => {
     const {
@@ -85,15 +88,15 @@ class AutosuggestField extends PureComponent {
     const parts = parse(suggestion.label, matches);
 
     return (
-      <MenuItem selected={isHighlighted} component="div">
+      <MenuItem selected={isHighlighted} component="div" >
         <div>
           {parts.map((part, index) => {
             return part.highlight ? (
-              <span key={String(index)} style={{fontWeight: 500}}>
+              <span key={String(index)} style={{fontWeight: 500}} >
                 {part.text}
               </span>
             ) : (
-              <strong key={String(index)} style={{fontWeight: 300}}>
+              <strong key={String(index)} style={{fontWeight: 300}} >
                 {part.text}
               </strong>
             );
@@ -103,13 +106,11 @@ class AutosuggestField extends PureComponent {
     );
   };
 
-  getSuggestionValue = (suggestion) => {
-    const {history} = this.props;
-    const url = suggestion.url || root;
+  getSuggestionValue = (suggestion) => {    
     this.setState({
-      suggestionUrl: url
+      suggestionUrl: suggestion.url || root
     });
-    history.push(url);
+    //history.push(url);
     return suggestion.label;
   };
 
@@ -122,6 +123,9 @@ class AutosuggestField extends PureComponent {
     getSuggestion(value)
     .then(res => res.data)
     .then(suggestions => {
+      suggestions = this.state.isRequestFromMobile
+          ? suggestions.slice(0, this.props.mobileSearchSuggestions)
+          : suggestions.slice(0, this.props.desktopSearchSuggestion);
       suggestions.push({
         label: `See all matches for "${value}"`,
         url: `${baseUrl}?${slug}=${value}`
@@ -132,27 +136,27 @@ class AutosuggestField extends PureComponent {
     });
   };
 
-  handleSuggestionsClearRequested = () => {
-    this.setState({
-      suggestions: [],
-    });
+  handleChange = (event, { newValue, method }) => {
+    const shouldUpdateSelectedValue = method === "type" || method === "enter" || method === "click";
+    shouldUpdateSelectedValue &&
+      this.setState(
+        {
+          value: newValue
+        },
+        () => {
+          if (!this.props.onChangeValue) return;
+          this.props.onChangeValue(newValue);
+        }
+      );
   };
 
-  onSuggestionSelected = () =>{   
+
+  onSuggestionSelected = (event, {suggestion}) =>{       
     this.setState({
       value: ''
     });
-    window.location = this.state.suggestionUrl;
+    window.location.href = suggestion.url;
   }
-
-  handleChange = name => (event, {newValue}) => {
-    this.setState({
-      value: newValue,
-    }, () => {
-      if (!this.props.onChangeValue) return;
-      this.props.onChangeValue(newValue);
-    });
-  };
 
   render() {
     const {
@@ -182,7 +186,7 @@ class AutosuggestField extends PureComponent {
             classes,
             placeholder: placeholder,
             value: this.state.value,
-            onChange: this.handleChange(),
+            onChange: this.handleChange,
             onBlur: handleOnBlur ? () => handleOnBlur() : undefined
           }}
           theme={{
