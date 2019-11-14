@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2018 Open990.org, Inc.. All rights reserved.
+ * Copyright (c) 2019 Open990.org, Inc.. All rights reserved.
  */
 
 import createMuiTheme from '@material-ui/core/styles/createMuiTheme';
