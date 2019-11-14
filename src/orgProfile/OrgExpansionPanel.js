@@ -2,7 +2,7 @@
  * Copyright (c) 2018 Open990.org, Inc.. All rights reserved.
  */
 
-import React, { Fragment } from 'react';
+import React from 'react';
 import withStyles from '@material-ui/core/styles/withStyles';
 import OrgDataTable from './OrgDataTable';
 import StyledPanel from "./StyledPanel";
