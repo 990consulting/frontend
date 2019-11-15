@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2018 Open990.org, Inc.. All rights reserved.
+ * Copyright (c) 2019 Open990.org, Inc.. All rights reserved.
  */
 
 @import url('https://fonts.googleapis.com/css?family=Lato:300,400,700,900|Roboto+Condensed');
@@ -229,6 +229,16 @@ footer {
     text-align: left;
 }
 
+.table-period-control {
+    padding: .4rem;
+    font-size: .8rem;
+}
+
+.table-period-control span {
+    cursor: pointer;
+    text-decoration: underline;
+}
+
 @media screen and (max-width: 600px) {
     .expansion-panel-details .rt-th:first-child, .expansion-panel-details .rt-td:first-child {
         flex: 1.8;
@@ -271,11 +281,6 @@ footer {
 .react-table-container-0 {
     width: calc(100% - 20px);
     border: 1px solid rgba(0,0,0,0.1);
-    overflow-x: scroll;
-}
-
-.react-table-container-0.maximized {
-    overflow-x: hidden;
 }
 
 .react-table-container-0 .ReactTable {
@@ -291,18 +296,6 @@ footer {
 
 .expansion-panel-summary.top-level + div > div > div > .expansion-panel-details > div > .react-table-container-0 {
     width: calc(100% - 14px);
-}
-
-@media screen and (max-width: 1280px) {
-    .react-table-container-2:not(.maximized) {
-        width: 125%;
-    }
-}
-
-@media screen and (max-width: 600px) {
-    .react-table-container-2:not(.maximized) {
-        width: 158%;
-    }
 }
 
 .OrganizationProfilePage > div > div > div > div:last-child > div:first-child .react-table-container-2.maximized .rt-thead {
@@ -373,6 +366,48 @@ footer {
 
 .react-table-container-2 .ReactTable .rt-tbody .rt-td:nth-child(even) {
     background: rgba(227, 227, 227, 0.7) !important;
+}
+
+.react-table-container-2 .ReactTable.sticky .rt-tbody,
+.react-table-container-2 .ReactTable.sticky .rt-thead {
+    width: 240%;
+}
+
+.sticky .rt-tr .rt-th:first-child,
+.sticky .rt-tr .rt-td:first-child {
+    position: absolute;
+    background: #fff;
+    z-index: 200;
+    border-right: 1px solid rgba(0,0,0,0.05);
+}
+
+.rt-thead {
+    box-shadow: none !important;
+}
+
+.rt-th {
+    border-bottom: 1px solid rgba(0,0,0,0.05);
+}
+
+.sticky-column.rt-th {
+    z-index: 999 !important;
+    background: #fff;
+    border-right: 1px solid rgba(0,0,0,0.05);
+}
+
+.sticky .sticky-ghost-twin {
+    display: none;
+}
+
+.sticky .sticky-ghost {
+    flex: 1.8 !important;
+}
+
+@media (max-width: 768px) {
+    .expansion-panel-details .sticky .rt-td,
+    .expansion-panel-details .sticky .rt-th {
+        padding: 10px !important;
+    }
 }
 
 .expansion-panel-summary:not(.top-level) > div:first-child {

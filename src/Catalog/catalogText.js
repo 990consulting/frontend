@@ -3,16 +3,14 @@
  */
 
 const text = {
-  foundation: `Coming later: Spreadsheet of 90,000+ private foundations! Data include charity disbursement
-  amount, assets, and other financial information. For the 50,000+ foundations that e-file the 990-PF, this dataset includes past grant recipients, purposes, submission deadlines, contact
-  information, and more.`,
+  foundation: `Snack-sized dataset of 123,000 private foundations updated October 2019! Data include basic financial information, contact information, and NTEE codes. For e-filers of the 990-PF, this dataset includes 913,000 grants (recipients, purposes, amounts) as well as application submission info and charitable activities. Free, with attribution, for non-commercial use. Download the data (2 csv files), license, and documentation.`,
   customDataset: `Customized dataset containing the nonprofits and variables of interest to you. For example, track
   CEO compensation and program expenses over time.`,
-  contractorDataset: `This free ~100-variable snack-sized dataset is useful for research on nonprofit compensation. Features the five highest compensated independent contractors for each organization. Data are from Form 990 returns e-filed for TY 2016. Free, with attribution, for non-commercial use. Download the dataset (csv), license, and documentation.`,
-  governanceDataset: `This free ~100-variable snack-sized dataset is useful for research on nonprofit governance and management. Includes variables from Form 990s e-filed in 2011 to 2018, across more than 300,000 organizations. Free, with attribution, for non-commercial use. Download the dataset (csv), license, and documentation.`,
+  contractorDataset: `This ~100-variable snack-sized dataset is useful for research on nonprofit compensation. Features the five highest compensated independent contractors for each organization. Data are from Form 990 returns e-filed for TY 2016. Free, with attribution, for non-commercial use. Download the dataset (csv), license, and documentation.`,
+  governanceDataset: `This ~100-variable snack-sized dataset is useful for research on nonprofit governance and management. Includes variables from Form 990s e-filed in 2011 to 2018, across more than 300,000 organizations. Free, with attribution, for non-commercial use. Download the dataset (csv), license, and documentation.`,
   benchmarkReport: `Customized report that benchmarks an organization to its peers on financial metrics. Includes
   graphs and tables suitable for boards, donors, and others.`,
-  api: `Applied Nonprofit Research is currently seeking beta testers for a number of upcoming API offerings. Please contact us for more information.`
+  bmf: `The Exempt Organizations Business Master File is updated by the IRS monthly. It contains contact information, subsection codes, assets, and other basic information about currently tax-exempt organizations. Free without use restrictions.`
 };
 
 export default text;

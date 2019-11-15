@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2018 Open990.org, Inc.. All rights reserved.
+ * Copyright (c) 2019 Open990.org, Inc.. All rights reserved.
  */
 
 import React, { Fragment } from 'react';
@@ -104,11 +104,20 @@ const Catalog = ({
         });
   };
 
+  const externalLink = (url) => {
+    const link = document.createElement('a');
+    link.href = url;
+    link.target = "_blank";
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
+  };
+
   return (
     <Fragment>
       <Helmet>
-        <title>Nonprofit Data &ndash; Explore Open990 datasets</title>
-        <meta name="description" content="Open990 sells information about nonprofits in the form of benchmark reports, datasets, APIs, and consulting." />
+        <title>Nonprofit Data &ndash; Explore Open990.org datasets</title>
+        <meta name="description" content="Datasets on foundations and grants, nonprofit governance, contractor compensation, and more." />
         <meta name="robots" content="all"/>
       </Helmet>
       <div className={classNames("Catalog", classes.root)}>
@@ -119,7 +128,7 @@ const Catalog = ({
                 <h1>Datasets</h1>
               </Grid>
               <Grid item xs={12} md={10} lg={8} className={classes.subHeader}>
-                More free datasets under development.
+                Please note: Open990 datasets are for non-commercial use only (academic research, journalism, intra-organization analysis).
               </Grid>
             </Grid>
           </Grid>
@@ -127,6 +136,17 @@ const Catalog = ({
             <Grid container justify="center">
               <Grid item xs={12} md={10} lg={8}>
                 <Grid container justify="center" spacing={40}>
+                  <Grid item xs={12} sm={6}>
+                    <ProductCard
+                        title={'Foundations & Grants Dataset'}
+                        text={cardText.foundation}
+                    >
+                      <CatalogButton
+                          buttonText="Download"
+                          onClickTarget = {() => doDownload("Open990_SnackSet_Foundations_Grants.zip")}
+                      />
+                    </ProductCard>
+                  </Grid>
                   <Grid item xs={12} sm={6}>
                     <ProductCard
                         title={'Governance Dataset'}
@@ -152,10 +172,13 @@ const Catalog = ({
                   <Grid item xs={12} sm={6}>
                     <ProductCard
                         icon={foundationIcon}
-                        title={'Foundations Dataset'}
-                        text={cardText.foundation}
+                        title={'EO-BMF from IRS'}
+                        text={cardText.bmf}
                     >
-                      <ContactUsButton/>
+                      <CatalogButton
+                          buttonText="IRS.gov"
+                          onClickTarget = {() => externalLink("https://www.irs.gov/charities-non-profits/exempt-organizations-business-master-file-extract-eo-bmf")}
+                      />
                     </ProductCard>
                   </Grid>
                 </Grid>

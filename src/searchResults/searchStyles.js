@@ -1,6 +1,6 @@
 
 /*
- * Copyright (c) 2018 Open990.org, Inc.. All rights reserved.
+ * Copyright (c) 2019 Open990.org, Inc.. All rights reserved.
  */
 
 export const styles = theme => ({

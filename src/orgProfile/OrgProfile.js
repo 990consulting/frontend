@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2018 Open990.org, Inc.. All rights reserved.
+ * Copyright (c) 2019 Open990.org, Inc.. All rights reserved.
  */
 
 import React, { Fragment } from 'react';
@@ -73,7 +73,7 @@ class OrganizationProfile extends React.Component {
       </Fragment>);
       const sidebarContent = <OrgProfileSidebarContent body={body} />;
       return (<div id="org-profile">
-        <SidebarPage sidebarContent={sidebarContent} bodyContent={bodyContent} />
+        <SidebarPage sidebarCollapsed sidebarContent={sidebarContent} bodyContent={bodyContent} />
       </div>);
     } else if (error) {
       return <div>Something went wrong</div>
