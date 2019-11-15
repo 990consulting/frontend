@@ -2,33 +2,26 @@
  * Copyright (c) 2018 Open990.org, Inc.. All rights reserved.
  */
 
-import React, {Component, Fragment} from 'react';
-import NavLink from 'react-router-dom/NavLink';
-import { withRouter } from 'react-router-dom';
+import React, { Component, Fragment } from "react";
+import NavLink from "react-router-dom/NavLink";
+import { withRouter } from "react-router-dom";
 
-import Grid from '@material-ui/core/Grid';
-import withStyles from '@material-ui/core/styles/withStyles';
-import Menu from '@material-ui/core/Menu';
-import MenuItem from '@material-ui/core/MenuItem';
-import Hidden from '@material-ui/core/Hidden'
-import Button from '@material-ui/core/Button';
-import withViewCheck from 'hoc/withViewCheck';
-import AutosuggestField from 'Common/AutosuggestField';
-import SearchIcon from '@material-ui/icons/Search';
-import Logo from 'assets/Logo.svg';
-import MenuIcon from '@material-ui/icons/Menu';
-import { styles } from 'App/NavigationHeaderStyles';
-import apiClient from 'App/ApiClient';
+import Grid from "@material-ui/core/Grid";
+import withStyles from "@material-ui/core/styles/withStyles";
+import Menu from "@material-ui/core/Menu";
+import MenuItem from "@material-ui/core/MenuItem";
+import Hidden from "@material-ui/core/Hidden";
+import Button from "@material-ui/core/Button";
+import withViewCheck from "hoc/withViewCheck";
+import AutosuggestField from "Common/AutosuggestField";
+import SearchIcon from "@material-ui/icons/Search";
+import Logo from "assets/Logo.svg";
+import MenuIcon from "@material-ui/icons/Menu";
+import { styles } from "App/NavigationHeaderStyles";
+import apiClient from "App/ApiClient";
 import { orgASProps } from "../Common/autosuggestProperties";
-import {
-  contact,  
-  root,  
-  catalog,
-  resources
-} from 'App/routes';
+import { contact, root, catalog, resources } from "App/routes";
 //import Api from "../Static/Api";
-
-
 
 class NavigationHeader extends Component {
   constructor(props) {
@@ -41,18 +34,20 @@ class NavigationHeader extends Component {
     };
     this.asField = this.makeAsField();
   }
- 
+
   makeAsField = () => {
-    return (<AutosuggestField
-      {...orgASProps}
-      onSearchClick={this.onSubmitclick}
-      onChangeValue={this.onSearchChange}
-      additionaClasses={this.props.classes.bootstrapRoot}
-      small={true}
-    />);
+    return (
+      <AutosuggestField
+        {...orgASProps}
+        onSearchClick={this.onSubmitclick}
+        onChangeValue={this.onSearchChange}
+        additionaClasses={this.props.classes.bootstrapRoot}
+        small={true}
+      />
+    );
   };
-  
-  onSearchChange = (query) => {
+
+  onSearchChange = query => {
     this.setState({
       searchValue: query
     });
@@ -61,13 +56,13 @@ class NavigationHeader extends Component {
   startSearch = () => {
     this.setState({
       isSearchBarActive: true
-    })
+    });
   };
 
   endSearch = () => {
     this.setState({
       isSearchBarActive: false
-    })
+    });
   };
 
   handleClick = event => {
@@ -83,7 +78,7 @@ class NavigationHeader extends Component {
   };
 
   handleListMenuToggle = () => {
-    this.setState(state => ({openMenuList: !state.openMenuList}));
+    this.setState(state => ({ openMenuList: !state.openMenuList }));
   };
 
   handleListMenuClose = event => {
@@ -91,53 +86,44 @@ class NavigationHeader extends Component {
       return;
     }
 
-    this.setState({openMenuList: false});
+    this.setState({ openMenuList: false });
   };
-  
+
   submit() {
-    //console.log("submit triggered (NavigationHeader)");
-    //const {history} = this.props;
-    const {searchValue} = this.state;
-    
-    apiClient.searchOrganizationByQuery(searchValue)
+    const { searchValue } = this.state;
+    apiClient
+      .searchOrganizationByQuery(searchValue)
       .then(res => res.data)
       .then(url => {
         this.props.history.push(url);
-        //window.location = url;
-        this.setState({ searchValue: '' })
-      })
+        this.setState({ searchValue: "" });
+      });
   }
-  
-  onSubmitclick = (event) => {
+
+  onSubmitclick = event => {
     event.preventDefault();
     this.submit();
   };
 
   render() {
-    const { 
-        classes,         
-        isViewSm, 
-    } = this.props;
-    const { 
-        anchorEl,          
-        isSearchBarActive 
-    } = this.state;
+    const { classes, isViewSm } = this.props;
+    const { anchorEl, isSearchBarActive } = this.state;
     const open = Boolean(anchorEl);
     const onSubmitClick = this.onSubmitclick.bind(this);
 
     const links = [
       <span className={classes.simpleLink}>
-          <NavLink to={root}>Home</NavLink>
+        <NavLink to={root}>Home</NavLink>
       </span>,
       <span className={classes.simpleLink}>
-          <NavLink to={catalog}>Datasets</NavLink>
+        <NavLink to={catalog}>Datasets</NavLink>
       </span>,
       <span className={classes.simpleLink}>
-                <NavLink to={resources}>Resources</NavLink>
-            </span>,
+        <NavLink to={resources}>Resources</NavLink>
+      </span>,
       <span className={classes.simpleLink}>
-                <NavLink to={contact}>Contact</NavLink>
-            </span>
+        <NavLink to={contact}>Contact</NavLink>
+      </span>
     ];
 
     return (
@@ -147,7 +133,7 @@ class NavigationHeader extends Component {
             <MenuIcon
               className={classes.icon}
               aria-label="More"
-              aria-owns={open ? 'long-menu' : null}
+              aria-owns={open ? "long-menu" : null}
               aria-haspopup="true"
               onClick={this.handleClick}
             >
@@ -162,44 +148,43 @@ class NavigationHeader extends Component {
           onClose={this.handleClose}
           PaperProps={{
             style: {
-              width: 200,
-            },
+              width: 200
+            }
           }}
         >
           <div className={classes.column}>
             {links.map((link, index) => {
-                if (link) {
-                  return (
-                    <MenuItem
-                      classes={{root: classes.menuListItem}}
-                      key={`links-${index}`}
-                      onClick={this.handleClose}
-                    >
-                      {link}
-                    </MenuItem>
-                  )
-                } else {
-                  return undefined
-                }
+              if (link) {
+                return (
+                  <MenuItem
+                    classes={{ root: classes.menuListItem }}
+                    key={`links-${index}`}
+                    onClick={this.handleClose}
+                  >
+                    {link}
+                  </MenuItem>
+                );
+              } else {
+                return undefined;
               }
-            )}
+            })}
           </div>
         </Menu>
         {isViewSm && isSearchBarActive && (
           <Grid item xs={6} sm={3} lg={4} className={classes.logoMenu}>
             <NavLink to={root}>
-              <img src={Logo} alt="logo"/>
+              <img src={Logo} alt="logo" />
             </NavLink>
           </Grid>
-        ) }
+        )}
         {!isSearchBarActive ? (
           <Fragment>
             <Grid item xs={6} sm={3} md={2} className={classes.logoMenu}>
               <NavLink to={root}>
-                <img src={Logo} alt="logo"/>
+                <img src={Logo} alt="logo" />
               </NavLink>
             </Grid>
-            <Hidden only={'xs'}>
+            <Hidden only={"xs"}>
               <Grid item sm={8} md={6} className={classes.navMenu}>
                 {links}
               </Grid>
@@ -207,16 +192,14 @@ class NavigationHeader extends Component {
             <Hidden mdUp>
               <Grid item xs={3} sm={1} md={2} className={classes.searchMenu}>
                 <Button onClick={this.startSearch} className={classes.button}>
-                  <SearchIcon className={classes.searchIcon}/>
+                  <SearchIcon className={classes.searchIcon} />
                 </Button>
               </Grid>
             </Hidden>
             <Hidden smDown>
-                <Grid item sm={3} className={classes.searchMenu}>
-                  <form onSubmit={onSubmitClick}>
-                    {this.asField}
-                  </form>
-                  </Grid>
+              <Grid item sm={3} className={classes.searchMenu}>
+                <form onSubmit={onSubmitClick}>{this.asField}</form>
+              </Grid>
             </Hidden>
           </Fragment>
         ) : (
@@ -234,4 +217,6 @@ class NavigationHeader extends Component {
     );
   }
 }
-export default withStyles(styles)(withViewCheck()(withRouter(NavigationHeader)));
+export default withStyles(styles)(
+  withViewCheck()(withRouter(NavigationHeader))
+);
