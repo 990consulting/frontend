@@ -20,9 +20,12 @@ class OrgDataTable extends Component {
 		this.handleOnScroll = this.handleOnScroll.bind(this);
 		this.scrollToBegin = this.scrollToBegin.bind(this);
 		this.scrollToEnd = this.scrollToEnd.bind(this);
+		this.updateTable = this.updateTable.bind(this);
 	}
 	
 	componentDidMount() {
+		window.addEventListener('resize', this.updateTable);
+
 		apiClient.getTableData(this.props.table_id)
 			.then(
 				(result) => {
@@ -30,14 +33,49 @@ class OrgDataTable extends Component {
 					this.setState({
 						isLoaded: true,
 						rows: rows
-					});
+					}, this.updateTable.bind(this));
 				}
 			);
 	}
 
+	componentWillUnmount () {
+		window.removeEventListener('resize', this.updateTable);
+	}
+
+	updateTable () {
+		if (this.columnsByYear()) {
+			document.querySelectorAll('.rt-tr').forEach(row => {
+				const column = row.querySelector('.sticky-column');
+				const ghostColumn = row.querySelector('.sticky-ghost');
+				
+				if (column && ghostColumn) {
+					column.style.width = `${ghostColumn.offsetWidth}px`;
+					column.style.height = `${ghostColumn.offsetHeight}px`;
+				}
+			});
+		}
+	}
+
 	createYearColumns() {
 		const {periods} = this.props;
-		const columns = [{
+		const columns = this.columnsByYear() ? [{
+			Header: '',
+			width: "40%",
+			headerClassName: 'sticky-column',
+			className: 'sticky-column',
+			accessor: "label"
+		}, {
+			Header: '',
+			headerClassName: 'sticky-ghost',
+			className: 'sticky-ghost',
+			width: "40%",
+			accessor: "label"
+		}, {
+			Header: '',
+			headerClassName: 'sticky-ghost-twin',
+			className: 'sticky-ghost-twin',
+			width: "40%"
+		}] : [{
 			Header: '',
 			width: "40%",
 			accessor: "label"
@@ -47,6 +85,8 @@ class OrgDataTable extends Component {
 				Header: periods[i],
 				width: "20%",
 				accessor: periods[i],
+				headerClassName: 'non-sticky',
+				className: 'non-sticky',
 				Cell: row => ReactHtmlParser(row.value)
 			};
 			columns.push(column)
@@ -81,13 +121,15 @@ class OrgDataTable extends Component {
 	handleOnScroll (event) {
 		if (this.props.scrollAll)
 			document.getElementsByClassName('react-table-container-0').forEach(element => {
-				if (element.id !== this.props.table_id)
-					element.scrollLeft = event.target.scrollLeft;
+				const table = element.querySelector('.rt-table');
+
+				if (element.id !== this.props.table_id && table)
+					table.scrollLeft = event.target.scrollLeft;
 			});
 	}
 
 	scrollTo (x) {
-		document.getElementsByClassName('react-table-container-0').forEach(element => {
+		document.getElementsByClassName('rt-table').forEach(element => {
 			element.scrollLeft = x;
 		});
 	}
@@ -107,7 +149,6 @@ class OrgDataTable extends Component {
 			const {periods, table_id} = this.props;
 			const columns = this.createColumns();
 			const width = 40 + 20 * (columns.length - 1);
-			const isMaximized = width < 100;
 			const earliestPeriod = periods[periods.length - 1];
 			const latestPeriod = periods[0];
 
@@ -135,16 +176,17 @@ class OrgDataTable extends Component {
 					)}
 					<div 
 						id={table_id}
-						className={"react-table-container-0" + (isMaximized ? ' maximized' : '')} 
+						className={"react-table-container-0"} 
 						onScroll={this.handleOnScroll}
 					>
-						<div className="react-table-container-1" style={{width: (isMaximized ? 100 : width) + '%'}}>
-							<div className={"react-table-container-2" + (isMaximized ? ' maximized' : '')}>
+						<div className="react-table-container-1">
+							<div className={"react-table-container-2"}>
 								<ReactTable
 									columns={this.createColumns()}
 									data={this.state.rows}
 									showPagination={false}
 									minRows={0}
+									className={this.columnsByYear() ? 'sticky' : ''}
 									scroll={{x: true}}
 								/>
 							</div>
