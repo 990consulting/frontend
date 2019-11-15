@@ -2,65 +2,84 @@
  * Copyright (c) 2019 Open990.org, Inc.. All rights reserved.
  */
 
-import React, { PureComponent } from 'react';
-import { withRouter } from 'react-router-dom';
+import React, { PureComponent } from "react";
+import { withRouter } from "react-router-dom";
 
-import Autosuggest from 'react-autosuggest';
-import match from 'autosuggest-highlight/match';
-import parse from 'autosuggest-highlight/parse';
+import Autosuggest from "react-autosuggest";
+import match from "autosuggest-highlight/match";
+import parse from "autosuggest-highlight/parse";
 
-import TextField from '@material-ui/core/TextField';
-import Paper from '@material-ui/core/Paper';
-import MenuItem from '@material-ui/core/MenuItem';
-import { withStyles } from '@material-ui/core/styles';
-import InputAdornment from '@material-ui/core/InputAdornment';
-import { styles } from 'Common/autosuggestStyles'
-import SearchIcon from '@material-ui/icons/Search';
+import TextField from "@material-ui/core/TextField";
+import Paper from "@material-ui/core/Paper";
+import MenuItem from "@material-ui/core/MenuItem";
+import { withStyles } from "@material-ui/core/styles";
+import InputAdornment from "@material-ui/core/InputAdornment";
+import { styles } from "Common/autosuggestStyles";
+import SearchIcon from "@material-ui/icons/Search";
 
-import {
-  root, 
-  //search as searchRoute,
-  //peopleSearch
-} from 'App/routes';
+import {root} from "App/routes";
 
 class AutosuggestField extends PureComponent {
-  state = {
-    value: '',
-    suggestions: [],
-    suggestionUrl: ''
-  };
-  
-  renderInputComponent = (inputProps) => {
-    const {
-      classes,
-      inputRef = () => {},
-      ref,
-      ...other
-    } = inputProps;
+  constructor(props) {
+    super(props);
+    this.state = {
+      value: "",
+      suggestions: [],
+      suggestionUrl: "",
+      isRequestFromMobile: this.isMobilePlatform()
+    };
+    this.onSearch = this.onSearch.bind(this);
+  }
 
-    const {
-      small,
-      onSearchClick
-    } = this.props;
+  isMobilePlatform() {
+    if (
+      navigator.userAgent.match(/Android/i) ||
+      navigator.userAgent.match(/webOS/i) ||
+      navigator.userAgent.match(/iPhone/i) ||
+      navigator.userAgent.match(/iPad/i) ||
+      navigator.userAgent.match(/iPod/i) ||
+      navigator.userAgent.match(/BlackBerry/i) ||
+      navigator.userAgent.match(/IEMobile/i) ||
+      navigator.userAgent.match(/WPDesktop/i) ||
+      navigator.userAgent.match(/Windows Phone/i)
+    ) {
+      return true;
+    } else {
+      return false;
+    }
+  }
+
+  onSearch = (event) => {
+    if(this.state.suggestions.length > 1){      
+      window.location.href = this.state.suggestions[0].url;
+    } else {
+      this.setState({
+        value: ''
+      });
+      const {onSearchClick} = this.props;
+      onSearchClick ? onSearchClick(event) : console.log("search clicked")
+    }
+  }
+
+  renderInputComponent = inputProps => {
+    const { classes, inputRef = () => {}, ref, ...other } = inputProps;
+
+    const { small} = this.props;
 
     const endAdornment = (
-      <InputAdornment 
-        position="end" 
-      >
-      <div
-        onClick={ (event) => onSearchClick ? onSearchClick(event): console.log("search clicked")
-        }
-      >
-        <SearchIcon className={classes.bannerInputIcon}/>
-      </div>
+      <InputAdornment position="end">
+        <div onClick={event => this.onSearch(event)}>
+          <SearchIcon className={classes.bannerInputIcon} />
+        </div>
       </InputAdornment>
     );
 
     return (
       <TextField
-        className={this.props.small ?
-          classes.smallBannerTextField :
-          classes.bannerTextField
+        className={
+          this.props.small
+            ? classes.smallBannerTextField
+            : classes.bannerTextField
         }
         id="bootstrap-input"
         InputProps={{
@@ -73,14 +92,14 @@ class AutosuggestField extends PureComponent {
           classes: {
             input: classes.input,
             root: small ? classes.smallbootstrapRoot : classes.bootstrapRoot
-          },
+          }
         }}
         {...other}
       />
     );
   };
 
-  renderSuggestion = (suggestion, {query, isHighlighted}) => {
+  renderSuggestion = (suggestion, { query, isHighlighted }) => {
     const matches = match(suggestion.label, query);
     const parts = parse(suggestion.label, matches);
 
@@ -89,11 +108,11 @@ class AutosuggestField extends PureComponent {
         <div>
           {parts.map((part, index) => {
             return part.highlight ? (
-              <span key={String(index)} style={{fontWeight: 500}}>
+              <span key={String(index)} style={{ fontWeight: 500 }}>
                 {part.text}
               </span>
             ) : (
-              <strong key={String(index)} style={{fontWeight: 300}}>
+              <strong key={String(index)} style={{ fontWeight: 300 }}>
                 {part.text}
               </strong>
             );
@@ -103,65 +122,59 @@ class AutosuggestField extends PureComponent {
     );
   };
 
-  getSuggestionValue = (suggestion) => {
-    const {history} = this.props;
-    const url = suggestion.url || root;
+  getSuggestionValue = suggestion => {
     this.setState({
-      suggestionUrl: url
+      suggestionUrl: suggestion.url || root
     });
-    history.push(url);
+    //history.push(url);
     return suggestion.label;
   };
 
-  handleSuggestionsFetchRequested = ({value}) => {
-
+  handleSuggestionsFetchRequested = ({ value }) => {
     const getSuggestion = this.props.suggestion;
     const baseUrl = this.props.baseUrl;
     const slug = this.props.slug;
-  
+
     getSuggestion(value)
-    .then(res => res.data)
-    .then(suggestions => {
-      suggestions.push({
-        label: `See all matches for "${value}"`,
-        url: `${baseUrl}?${slug}=${value}`
+      .then(res => res.data)
+      .then(suggestions => {
+        suggestions = this.state.isRequestFromMobile
+          ? suggestions.slice(0, this.props.mobileSearchSuggestions)
+          : suggestions.slice(0, this.props.desktopSearchSuggestion);
+        suggestions.push({
+          label: `See all matches for "${value}"`,
+          url: `${baseUrl}?${slug}=${value}`
+        });
+        this.setState({
+          suggestions: suggestions
+        });
       });
-      this.setState({
-        suggestions: suggestions
-      });
-    });
   };
 
-  handleSuggestionsClearRequested = () => {
-    this.setState({
-      suggestions: [],
-    });
+  handleChange = (event, { newValue, method }) => {
+    const shouldUpdateSelectedValue =
+      method === "type" || method === "enter" || method === "click";
+    shouldUpdateSelectedValue &&
+      this.setState(
+        {
+          value: newValue
+        },
+        () => {
+          if (!this.props.onChangeValue) return;
+          this.props.onChangeValue(newValue);
+        }
+      );
   };
 
-  onSuggestionSelected = () =>{   
+  onSuggestionSelected = (event, { suggestion }) => {
     this.setState({
       value: ''
     });
-    window.location = this.state.suggestionUrl;
-  }
-
-  handleChange = name => (event, {newValue}) => {
-    this.setState({
-      value: newValue,
-    }, () => {
-      if (!this.props.onChangeValue) return;
-      this.props.onChangeValue(newValue);
-    });
+    window.location.href = suggestion.url;
   };
 
   render() {
-    const {
-      classes,
-      placeholder,
-      small,
-      mobile,
-      handleOnBlur
-    } = this.props;
+    const { classes, placeholder, small, mobile, handleOnBlur } = this.props;
 
     const autosuggestProps = {
       renderInputComponent: this.renderInputComponent,
@@ -170,7 +183,8 @@ class AutosuggestField extends PureComponent {
       onSuggestionsClearRequested: this.handleSuggestionsClearRequested,
       onSuggestionSelected: this.onSuggestionSelected,
       getSuggestionValue: this.getSuggestionValue,
-      renderSuggestion: this.renderSuggestion,
+      highlightFirstSuggestion: true,
+      renderSuggestion: this.renderSuggestion
     };
 
     return (
@@ -182,14 +196,16 @@ class AutosuggestField extends PureComponent {
             classes,
             placeholder: placeholder,
             value: this.state.value,
-            onChange: this.handleChange(),
+            onChange: this.handleChange,
             onBlur: handleOnBlur ? () => handleOnBlur() : undefined
           }}
           theme={{
             container: small ? classes.smallContainer : classes.container,
-            suggestionsContainerOpen: small ? classes.smallSuggestionsContainerOpen : classes.suggestionsContainerOpen,
+            suggestionsContainerOpen: small
+              ? classes.smallSuggestionsContainerOpen
+              : classes.suggestionsContainerOpen,
             suggestionsList: classes.suggestionsList,
-            suggestion: classes.suggestion,
+            suggestion: classes.suggestion
           }}
           renderSuggestionsContainer={options => (
             <Paper {...options.containerProps} square>

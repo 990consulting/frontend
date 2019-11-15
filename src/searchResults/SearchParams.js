@@ -237,6 +237,8 @@ class SearchParams extends React.Component {
 
     function getParameterByName(name, url) {
         if (!url) url = window.location.href;
+
+        //eslint-disable-next-line
         name = name.replace(/[\[\]]/g, '\\$&');
         var regex = new RegExp('[?&]' + name + '(=([^&#]*)|&|#|$)'),
             results = regex.exec(url);
@@ -399,7 +401,8 @@ class SearchParams extends React.Component {
                 const value = param.value;
 
                 var options;
-
+                
+                //eslint-disable-next-line
                 switch(type) {
                     case "text":
                         formGroup.push(<label>{label}</label>);
