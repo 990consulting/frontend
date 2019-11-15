@@ -68,11 +68,11 @@ class AutosuggestField extends PureComponent {
   renderInputComponent = inputProps => {
     const { classes, inputRef = () => {}, ref, ...other } = inputProps;
 
-    const { small, onSearchClick } = this.props;
+    const { small} = this.props;
 
     const endAdornment = (
       <InputAdornment position="end">
-        <div onClick={event => this.onSearch(event)} onSubmit={event => this.onSearch(event)}>
+        <div onClick={event => this.onSearch(event)}>
           <SearchIcon className={classes.bannerInputIcon} />
         </div>
       </InputAdornment>
@@ -172,7 +172,7 @@ class AutosuggestField extends PureComponent {
 
   onSuggestionSelected = (event, { suggestion }) => {
     this.setState({
-      value: ""
+      value: ''
     });
     window.location.href = suggestion.url;
   };
