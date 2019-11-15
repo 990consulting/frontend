@@ -17,11 +17,7 @@ import InputAdornment from "@material-ui/core/InputAdornment";
 import { styles } from "Common/autosuggestStyles";
 import SearchIcon from "@material-ui/icons/Search";
 
-import {
-  root
-  //search as searchRoute,
-  //peopleSearch
-} from "App/routes";
+import {root} from "App/routes";
 
 class AutosuggestField extends PureComponent {
   constructor(props) {
