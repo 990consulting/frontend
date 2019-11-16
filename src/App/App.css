@@ -373,6 +373,13 @@ footer {
     width: 240%;
 }
 
+@media (max-width: 768px) {
+    .react-table-container-2 .ReactTable.sticky .rt-tbody,
+    .react-table-container-2 .ReactTable.sticky .rt-thead {
+        width: 340%;
+    }
+}
+
 .sticky .rt-tr .rt-th:first-child,
 .sticky .rt-tr .rt-td:first-child {
     position: absolute;

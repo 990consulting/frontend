@@ -109,9 +109,9 @@ class OrgDataTable extends Component {
 	}
 
 	columnsByYear () {
-		const firstRow = this.state.rows[0];
+		const firstRow = this.state.rows.length && this.state.rows[0];
 
-		return !("span" in firstRow);
+		return firstRow && !("span" in firstRow);
 	}
 	
 	createColumns() {
