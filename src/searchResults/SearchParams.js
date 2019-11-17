@@ -289,13 +289,9 @@ class SearchParams extends React.Component {
 
   loadFocusOptions = (category) => {
     if(this.state.params.ntee_code) {
-        this.setState({
-            params: {
-                ntee_code: {
-                    value: null
-                }
-            }
-        })
+        let ntee_code = {...this.state.params.ntee_code};
+        ntee_code.value = null;
+        this.setState({ntee_code});     
     }
     
     this.setState({focusOptions: null});
