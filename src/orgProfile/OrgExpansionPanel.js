@@ -9,49 +9,56 @@ import StyledPanel from "./StyledPanel";
 import Grid from '@material-ui/core/Grid';
 
 const styles = () => ({});
+
 class OrgExpansionPanel extends React.Component {
+
     constructTableChild(childData) {
         let table_id = childData.table_id;
         return (
-          <OrgDataTable
-            key={childData.table_id}
-            table_id={table_id}
-            periods={this.props.periods}
-            scrollAll={this.props.scrollAllTables}
-          />
+            <OrgDataTable
+                key={childData.table_id}
+                table_id={table_id}
+                periods={this.props.periods}
+                scrollAll={this.props.scrollAllTables}
+            />
         );
     }
-   
+
     constructPanelChild(childData) {
         return (
-          <Grid key = {childData.card_id} item xs={12}>
-              <Grid container spacing={24}>
-                  <Grid item xs={12}>
-                      <OrgExpansionPanel
-                        scrollAllTables
-                        raw={childData}
-                        periods={this.props.periods}
-                      />
-                  </Grid>
-              </Grid>
-          </Grid>
+            <Grid key={childData.card_id} item xs={12}>
+                <Grid container spacing={24}>
+                    <Grid item xs={12}>
+                        <OrgExpansionPanel
+                            body = {childData.body}
+                            emph={childData.emph}
+                            spyglass = {childData.spyglass}
+                            scrollAllTables
+                            raw={childData}
+                            periods={this.props.periods}
+                        />
+                    </Grid>
+
+                </Grid>
+            </Grid>
         );
     }
-    /*constructPanelChild(childData) {
-        return (<div></div>);
-    }*/
-    
+
+
     constructChild(childData) {
+
         let childType = childData["type"]; // Is "type" a protected keyword in Javascript?
         if (childType === "table") {
             return this.constructTableChild(childData);
+
         } else if (childType === "nested") {
             return this.constructPanelChild(childData);
         }
+
         throw new Error("Unexpected child type '" + childType + "'");
-        
-        
+
     }
+
     constructChildren() {
         let childContent = this.props.raw.content;
         let children = [];
@@ -59,28 +66,31 @@ class OrgExpansionPanel extends React.Component {
             let child = this.constructChild(childContent[i]);
             children.push(child)
         }
+
         return children;
     }
 
     getLabel() {
         return this.props.raw.body;
     }
-    
+
     startExpanded() {
         return "toc" in this.props.raw;
     }
-    
+
     constructExpansionPanel() {
-        const {card, card_id} = this.props.raw;
+        const { card, card_id, emph, spyglass, body } = this.props.raw;
+        // console.log('props data =>', this.props.raw)
         return (
-          <StyledPanel id={card_id} label={this.getLabel()} startExpanded={this.startExpanded()} displayMode={card}>
-              <Grid container spacing={24}>
-                  {this.constructChildren()}
-              </Grid>
-          </StyledPanel>
+            <StyledPanel id={card_id} label={this.getLabel()} startExpanded={this.startExpanded()} displayMode={card} emph={emph} spyglass={spyglass} body={body}>
+                <Grid container spacing={24}>
+                    {this.constructChildren()}
+                </Grid>
+            </StyledPanel>
         );
+
     }
-    
+
     render() {
         return (<div>{this.constructExpansionPanel()}</div>);
     }
