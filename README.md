@@ -5,7 +5,3 @@ If you want to disable spyglasses, please do as following:
 3. At this line, you can see that spyglasses field have seted to "true". like thid "spyglasses: true"
 4. Please change that value to "false" if you want disable spyglasses.
 
-Thank you for your checking my doc!
-
-Really sorry to don't know about git well.
-Thank you
