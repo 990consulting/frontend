@@ -1,7 +1,6 @@
 /*
  * Copyright (c) 2019 Open990.org, Inc.. All rights reserved.
  */
-
 import "@babel/polyfill";
 import "whatwg-fetch";
 
