@@ -489,6 +489,7 @@ class SearchParams extends React.Component {
                         formGroup.push(<div className="category-select">
                             <SingleSelect placeholder={label} 
                             // label={label} 
+                            style={{'zIndex': 1000}}
                             name={param_name} value={(options.find(x => (x.value || "") === (value || "")))||""} options={options} onChange={e => this.onParamChange({target: {
                                 name: param_name,
                                 value: e
@@ -502,7 +503,7 @@ class SearchParams extends React.Component {
                         if(!this.state.focusOptions) {
                             formGroup.push(<div style={{pointerEvents: 'none'}}>
                                 <SingleSelect placeholder={label} 
-                                // label={label} 
+                                // label={label}                                 
                                 name={param_name} value={{label: "Select category first", value: ""}} options={[]} />
                             </div>)
                         } else {
