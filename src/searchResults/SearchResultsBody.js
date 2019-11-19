@@ -9,6 +9,7 @@ import withStyles from '@material-ui/core/styles/withStyles';
 import Grid from '@material-ui/core/Grid';
 import { styles } from 'searchResults/searchStyles';
 import Loader from 'react-loader-spinner'
+import parseUrl from 'url-parse';
 
 class SearchResultsBody extends React.Component {
   state = {
@@ -18,8 +19,14 @@ class SearchResultsBody extends React.Component {
     params: undefined,
     lastSearch: undefined
   };
+
+  constructor (props) {
+    super(props);
+
+    this.onPageChange = this.onPageChange.bind(this);
+  }
   
-  getDataBasedOnSearchSlug() {
+  getDataBasedOnSearchSlug(initial) {
     const { history:{location:{search}}, fetchResults } = this.props; // an interesting piece of syntax
 
     this.setState({lastSearch: search});
@@ -29,21 +36,23 @@ class SearchResultsBody extends React.Component {
       this.setState({
         caption: data.caption,
         matches: data.matches,
-        params: data.params
+        params: data.params,
+        page: initial ? this.state.page : 0
       })
     })
   }
   
   // TODO Do we need both of these?
   componentWillMount() {
-    this.getDataBasedOnSearchSlug();
+    this.setPage();
+    this.getDataBasedOnSearchSlug(true);
   }
  
   // TODO Do we need both of these?
   componentWillReceiveProps(newProps) {
     const { history:{location:{search:newSearch}} } = newProps;
 
-    if(this.state.lastSearch !== newSearch) {
+    if(!this.compareSearch(newProps)) {
       this.getDataBasedOnSearchSlug();
     }
   }
@@ -69,7 +78,38 @@ class SearchResultsBody extends React.Component {
       handleClick(matches, index, history);
     };
   }
-  
+
+  compareSearch (oldProps) {
+    const oldUrl = this.parseUrl(oldProps);
+    const url = this.parseUrl(this.props);
+
+    delete oldUrl.query.page;
+    delete url.query.page;
+
+    return JSON.stringify(oldUrl.query) === JSON.stringify(url.query);
+  }
+
+  parseUrl (props) {
+    const url = new parseUrl(`${props.location.pathname}${props.location.search}`, true)
+    url.set('host', '');
+    url.set('protocol', '');
+
+    return url
+  }
+
+  setPage () {
+    const url = this.parseUrl(this.props);
+    const page = parseInt(url.query.page, 10) || 0;
+    this.setState({ page });
+  }
+
+  onPageChange (page) {
+    const url = this.parseUrl(this.props);
+    url.query.page = page;
+    this.props.history.push(url.toString().replace('//', ''));
+    this.setState({ page });
+  }
+
   render() {
     const {
       classes,
@@ -109,7 +149,8 @@ class SearchResultsBody extends React.Component {
               data={data}
               columns={columns}
               className={`${classes.table} -striped`}
-              onPageChange={page => this.setState({page})}
+              onPageChange={this.onPageChange}
+              page={this.state.page}
               noDataText="No results found"
               getTrProps={() => {
                 return {
