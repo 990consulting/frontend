@@ -12,7 +12,7 @@ import Loader from 'react-loader-spinner'
 
 class SearchResultsBody extends React.Component {
   state = {
-    page: 0,
+    page: (+this.props.history.location.hash.slice(1) || 1) - 1,
     caption: '',
     matches: [],
     params: undefined,
@@ -92,7 +92,7 @@ class SearchResultsBody extends React.Component {
         </div>
       </div>
     }
-    
+
     return (
       <div className="SearchPage">
         <Grid container className={classes.root}>
@@ -109,7 +109,11 @@ class SearchResultsBody extends React.Component {
               data={data}
               columns={columns}
               className={`${classes.table} -striped`}
-              onPageChange={page => this.setState({page})}
+              page={this.state.page}
+              onPageChange={page => {
+                this.setState({ page })
+                window.location.hash = "#" + (page + 1)
+              }}
               noDataText="No results found"
               getTrProps={() => {
                 return {

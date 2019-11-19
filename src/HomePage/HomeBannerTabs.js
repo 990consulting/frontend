@@ -35,6 +35,9 @@ const styles = (theme) => ({
     },
     '&.active, &:hover': {
       backgroundColor: theme.color.primary.faded
+    },
+    '&.active': {
+      borderTop: '3px solid white',
     }
   },
 });
