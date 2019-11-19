@@ -15,6 +15,14 @@ import OrgProfileDetails from "./OrgProfileDetails";
 import OrgProfileSidebarContent from './OrgProfileSidebarContent'
 import OrgProfileHelmet from './OrgProfileHelmet';
 import Loader from 'react-loader-spinner'
+
+
+const getPathname = url => {
+  const a = document.createElement('a')
+  a.href = url
+  return a.pathname
+}
+
 class OrganizationProfile extends React.Component {
  
   constructor(props) {
@@ -29,39 +37,31 @@ class OrganizationProfile extends React.Component {
     }
   }
   
+  fetchData() {
+    return apiClient.getOrgSkeleton(this.props.match.params.ein)
+      .catch(() => this.setState({ error: true }))
+  }
+
   componentDidMount() {
-    if (!this.state.loaded) {
-      const ein = this.props.match.params.ein;
-      apiClient.getOrgSkeleton(ein)
-        .then(res => {
-          this.setState({
-            loaded: true,
-            header: res.data.header,
-            body: res.data.body,
-            periods: res.data.periods,
-            meta: res.data.meta
-          });
-        }).catch(error => {
-        this.setState({
-          error: true
-        })
-      });
+    this.fetchData().then(({ data }) => {
+      const canonicalPathname = getPathname(data.meta.canonical)
+
+      if (canonicalPathname !== this.props.history.location.pathname) {
+        this.props.history.replace(canonicalPathname)
+      }
+
+      this.setState({ ...data, loaded: true })
+    })
+  }
+
+  componentDidUpdate(prevProps) {
+    if (prevProps.match.params.ein !== this.props.match.params.ein) {
+      this.setState({ loaded: false });
+      this.fetchData().then(({ data }) => this.setState({ ...data, loaded: true }))
     }
   }
 
-  /*componentDidUpdate(prevProps, prevState, snapshot) {
-    const history = this.props.history;
-    const meta = this.state.meta;
-    
-    if (this.state.loaded) {
-      const actual = history.location.pathname;
-      const expected = meta.canonical;
-      if (actual !== expected) {
-        history.replace(expected);
-      }
-    }
-  }*/
-  
+
   render() {
     const { loaded, meta, header, body, periods, error } = this.state;
     const { classes } = this.props;

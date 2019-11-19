@@ -170,7 +170,7 @@ class AutosuggestField extends PureComponent {
     this.setState({
       value: ''
     });
-    window.location.href = suggestion.url;
+    this.props.history.push(suggestion.url);
   };
 
   render() {
