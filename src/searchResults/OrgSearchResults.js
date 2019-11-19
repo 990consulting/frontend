@@ -10,9 +10,18 @@ import SearchResults from 'searchResults/SearchResults';
 import apiClient from 'App/ApiClient';
 const styles = (theme) => ({});
 
+function createSlugFromTitle(title) {
+  if (typeof title !== 'string') {
+    return '';
+  }
+
+  return title.toLowerCase().replace(' ', '-');
+}
+
 function handleClick(matches, index, history) {
   const ein = matches[index]['EIN'];
-  history.push(`/org/${ein}`);
+  const slug = createSlugFromTitle(matches[index]['Name']);
+  history.push(`/org/${ein}/${slug}`);
 }
 
 class OrgSearchResults extends React.Component {
