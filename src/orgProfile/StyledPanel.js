@@ -98,6 +98,10 @@ const styles = (theme) => ({
       margin: '0',
       color: 'white',
       fontSize: '1.125rem',
+    },
+    emph:{
+      fontWeight: '700',
+      fontSize: 24,
     }
 });
 
@@ -115,9 +119,10 @@ class UnstyledPanel extends React.Component {
       startExpanded,
       isTopLevel,
       displayMode,
-      id
+      id,
+      emph
     } = this.props;
-    
+    console.log('=====emph', emph)
     const panelStyles = isTopLevel ? {} : {'boxShadow': 'none'};
     const detailStyles = {'paddingRight': '0', paddingLeft: '12px'};
     /*const detailChildStyles = {
@@ -141,7 +146,7 @@ class UnstyledPanel extends React.Component {
           className={"expansion-panel-summary" + (isTopLevel ? ' top-level' : '') + ' ' + displayMode}
           id = {id}
         >
-          {isTopLevel?<h2 className={classes.toplevel}>{label}</h2>:<Typography className={classes.heading}>{label}</Typography>}
+          {isTopLevel?(emph?<h2 className={classes.toplevel} className={classes.emph}>{label}</h2>:<h2 className={classes.toplevel}>{label}</h2>):(emph?<Typography className={classes.heading} className={classes.emph}>{label}</Typography>:<Typography className={classes.heading}>{label}</Typography>)}
         </ExpansionPanelSummary>
         <ExpansionPanelDetails classes={typographyClasses}
                                className="expansion-panel-details"
@@ -158,7 +163,7 @@ const BaseStyledPanel = withStyles(styles)(UnstyledPanel);
 
 class TopLevelPanel extends React.Component {
     render() {
-      const {id, classes, label, startExpanded, children, displayMode} = this.props;
+      const {id, classes, label, startExpanded, children, displayMode, emph} = this.props;
       
       const panelClasses = {
         expanded: classes.expanded
@@ -182,6 +187,7 @@ class TopLevelPanel extends React.Component {
         isTopLevel={true}
         displayMode={displayMode}
         id={id}
+        emph={emph}
       >
         {children}
       </BaseStyledPanel>
@@ -190,7 +196,7 @@ class TopLevelPanel extends React.Component {
 
 class InteriorPanel extends React.Component {
   render() {
-    const {id, classes, label, startExpanded, children, displayMode} = this.props;
+    const {id, classes, label, startExpanded, children, displayMode, emph} = this.props;
     
     const panelClasses = {
       expanded: classes.expanded
@@ -214,6 +220,7 @@ class InteriorPanel extends React.Component {
       isTopLevel={false}
       displayMode={displayMode}
       id={id}
+      emph={emph}
     >
       {children}
     </BaseStyledPanel>
@@ -222,7 +229,7 @@ class InteriorPanel extends React.Component {
 
 class LeafPanel extends React.Component {
   render() {
-    const {id, classes, label, children, startExpanded, displayMode} = this.props;
+    const {id, classes, label, children, startExpanded, displayMode, emph} = this.props;
     
     const panelClasses = {
       expanded: classes.expanded
@@ -246,6 +253,7 @@ class LeafPanel extends React.Component {
       startExpanded={startExpanded}
       isTopLevel={false}
       displayMode={displayMode}
+      emph={emph}
     >
       {children}
     </BaseStyledPanel>
@@ -258,17 +266,17 @@ const StyledTopLevelPanel = withStyles(styles)(TopLevelPanel);
 
 class StyledPanel extends React.Component {
     render() {
-      const {id, displayMode, label, startExpanded, children} = this.props;
+      const {id, displayMode, label, startExpanded, children, emph} = this.props;
       if (displayMode==="always") {
-        return (<StyledTopLevelPanel id={id} label={label} startExpanded={startExpanded} displayMode={displayMode}>
+        return (<StyledTopLevelPanel emph={emph} id={id} label={label} startExpanded={startExpanded} displayMode={displayMode}>
           {children}
         </StyledTopLevelPanel>);
       } else if (displayMode==="expand") {
-        return (<StyledInteriorPanel id={id} label={label} startExpanded={startExpanded} displayMode={displayMode}>
+        return (<StyledInteriorPanel emph={emph} id={id} label={label} startExpanded={startExpanded} displayMode={displayMode}>
           {children}
         </StyledInteriorPanel>);
       } else if (displayMode==="never") {
-        return (<StyledLeafPanel id={id} label={label} startExpanded={startExpanded} displayMode={displayMode}>
+        return (<StyledLeafPanel emph={emph} id={id} label={label} startExpanded={startExpanded} displayMode={displayMode}>
           {children}
         </StyledLeafPanel>);
       } else {
