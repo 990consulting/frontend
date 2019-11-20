@@ -181,6 +181,14 @@ footer {
     background: #6839d3;
 }
 
+.expansion-panel-summary svg#spyglass{
+    color: #cdcdcd;
+}
+
+.expansion-panel-summary.always svg#spyglass, .expansion-panel-summary[aria-expanded=true].expand svg#spyglass{
+    color: #a9a9a9;
+}
+
 .expansion-panel-summary.always:hover, .expansion-panel-summary[aria-expanded=true].expand:hover {
     background: #8863dc;
 }

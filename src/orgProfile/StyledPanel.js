@@ -106,11 +106,11 @@ const styles = (theme) => ({
       fontSize: 24,
     },
     bannerInputIcon: {
-      color: theme.color.primary.standard,
-      fontSize: '2.5rem',
+      fontSize: '1.5rem',
       [theme.breakpoints.down('xs')]: {
-        fontSize: '2rem',
+        fontSize: '1rem',
       },
+      margin: 'auto 0'
     },
 });
 
@@ -145,7 +145,6 @@ class UnstyledPanel extends React.Component {
       'justify-content': 'center'
     };*/
     const className = isTopLevel ? 'top-level-panel' : '';
-    
     return(<Grid item xs={12}>
       <ExpansionPanel
         CollapseProps = {{ unmountOnExit: true }}
@@ -162,7 +161,7 @@ class UnstyledPanel extends React.Component {
           id = {id}
         >
           {isTopLevel?(emph?<h2 className={classes.toplevel} className={classes.emph}>{label}</h2>:<h2 className={classes.toplevel}>{label}</h2>):(emph?<Typography className={classes.heading} className={classes.emph}>{label}</Typography>:<Typography className={classes.heading}>{label}</Typography>)}
-          <SearchIcon onClick={this.searchPeople} className={classes.bannerInputIcon} />
+          {spyglass && <SearchIcon onClick={this.searchPeople} id="spyglass" className={classes.bannerInputIcon} />}
         </ExpansionPanelSummary>
         <ExpansionPanelDetails classes={typographyClasses}
                                className="expansion-panel-details"
@@ -286,6 +285,7 @@ const StyledTopLevelPanel = withStyles(styles)(TopLevelPanel);
 class StyledPanel extends React.Component {
     render() {
       const {id, displayMode, label, startExpanded, children, emph, spyglass} = this.props;
+      // console.log(emph,'123123')
       if (displayMode==="always") {
         return (<StyledTopLevelPanel emph={emph} spyglass={spyglass} id={id} label={label} startExpanded={startExpanded} displayMode={displayMode}>
           {children}

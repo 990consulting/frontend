@@ -10,7 +10,7 @@ import Grid from '@material-ui/core/Grid';
 
 const styles = () => ({});
 class OrgExpansionPanel extends React.Component {
-    constructTableChild(childData, emph, spyglass) {
+    constructTableChild(childData) {
         let table_id = childData.table_id;
         return (
           <OrgDataTable
@@ -18,13 +18,12 @@ class OrgExpansionPanel extends React.Component {
             table_id={table_id}
             periods={this.props.periods}
             scrollAll={this.props.scrollAllTables}
-            emph={emph}
-            spyglass={spyglass}
           />
         );
     }
    
     constructPanelChild(childData, emph, spyglass) {
+        console.log(childData,'======')
         return (
           <Grid key = {childData.card_id} item xs={12}>
               <Grid container spacing={24}>
@@ -50,7 +49,7 @@ class OrgExpansionPanel extends React.Component {
         let emph = childData["emph"] ? true : false ; // check if the emph is true.
         let spyglass = childData["spyglass"] ? true : false ; // check if the spyglass is true.
         if (childType === "table") {
-            return this.constructTableChild(childData, emph, spyglass);
+            return this.constructTableChild(childData);
         } else if (childType === "nested") {
             return this.constructPanelChild(childData, emph, spyglass);
         }
@@ -62,6 +61,7 @@ class OrgExpansionPanel extends React.Component {
         let childContent = this.props.raw.content;
         let children = [];
         for (let i = 0; i < childContent.length; i++) {
+            // console.log(i,'+++++++')
             let child = this.constructChild(childContent[i]);
             children.push(child)
         }
@@ -79,7 +79,7 @@ class OrgExpansionPanel extends React.Component {
     constructExpansionPanel() {
         const {card, card_id} = this.props.raw;
         return (
-          <StyledPanel id={card_id} label={this.getLabel()} startExpanded={this.startExpanded()} displayMode={card} emph={this.props.emph}>
+          <StyledPanel id={card_id} label={this.getLabel()} startExpanded={this.startExpanded()} displayMode={card} emph={this.props.emph} spyglass={this.props.spyglass}>
               <Grid container spacing={24}>
                   {this.constructChildren()}
               </Grid>
