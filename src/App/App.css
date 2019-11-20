@@ -181,6 +181,10 @@ footer {
     background: #6839d3;
 }
 
+.expansion-panel-summary div#spyglass{
+    padding-right: 0;
+}
+
 .expansion-panel-summary svg#spyglass{
     color: #cdcdcd;
 }

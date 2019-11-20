@@ -104,7 +104,7 @@ const styles = (theme) => ({
     },
     emph:{
       fontWeight: '700',
-      fontSize: 24,
+      fontSize: '1.2rem',
     },
     bannerInputIcon: {
       fontSize: '1.5rem',
@@ -164,7 +164,7 @@ class UnstyledPanel extends React.Component {
           {isTopLevel?(emph?<h2 className={classes.toplevel} className={classes.emph}>{label}</h2>:<h2 className={classes.toplevel}>{label}</h2>):(emph?<Typography className={classes.heading} className={classes.emph}>{label}</Typography>:<Typography className={classes.heading}>{label}</Typography>)}
           {spyglass &&
             <Tooltip title={`Search for ${label} at other organizations`} aria-label={`Search for ${label} at other organizations`}>
-              <div>
+              <div id="spyglass">
                 <SearchIcon onClick={this.searchPeople} id="spyglass" className={classes.bannerInputIcon}  />
               </div>
             </Tooltip>
