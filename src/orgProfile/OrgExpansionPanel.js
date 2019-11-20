@@ -23,7 +23,6 @@ class OrgExpansionPanel extends React.Component {
     }
    
     constructPanelChild(childData, emph, spyglass) {
-        console.log(childData,'======')
         return (
           <Grid key = {childData.card_id} item xs={12}>
               <Grid container spacing={24}>
@@ -61,7 +60,6 @@ class OrgExpansionPanel extends React.Component {
         let childContent = this.props.raw.content;
         let children = [];
         for (let i = 0; i < childContent.length; i++) {
-            // console.log(i,'+++++++')
             let child = this.constructChild(childContent[i]);
             children.push(child)
         }

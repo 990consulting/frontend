@@ -185,7 +185,7 @@ footer {
     color: #cdcdcd;
 }
 
-.expansion-panel-summary.always svg#spyglass, .expansion-panel-summary[aria-expanded=true].expand svg#spyglass{
+.expansion-panel-summary.always, .expansion-panel-summary[aria-expanded=true].expand svg#spyglass{
     color: #a9a9a9;
 }
 
@@ -427,6 +427,11 @@ footer {
 
 .expansion-panel-summary:not(.top-level) > div:first-child {
     margin: 12px 0 !important;
+}
+@media (max-width: 768px) {
+    .expansion-panel-summary:not(.top-level) > div:first-child {
+        justify-content: space-between;
+    }
 }
 
 #sidebar * {

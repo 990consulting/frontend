@@ -12,6 +12,7 @@ import Grid from '@material-ui/core/Grid';
 import withStyles from '@material-ui/core/styles/withStyles';
 import SearchIcon from "@material-ui/icons/Search";
 import { withRouter } from 'react-router-dom';
+import Tooltip from '@material-ui/core/Tooltip';
 
 
 const styles = (theme) => ({
@@ -157,11 +158,17 @@ class UnstyledPanel extends React.Component {
         <ExpansionPanelSummary
           classes={summaryClasses}
           expandIcon={<ExpandMoreIcon />}
-          className={"expansion-panel-summary" + (isTopLevel ? ' top-level' : '') + ' ' + displayMode}
+          className={"expansion-panel-summary" + (isTopLevel ? ' top-level' : '') + ' ' + displayMode }
           id = {id}
         >
           {isTopLevel?(emph?<h2 className={classes.toplevel} className={classes.emph}>{label}</h2>:<h2 className={classes.toplevel}>{label}</h2>):(emph?<Typography className={classes.heading} className={classes.emph}>{label}</Typography>:<Typography className={classes.heading}>{label}</Typography>)}
-          {spyglass && <SearchIcon onClick={this.searchPeople} id="spyglass" className={classes.bannerInputIcon} />}
+          {spyglass &&
+            <Tooltip title={`Search for ${label} at other organizations`} aria-label={`Search for ${label} at other organizations`}>
+              <div>
+                <SearchIcon onClick={this.searchPeople} id="spyglass" className={classes.bannerInputIcon}  />
+              </div>
+            </Tooltip>
+          }
         </ExpansionPanelSummary>
         <ExpansionPanelDetails classes={typographyClasses}
                                className="expansion-panel-details"
@@ -285,7 +292,6 @@ const StyledTopLevelPanel = withStyles(styles)(TopLevelPanel);
 class StyledPanel extends React.Component {
     render() {
       const {id, displayMode, label, startExpanded, children, emph, spyglass} = this.props;
-      // console.log(emph,'123123')
       if (displayMode==="always") {
         return (<StyledTopLevelPanel emph={emph} spyglass={spyglass} id={id} label={label} startExpanded={startExpanded} displayMode={displayMode}>
           {children}
