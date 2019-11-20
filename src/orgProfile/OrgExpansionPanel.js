@@ -79,10 +79,10 @@ class OrgExpansionPanel extends React.Component {
     }
 
     constructExpansionPanel() {
-        const { card, card_id, emph, spyglass, body } = this.props.raw;
+        const { card, card_id, content, emph, spyglass, body } = this.props.raw;
         // console.log('props data =>', this.props.raw)
         return (
-            <StyledPanel id={card_id} label={this.getLabel()} startExpanded={this.startExpanded()} displayMode={card} emph={emph} spyglass={spyglass} body={body}>
+            <StyledPanel id={card_id} label={this.getLabel()} startExpanded={this.startExpanded()} displayMode={card} emph={content.emph || emph} spyglass={spyglass} body={body}>
                 <Grid container spacing={24}>
                     {this.constructChildren()}
                 </Grid>

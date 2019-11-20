@@ -14,6 +14,7 @@ import SearchIcon from "@material-ui/icons/Search";
 import Button from "@material-ui/core/Button";
 import Tooltip from '@material-ui/core/Tooltip';
 import { withRouter, Link } from 'react-router-dom';
+// import { useMediaPredicate } from "react-media-hook";
 
 const styles = (theme) => ({
   root: {},
@@ -103,7 +104,7 @@ const styles = (theme) => ({
     fontSize: '1.125rem',
   },
   emph: {
-    fontWeight: 'bold',
+    fontWeight: 'bold !important',
     // background: '#800080'
   },
   searchPanel: {
@@ -121,12 +122,24 @@ const styles = (theme) => ({
   },
   button: {
     padding: 0,
-    minWidth: 'auto'
+    minWidth: 'auto',
   },
+  deskTopButton: {
+    padding: 0,
+    minWidth: 'auto',
+    marginLeft: '10%',
+  }
 });
+
+
+
 
 // TODO This is not very DRY.
 class UnstyledPanel extends React.Component {
+
+  constructor(props) {
+    super(props)
+  }
 
   state = {
     spyglasses: true
@@ -152,7 +165,7 @@ class UnstyledPanel extends React.Component {
       id
     } = this.props;
 
-
+    // const biggerThan400 = useMediaPredicate("(min-width: 400px)");
     const panelStyles = isTopLevel ? {} : { 'boxShadow': 'none' };
     const detailStyles = { 'paddingRight': '0', paddingLeft: '12px' };
     /*const detailChildStyles = {
@@ -161,7 +174,8 @@ class UnstyledPanel extends React.Component {
     };*/
     const className = isTopLevel ? 'top-level-panel' : '';
 
-    const searchToolTip = "Search for " +  body + " at other organizations"
+    const searchToolTip = "Search for " +  body + " at other organizations";
+
 
     return (<Grid item xs={12}>
       <ExpansionPanel
@@ -215,7 +229,7 @@ const BaseStyledPanel = withStyles(styles)(UnstyledPanel);
 
 class TopLevelPanel extends React.Component {
   render() {
-    const { id, classes, label, startExpanded, children, displayMode } = this.props;
+    const { id, classes, label, startExpanded, children, displayMode, emph } = this.props;
     const panelClasses = {
       expanded: classes.expanded
     };
@@ -238,6 +252,7 @@ class TopLevelPanel extends React.Component {
       isTopLevel={true}
       displayMode={displayMode}
       id={id}
+      emph = {emph}
     >
       {children}
     </BaseStyledPanel>
@@ -282,7 +297,7 @@ class InteriorPanel extends React.Component {
 
 class LeafPanel extends React.Component {
   render() {
-    const { id, classes, label, children, startExpanded, displayMode } = this.props;
+    const { id, classes, label, children, startExpanded, displayMode, emph} = this.props;
 
     const panelClasses = {
       expanded: classes.expanded
@@ -306,6 +321,7 @@ class LeafPanel extends React.Component {
       startExpanded={startExpanded}
       isTopLevel={false}
       displayMode={displayMode}
+      emph = {emph}
     >
       {children}
     </BaseStyledPanel>
@@ -324,7 +340,7 @@ class StyledPanel extends React.Component {
     const { id, displayMode, label, startExpanded, children, emph, spyglass, body, history } = this.props;
 
     if (displayMode === "always") {
-      return (<StyledTopLevelPanel id={id} label={label} startExpanded={startExpanded} displayMode={displayMode}>
+      return (<StyledTopLevelPanel id={id} label={label} startExpanded={startExpanded} emph={emph}displayMode={displayMode}>
         {children}
       </StyledTopLevelPanel>);
     } else if (displayMode === "expand") {
@@ -332,7 +348,7 @@ class StyledPanel extends React.Component {
         {children}
       </StyledInteriorPanel>);
     } else if (displayMode === "never") {
-      return (<StyledLeafPanel id={id} label={label} startExpanded={startExpanded} displayMode={displayMode}>
+      return (<StyledLeafPanel id={id} label={label} startExpanded={startExpanded} emph={emph} displayMode={displayMode}>
         {children}
       </StyledLeafPanel>);
     } else {
