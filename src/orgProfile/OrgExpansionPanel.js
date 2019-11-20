@@ -10,7 +10,7 @@ import Grid from '@material-ui/core/Grid';
 
 const styles = () => ({});
 class OrgExpansionPanel extends React.Component {
-    constructTableChild(childData, emph) {
+    constructTableChild(childData, emph, spyglass) {
         let table_id = childData.table_id;
         return (
           <OrgDataTable
@@ -19,11 +19,12 @@ class OrgExpansionPanel extends React.Component {
             periods={this.props.periods}
             scrollAll={this.props.scrollAllTables}
             emph={emph}
+            spyglass={spyglass}
           />
         );
     }
    
-    constructPanelChild(childData, emph) {
+    constructPanelChild(childData, emph, spyglass) {
         return (
           <Grid key = {childData.card_id} item xs={12}>
               <Grid container spacing={24}>
@@ -33,6 +34,7 @@ class OrgExpansionPanel extends React.Component {
                         raw={childData}
                         periods={this.props.periods}
                         emph={emph}
+                        spyglass={spyglass}
                       />
                   </Grid>
               </Grid>
@@ -46,10 +48,11 @@ class OrgExpansionPanel extends React.Component {
     constructChild(childData) {
         let childType = childData["type"]; // Is "type" a protected keyword in Javascript?
         let emph = childData["emph"] ? true : false ; // check if the emph is true.
+        let spyglass = childData["spyglass"] ? true : false ; // check if the spyglass is true.
         if (childType === "table") {
-            return this.constructTableChild(childData, emph);
+            return this.constructTableChild(childData, emph, spyglass);
         } else if (childType === "nested") {
-            return this.constructPanelChild(childData, emph);
+            return this.constructPanelChild(childData, emph, spyglass);
         }
         throw new Error("Unexpected child type '" + childType + "'");
         
