@@ -51,6 +51,7 @@ const styles = (theme) => ({
         textAlign: 'left',
         fontFamily: theme.typography.fontFamily.heading,
         backgroundColor: theme.color.primary.desaturated,
+        color: '#6839d3',
         fontSize: '1.125rem',
         fontStyle: 'normal',
         '&>p': {
@@ -125,6 +126,21 @@ const styles = (theme) => ({
       [theme.breakpoints.down('xs')]: {
         width: 15
       },
+    },
+    showButtonDiv: {
+      textAlign: 'left',
+    },
+    showButton: {
+      marginLeft: 50,
+      backgroundColor: theme.color.secondary,
+      color: 'rgba(0, 0, 0, 0.87)',
+      fontSize: '1.125rem',
+      fontWeight: 'bold',
+      padding: 15,
+      border: 0,
+      '&:hover': {
+        cursor: 'pointer'
+      }
     }
 });
 
@@ -176,7 +192,7 @@ class UnstyledPanel extends React.Component {
           className={"expansion-panel-summary" + (isTopLevel ? ' top-level' : '') + ' ' + displayMode }
           id = {id}
         >
-          {isTopLevel?(emph?<h2 className={classes.toplevel} className={classes.emph}>{label}</h2>:<h2 className={classes.toplevel}>{label}</h2>):(emph?<Typography className={classes.heading} className={classes.emph}>{label}</Typography>:<Typography className={classes.heading}>{label}</Typography>)}
+          {isTopLevel?<h2 className={classes.toplevel}>{label}</h2>:<Typography className={classes.heading}>{label}</Typography>}
           {spyglass &&
             <div className={classes.spyglassDiv}>
               <div onClick={(e)=>{e.stopPropagation()}} className={classes.snippetDiv_left}></div>
@@ -195,7 +211,9 @@ class UnstyledPanel extends React.Component {
         >
           {children}
         </ExpansionPanelDetails>
-        {emph?<button onClick={this.props.onShowAll}>{showAll?'Show Less':`Show All (${listLength})`}</button>:''}
+        <div className={classes.showButtonDiv}>
+          {emph?<button className={classes.showButton} onClick={this.props.onShowAll}>{showAll?'Show Less':`Show All (${listLength})`}</button>:''}
+        </div>
       </ExpansionPanel>
     </Grid>);
   }
