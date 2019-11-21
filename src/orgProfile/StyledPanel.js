@@ -104,7 +104,10 @@ const styles = (theme) => ({
     },
     bannerInputIcon: {
       fontSize: '1.5rem',
-      margin: 'auto 0',
+      margin: 'auto 10px',
+      [theme.breakpoints.down('xs')]: {
+        margin: 'auto 0',
+      },
       '&:hover': {
         cursor: 'pointer'
       }
@@ -114,12 +117,12 @@ const styles = (theme) => ({
       paddingRight : '0 !important'
     },
     snippetDiv_left: {
-      [theme.breakpoints.down('sm')]: {
+      [theme.breakpoints.down('xs')]: {
         width: 5
       },
     },
     snippetDiv_right: {
-      [theme.breakpoints.down('sm')]: {
+      [theme.breakpoints.down('xs')]: {
         width: 15
       },
     }
