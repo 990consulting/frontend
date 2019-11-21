@@ -157,6 +157,7 @@ footer {
 .expansion-panel-summary {
     flex-direction: row-reverse;
     padding-left: 0px !important;
+    padding-right: 0px !important;
     min-height: 52px !important;
 }
 

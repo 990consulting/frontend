@@ -45,6 +45,9 @@ const styles = (theme) => ({
         background: theme.color.primary.desaturated,
         '&:hover': {
             backgroundColor: `${theme.color.primary.desaturated} !important`
+        },
+        [theme.breakpoints.up('md')]: {
+          width: '70%',
         }
     },
     summaryContent: {
@@ -108,11 +111,21 @@ const styles = (theme) => ({
     },
     bannerInputIcon: {
       fontSize: '1.5rem',
-      [theme.breakpoints.down('xs')]: {
-        fontSize: '1rem',
-      },
-      margin: 'auto 0'
+      margin: 'auto 0',
+      marginLeft: 5,
+      '&:hover': {
+        cursor: 'pointer'
+      }
     },
+    spyglassDiv: {
+      display: 'flex',
+      paddingRight : '0 !important'
+    },
+    snippetDiv: {
+      [theme.breakpoints.down('sm')]: {
+        width: 25
+      },
+    }
 });
 
 // TODO This is not very DRY.
@@ -163,11 +176,15 @@ class UnstyledPanel extends React.Component {
         >
           {isTopLevel?(emph?<h2 className={classes.toplevel} className={classes.emph}>{label}</h2>:<h2 className={classes.toplevel}>{label}</h2>):(emph?<Typography className={classes.heading} className={classes.emph}>{label}</Typography>:<Typography className={classes.heading}>{label}</Typography>)}
           {spyglass &&
-            <Tooltip title={`Search for ${label} at other organizations`} aria-label={`Search for ${label} at other organizations`}>
-              <div id="spyglass">
-                <SearchIcon onClick={this.searchPeople} id="spyglass" className={classes.bannerInputIcon}  />
-              </div>
-            </Tooltip>
+            <div className={classes.spyglassDiv}>
+              <div onClick={(e)=>{e.stopPropagation()}} className={classes.snippetDiv}></div>
+              <Tooltip title={`Search for ${label} at other organizations`} aria-label={`Search for ${label} at other organizations`}>
+                <div id="spyglass">
+                  <SearchIcon onClick={this.searchPeople} id="spyglass" className={classes.bannerInputIcon}  />
+                </div>
+              </Tooltip>
+              <div onClick={(e)=>{e.stopPropagation()}} className={classes.snippetDiv}></div>
+            </div>
           }
         </ExpansionPanelSummary>
         <ExpansionPanelDetails classes={typographyClasses}
