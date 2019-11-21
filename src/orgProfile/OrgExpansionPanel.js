@@ -13,6 +13,25 @@ const styles = () => ({});
 const spyglassBoolean = true; //set the value as false to shut off the spyglass
 
 class OrgExpansionPanel extends React.Component {
+
+    constructor(props) {
+        super(props);
+
+        this.state = ({
+            showAll : false,
+            listLength : 0,
+        })
+
+    }
+
+    componentDidMount() {
+        let childContent = this.props.raw.content;
+        let listLength = childContent.length;
+        this.setState({
+            listLength
+        })
+    }
+
     constructTableChild(childData) {
         let table_id = childData.table_id;
         return (
@@ -60,10 +79,16 @@ class OrgExpansionPanel extends React.Component {
         
         
     }
+
     constructChildren() {
+        const {showAll} = this.state;
         let childContent = this.props.raw.content;
         let children = [];
-        for (let i = 0; i < childContent.length; i++) {
+        let childrenLength = childContent.length;
+        if(this.props.emph && (childrenLength > 3) && (!showAll)) {
+            childrenLength = 3;
+        }
+        for (let i = 0; i < childrenLength; i++) {
             let child = this.constructChild(childContent[i]);
             children.push(child)
         }
@@ -77,11 +102,19 @@ class OrgExpansionPanel extends React.Component {
     startExpanded() {
         return "toc" in this.props.raw || this.props.emph;
     }
+
+    onShowAll = () => {
+        const {showAll} = this.state;
+        this.setState({
+            showAll : !showAll,
+        })
+    }
     
     constructExpansionPanel() {
         const {card, card_id} = this.props.raw;
+        const {showAll, listLength} = this.state;
         return (
-          <StyledPanel id={card_id} label={this.getLabel()} startExpanded={this.startExpanded()} displayMode={card} emph={this.props.emph} spyglass={this.props.spyglass}>
+          <StyledPanel id={card_id} label={this.getLabel()} startExpanded={this.startExpanded()} displayMode={card} emph={this.props.emph} spyglass={this.props.spyglass} showAll={showAll} listLength={listLength} onShowAll = {this.onShowAll}>
               <Grid container spacing={24}>
                   {this.constructChildren()}
               </Grid>

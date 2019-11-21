@@ -45,9 +45,6 @@ const styles = (theme) => ({
         background: theme.color.primary.desaturated,
         '&:hover': {
             backgroundColor: `${theme.color.primary.desaturated} !important`
-        },
-        [theme.breakpoints.up('md')]: {
-          width: '70%',
         }
     },
     summaryContent: {
@@ -105,14 +102,9 @@ const styles = (theme) => ({
       color: 'white',
       fontSize: '1.125rem',
     },
-    emph:{
-      fontWeight: '700',
-      fontSize: '1.2rem',
-    },
     bannerInputIcon: {
       fontSize: '1.5rem',
       margin: 'auto 0',
-      marginLeft: 5,
       '&:hover': {
         cursor: 'pointer'
       }
@@ -121,7 +113,12 @@ const styles = (theme) => ({
       display: 'flex',
       paddingRight : '0 !important'
     },
-    snippetDiv: {
+    snippetDiv_left: {
+      [theme.breakpoints.down('sm')]: {
+        width: 5
+      },
+    },
+    snippetDiv_right: {
       [theme.breakpoints.down('sm')]: {
         width: 15
       },
@@ -150,7 +147,9 @@ class UnstyledPanel extends React.Component {
       displayMode,
       id,
       emph,
-      spyglass
+      spyglass,
+      listLength,
+      showAll
     } = this.props;
     const panelStyles = isTopLevel ? {} : {'boxShadow': 'none'};
     const detailStyles = {'paddingRight': '0', paddingLeft: '12px'};
@@ -177,13 +176,13 @@ class UnstyledPanel extends React.Component {
           {isTopLevel?(emph?<h2 className={classes.toplevel} className={classes.emph}>{label}</h2>:<h2 className={classes.toplevel}>{label}</h2>):(emph?<Typography className={classes.heading} className={classes.emph}>{label}</Typography>:<Typography className={classes.heading}>{label}</Typography>)}
           {spyglass &&
             <div className={classes.spyglassDiv}>
-              <div onClick={(e)=>{e.stopPropagation()}} className={classes.snippetDiv}></div>
+              <div onClick={(e)=>{e.stopPropagation()}} className={classes.snippetDiv_left}></div>
               <Tooltip title={`Search for ${label} at other organizations`} aria-label={`Search for ${label} at other organizations`}>
                 <div id="spyglass">
                   <SearchIcon onClick={this.searchPeople} id="spyglass" className={classes.bannerInputIcon}  />
                 </div>
               </Tooltip>
-              <div onClick={(e)=>{e.stopPropagation()}} className={classes.snippetDiv}></div>
+              <div onClick={(e)=>{e.stopPropagation()}} className={classes.snippetDiv_right}></div>
             </div>
           }
         </ExpansionPanelSummary>
@@ -193,6 +192,7 @@ class UnstyledPanel extends React.Component {
         >
           {children}
         </ExpansionPanelDetails>
+        {emph?<button onClick={this.props.onShowAll}>{showAll?'Show Less':`Show All (${listLength})`}</button>:''}
       </ExpansionPanel>
     </Grid>);
   }
@@ -202,7 +202,7 @@ const BaseStyledPanel = withRouter(withStyles(styles)(UnstyledPanel));
 
 class TopLevelPanel extends React.Component {
     render() {
-      const {id, classes, label, startExpanded, children, displayMode, emph, spyglass} = this.props;
+      const {id, classes, label, startExpanded, children, displayMode, emph, spyglass, showAll, listLength} = this.props;
       
       const panelClasses = {
         expanded: classes.expanded
@@ -228,6 +228,9 @@ class TopLevelPanel extends React.Component {
         id={id}
         emph={emph}
         spyglass={spyglass}
+        showAll={showAll}
+        listLength={listLength}
+        onShowAll = {this.props.onShowAll}
       >
         {children}
       </BaseStyledPanel>
@@ -236,7 +239,7 @@ class TopLevelPanel extends React.Component {
 
 class InteriorPanel extends React.Component {
   render() {
-    const {id, classes, label, startExpanded, children, displayMode, emph, spyglass} = this.props;
+    const {id, classes, label, startExpanded, children, displayMode, emph, spyglass, showAll, listLength} = this.props;
     
     const panelClasses = {
       expanded: classes.expanded
@@ -262,6 +265,9 @@ class InteriorPanel extends React.Component {
       id={id}
       emph={emph}
       spyglass={spyglass}
+      showAll={showAll}
+      listLength={listLength}
+      onShowAll = {this.props.onShowAll}
     >
       {children}
     </BaseStyledPanel>
@@ -270,7 +276,7 @@ class InteriorPanel extends React.Component {
 
 class LeafPanel extends React.Component {
   render() {
-    const {id, classes, label, children, startExpanded, displayMode, emph, spyglass} = this.props;
+    const {id, classes, label, children, startExpanded, displayMode, emph, spyglass, showAll, listLength} = this.props;
     
     const panelClasses = {
       expanded: classes.expanded
@@ -296,6 +302,9 @@ class LeafPanel extends React.Component {
       displayMode={displayMode}
       emph={emph}
       spyglass={spyglass}
+      showAll={showAll}
+      listLength={listLength}
+      onShowAll = {this.props.onShowAll}
     >
       {children}
     </BaseStyledPanel>
@@ -308,17 +317,18 @@ const StyledTopLevelPanel = withStyles(styles)(TopLevelPanel);
 
 class StyledPanel extends React.Component {
     render() {
-      const {id, displayMode, label, startExpanded, children, emph, spyglass} = this.props;
+      const {id, displayMode, label, startExpanded, children, emph, spyglass, showAll, listLength} = this.props;
       if (displayMode==="always") {
-        return (<StyledTopLevelPanel emph={emph} spyglass={spyglass} id={id} label={label} startExpanded={startExpanded} displayMode={displayMode}>
+      const {id, displayMode, label, startExpanded, children, emph, spyglass, showAll} = this.props;
+        return (<StyledTopLevelPanel emph={emph} spyglass={spyglass} id={id} label={label} startExpanded={startExpanded} displayMode={displayMode} showAll={showAll} listLength={listLength} onShowAll = {this.props.onShowAll}>
           {children}
         </StyledTopLevelPanel>);
       } else if (displayMode==="expand") {
-        return (<StyledInteriorPanel emph={emph} spyglass={spyglass} id={id} label={label} startExpanded={startExpanded} displayMode={displayMode}>
+        return (<StyledInteriorPanel emph={emph} spyglass={spyglass} id={id} label={label} startExpanded={startExpanded} displayMode={displayMode} showAll={showAll} listLength={listLength} onShowAll = {this.props.onShowAll}>
           {children}
         </StyledInteriorPanel>);
       } else if (displayMode==="never") {
-        return (<StyledLeafPanel emph={emph} spyglass={spyglass} id={id} label={label} startExpanded={startExpanded} displayMode={displayMode}>
+        return (<StyledLeafPanel emph={emph} spyglass={spyglass} id={id} label={label} startExpanded={startExpanded} displayMode={displayMode} showAll={showAll} listLength={listLength} onShowAll = {this.props.onShowAll}>
           {children}
         </StyledLeafPanel>);
       } else {
