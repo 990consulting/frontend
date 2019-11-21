@@ -123,7 +123,7 @@ const styles = (theme) => ({
     },
     snippetDiv: {
       [theme.breakpoints.down('sm')]: {
-        width: 25
+        width: 15
       },
     }
 });

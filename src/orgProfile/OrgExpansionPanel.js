@@ -9,6 +9,9 @@ import StyledPanel from "./StyledPanel";
 import Grid from '@material-ui/core/Grid';
 
 const styles = () => ({});
+
+const spyglassBoolean = true; //set the value as false to shut off the spyglass
+
 class OrgExpansionPanel extends React.Component {
     constructTableChild(childData) {
         let table_id = childData.table_id;
@@ -47,6 +50,7 @@ class OrgExpansionPanel extends React.Component {
         let childType = childData["type"]; // Is "type" a protected keyword in Javascript?
         let emph = childData["emph"] ? true : false ; // check if the emph is true.
         let spyglass = childData["spyglass"] ? true : false ; // check if the spyglass is true.
+        if(!spyglassBoolean) spyglass = false;
         if (childType === "table") {
             return this.constructTableChild(childData);
         } else if (childType === "nested") {
