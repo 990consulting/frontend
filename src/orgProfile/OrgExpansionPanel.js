@@ -75,7 +75,7 @@ class OrgExpansionPanel extends React.Component {
     }
     
     startExpanded() {
-        return "toc" in this.props.raw;
+        return "toc" in this.props.raw || this.props.emph;
     }
     
     constructExpansionPanel() {
