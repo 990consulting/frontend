@@ -3,6 +3,7 @@
  */
 
 import React from 'react';
+import ReactDOM from 'react-dom'
 import ExpansionPanel from '@material-ui/core/ExpansionPanel';
 import ExpansionPanelSummary from '@material-ui/core/ExpansionPanelSummary';
 import ExpansionPanelDetails from '@material-ui/core/ExpansionPanelDetails';
@@ -10,6 +11,9 @@ import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import Typography from '@material-ui/core/Typography';
 import Grid from '@material-ui/core/Grid';
 import withStyles from '@material-ui/core/styles/withStyles';
+import SearchIcon from "@material-ui/icons/Search";
+import { withRouter } from 'react-router-dom';
+import Tooltip from '@material-ui/core/Tooltip';
 
 
 const styles = (theme) => ({
@@ -48,6 +52,7 @@ const styles = (theme) => ({
         textAlign: 'left',
         fontFamily: theme.typography.fontFamily.heading,
         backgroundColor: theme.color.primary.desaturated,
+        color: '#6839d3',
         fontSize: '1.125rem',
         fontStyle: 'normal',
         '&>p': {
@@ -98,12 +103,94 @@ const styles = (theme) => ({
       margin: '0',
       color: 'white',
       fontSize: '1.125rem',
+    },
+    bannerInputIcon: {
+      fontSize: '1.5rem',
+      margin: 'auto 10px',
+      [theme.breakpoints.down('xs')]: {
+        margin: 'auto 0',
+      },
+      '&:hover': {
+        cursor: 'pointer'
+      }
+    },
+    spyglassDiv: {
+      display: 'flex',
+      paddingRight : '0 !important'
+    },
+    snippetDiv_left: {
+      [theme.breakpoints.down('xs')]: {
+        width: 5
+      },
+    },
+    snippetDiv_right: {
+      [theme.breakpoints.down('xs')]: {
+        width: 15
+      },
+    },
+    showButtonDiv: {
+      textAlign: 'left',
+    },
+    showButton: {
+      marginLeft: 50,
+      fontFamily: theme.typography.fontFamily.main,
+      backgroundColor: theme.color.secondary,
+      color: 'rgba(0, 0, 0, 0.87)',
+      fontSize: 12,
+      padding: 10,
+      border: 0,
+      '&:hover': {
+        cursor: 'pointer'
+      },
+      '&:focus': {
+        outline: 'none'
+      }
+    },
+    truncate: {
+      marginBottom: 30,
+    },
+    dot: {
+      height: 10,
+      width: 10,
+      backgroundColor: theme.color.primary.desaturated,
+      borderRadius: '50%',
+      display: 'block',
+      margin: '0 70px 10px',
     }
 });
 
 // TODO This is not very DRY.
 class UnstyledPanel extends React.Component {
-  
+  constructor(props) {
+    super(props);
+
+    this.state = ({
+      position : null,
+    })
+  }
+  componentDidMount() {
+    const position = ReactDOM
+                    .findDOMNode(this.refs['UniqueElementIdentifier'])
+                    .getBoundingClientRect();
+    this.setState({
+      position,
+    })
+    
+  }
+
+  searchPeople = (e) => {
+    e.stopPropagation();
+    const caption = this.props.label;
+    this.props.history.push(`/search/people/?name_person=${caption}`);
+  }
+
+  onShowAll = () => {
+    const {position} = this.state;
+    this.props.onShowAll();
+    if(this.props.showAll)
+      window.scrollTo(0, position.y)
+  }
+
   render() {
     const {
       classes,
@@ -115,9 +202,12 @@ class UnstyledPanel extends React.Component {
       startExpanded,
       isTopLevel,
       displayMode,
-      id
+      id,
+      emph,
+      spyglass,
+      showbutton,
+      showAll
     } = this.props;
-    
     const panelStyles = isTopLevel ? {} : {'boxShadow': 'none'};
     const detailStyles = {'paddingRight': '0', paddingLeft: '12px'};
     /*const detailChildStyles = {
@@ -125,7 +215,6 @@ class UnstyledPanel extends React.Component {
       'justify-content': 'center'
     };*/
     const className = isTopLevel ? 'top-level-panel' : '';
-    
     return(<Grid item xs={12}>
       <ExpansionPanel
         CollapseProps = {{ unmountOnExit: true }}
@@ -138,10 +227,21 @@ class UnstyledPanel extends React.Component {
         <ExpansionPanelSummary
           classes={summaryClasses}
           expandIcon={<ExpandMoreIcon />}
-          className={"expansion-panel-summary" + (isTopLevel ? ' top-level' : '') + ' ' + displayMode}
+          className={"expansion-panel-summary" + (isTopLevel ? ' top-level' : '') + ' ' + displayMode }
           id = {id}
         >
-          {isTopLevel?<h2 className={classes.toplevel}>{label}</h2>:<Typography className={classes.heading}>{label}</Typography>}
+          {isTopLevel?<h2 className={classes.toplevel} ref='UniqueElementIdentifier'>{label}</h2>:<Typography className={classes.heading} ref='UniqueElementIdentifier'>{label}</Typography>}
+          {spyglass &&
+            <div className={classes.spyglassDiv}>
+              <div onClick={(e)=>{e.stopPropagation()}} className={classes.snippetDiv_left}></div>
+              <Tooltip title={`Search for ${label} at other organizations`} aria-label={`Search for ${label} at other organizations`}>
+                <div id="spyglass">
+                  <SearchIcon onClick={this.searchPeople} id="spyglass" className={classes.bannerInputIcon}  />
+                </div>
+              </Tooltip>
+              <div onClick={(e)=>{e.stopPropagation()}} className={classes.snippetDiv_right}></div>
+            </div>
+          }
         </ExpansionPanelSummary>
         <ExpansionPanelDetails classes={typographyClasses}
                                className="expansion-panel-details"
@@ -149,16 +249,27 @@ class UnstyledPanel extends React.Component {
         >
           {children}
         </ExpansionPanelDetails>
+          { (emph && !showAll && showbutton) &&
+            <div className={classes.truncate}>
+              <span className={classes.dot}></span>
+              <span className={classes.dot}></span>
+              <span className={classes.dot}></span>
+            </div>
+          }
+          <div className={classes.showButtonDiv}>
+            {(emph && showbutton)?<button className={classes.showButton} onClick={this.onShowAll}>{showAll?'Show fewer':'Show all'}</button>:''}
+          </div>
+        }
       </ExpansionPanel>
     </Grid>);
   }
 }
 
-const BaseStyledPanel = withStyles(styles)(UnstyledPanel);
+const BaseStyledPanel = withRouter(withStyles(styles)(UnstyledPanel));
 
 class TopLevelPanel extends React.Component {
     render() {
-      const {id, classes, label, startExpanded, children, displayMode} = this.props;
+      const {id, classes, label, startExpanded, children, displayMode, emph, spyglass, showAll, showbutton} = this.props;
       
       const panelClasses = {
         expanded: classes.expanded
@@ -182,6 +293,11 @@ class TopLevelPanel extends React.Component {
         isTopLevel={true}
         displayMode={displayMode}
         id={id}
+        emph={emph}
+        spyglass={spyglass}
+        showAll={showAll}
+        showbutton={showbutton}
+        onShowAll = {this.props.onShowAll}
       >
         {children}
       </BaseStyledPanel>
@@ -190,7 +306,7 @@ class TopLevelPanel extends React.Component {
 
 class InteriorPanel extends React.Component {
   render() {
-    const {id, classes, label, startExpanded, children, displayMode} = this.props;
+    const {id, classes, label, startExpanded, children, displayMode, emph, spyglass, showAll, showbutton} = this.props;
     
     const panelClasses = {
       expanded: classes.expanded
@@ -214,6 +330,11 @@ class InteriorPanel extends React.Component {
       isTopLevel={false}
       displayMode={displayMode}
       id={id}
+      emph={emph}
+      spyglass={spyglass}
+      showAll={showAll}
+      showbutton={showbutton}
+      onShowAll = {this.props.onShowAll}
     >
       {children}
     </BaseStyledPanel>
@@ -222,7 +343,7 @@ class InteriorPanel extends React.Component {
 
 class LeafPanel extends React.Component {
   render() {
-    const {id, classes, label, children, startExpanded, displayMode} = this.props;
+    const {id, classes, label, children, startExpanded, displayMode, emph, spyglass, showAll, showbutton} = this.props;
     
     const panelClasses = {
       expanded: classes.expanded
@@ -246,6 +367,11 @@ class LeafPanel extends React.Component {
       startExpanded={startExpanded}
       isTopLevel={false}
       displayMode={displayMode}
+      emph={emph}
+      spyglass={spyglass}
+      showAll={showAll}
+      showbutton={showbutton}
+      onShowAll = {this.props.onShowAll}
     >
       {children}
     </BaseStyledPanel>
@@ -258,17 +384,18 @@ const StyledTopLevelPanel = withStyles(styles)(TopLevelPanel);
 
 class StyledPanel extends React.Component {
     render() {
-      const {id, displayMode, label, startExpanded, children} = this.props;
+      const {id, displayMode, label, startExpanded, children, emph, spyglass, showAll, showbutton} = this.props;
       if (displayMode==="always") {
-        return (<StyledTopLevelPanel id={id} label={label} startExpanded={startExpanded} displayMode={displayMode}>
+      const {id, displayMode, label, startExpanded, children, emph, spyglass, showAll} = this.props;
+        return (<StyledTopLevelPanel emph={emph} spyglass={spyglass} id={id} label={label} startExpanded={startExpanded} displayMode={displayMode} showAll={showAll} showbutton={showbutton} onShowAll = {this.props.onShowAll}>
           {children}
         </StyledTopLevelPanel>);
       } else if (displayMode==="expand") {
-        return (<StyledInteriorPanel id={id} label={label} startExpanded={startExpanded} displayMode={displayMode}>
+        return (<StyledInteriorPanel emph={emph} spyglass={spyglass} id={id} label={label} startExpanded={startExpanded} displayMode={displayMode} showAll={showAll} showbutton={showbutton} onShowAll = {this.props.onShowAll}>
           {children}
         </StyledInteriorPanel>);
       } else if (displayMode==="never") {
-        return (<StyledLeafPanel id={id} label={label} startExpanded={startExpanded} displayMode={displayMode}>
+        return (<StyledLeafPanel emph={emph} spyglass={spyglass} id={id} label={label} startExpanded={startExpanded} displayMode={displayMode} showAll={showAll} showbutton={showbutton} onShowAll = {this.props.onShowAll}>
           {children}
         </StyledLeafPanel>);
       } else {

@@ -14,7 +14,8 @@ class OrgDataTable extends Component {
 		this.state = {
 			isLoaded: false,
 			rows: null,
-			columns: [""].concat(props.periods)
+			columns: [""].concat(props.periods),
+			emph: false,
 		};
 
 		this.handleOnScroll = this.handleOnScroll.bind(this);
@@ -25,7 +26,6 @@ class OrgDataTable extends Component {
 	
 	componentDidMount() {
 		window.addEventListener('resize', this.updateTable);
-
 		apiClient.getTableData(this.props.table_id)
 			.then(
 				(result) => {

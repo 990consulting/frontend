@@ -157,12 +157,12 @@ footer {
 .expansion-panel-summary {
     flex-direction: row-reverse;
     padding-left: 0px !important;
+    padding-right: 0px !important;
     min-height: 52px !important;
 }
 
 .expansion-panel-summary > div:first-child {
     position: relative;
-    left: -5px;
 }
 
 .expansion-panel-summary > div:last-child {
@@ -179,6 +179,18 @@ footer {
 
 .expansion-panel-summary.always, .expansion-panel-summary[aria-expanded=true].expand {
     background: #6839d3;
+}
+
+.expansion-panel-summary div#spyglass{
+    padding-right: 0;
+}
+
+.expansion-panel-summary svg#spyglass{
+    color: #cdcdcd;
+}
+
+.expansion-panel-summary.always, .expansion-panel-summary[aria-expanded=true].expand svg#spyglass{
+    color: #a9a9a9;
 }
 
 .expansion-panel-summary.always:hover, .expansion-panel-summary[aria-expanded=true].expand:hover {
@@ -419,6 +431,11 @@ footer {
 
 .expansion-panel-summary:not(.top-level) > div:first-child {
     margin: 12px 0 !important;
+}
+@media (max-width: 768px) {
+    .expansion-panel-summary:not(.top-level) > div:first-child {
+        justify-content: space-between;
+    }
 }
 
 #sidebar * {

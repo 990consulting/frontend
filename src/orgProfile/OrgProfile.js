@@ -49,7 +49,6 @@ class OrganizationProfile extends React.Component {
       if (canonicalPathname !== this.props.history.location.pathname) {
         this.props.history.replace(canonicalPathname)
       }
-
       this.setState({ ...data, loaded: true })
     })
   }
