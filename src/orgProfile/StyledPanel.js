@@ -147,7 +147,7 @@ const styles = (theme) => ({
       }
     },
     truncate: {
-      marginTop: -20,
+      marginTop: -11,
       marginBottom: 25,
     },
     dot: {
