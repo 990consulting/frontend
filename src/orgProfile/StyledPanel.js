@@ -3,6 +3,7 @@
  */
 
 import React from 'react';
+import ReactDOM from 'react-dom'
 import ExpansionPanel from '@material-ui/core/ExpansionPanel';
 import ExpansionPanelSummary from '@material-ui/core/ExpansionPanelSummary';
 import ExpansionPanelDetails from '@material-ui/core/ExpansionPanelDetails';
@@ -132,25 +133,62 @@ const styles = (theme) => ({
     },
     showButton: {
       marginLeft: 50,
+      fontFamily: theme.typography.fontFamily.main,
       backgroundColor: theme.color.secondary,
       color: 'rgba(0, 0, 0, 0.87)',
-      fontSize: '1.125rem',
-      fontWeight: 'bold',
-      padding: 15,
+      fontSize: 12,
+      padding: 10,
       border: 0,
       '&:hover': {
         cursor: 'pointer'
+      },
+      '&:focus': {
+        outline: 'none'
       }
+    },
+    truncate: {
+      marginBottom: 30,
+    },
+    dot: {
+      height: 10,
+      width: 10,
+      backgroundColor: theme.color.primary.desaturated,
+      borderRadius: '50%',
+      display: 'block',
+      margin: '0 70px 10px',
     }
 });
 
 // TODO This is not very DRY.
 class UnstyledPanel extends React.Component {
+  constructor(props) {
+    super(props);
+
+    this.state = ({
+      position : null,
+    })
+  }
+  componentDidMount() {
+    const position = ReactDOM
+                    .findDOMNode(this.refs['UniqueElementIdentifier'])
+                    .getBoundingClientRect();
+    this.setState({
+      position,
+    })
+    
+  }
 
   searchPeople = (e) => {
     e.stopPropagation();
     const caption = this.props.label;
     this.props.history.push(`/search/people/?name_person=${caption}`);
+  }
+
+  onShowAll = () => {
+    const {position} = this.state;
+    this.props.onShowAll();
+    if(this.props.showAll)
+      window.scrollTo(0, position.y)
   }
 
   render() {
@@ -167,7 +205,6 @@ class UnstyledPanel extends React.Component {
       id,
       emph,
       spyglass,
-      listLength,
       showbutton,
       showAll
     } = this.props;
@@ -193,7 +230,7 @@ class UnstyledPanel extends React.Component {
           className={"expansion-panel-summary" + (isTopLevel ? ' top-level' : '') + ' ' + displayMode }
           id = {id}
         >
-          {isTopLevel?<h2 className={classes.toplevel}>{label}</h2>:<Typography className={classes.heading}>{label}</Typography>}
+          {isTopLevel?<h2 className={classes.toplevel} ref='UniqueElementIdentifier'>{label}</h2>:<Typography className={classes.heading} ref='UniqueElementIdentifier'>{label}</Typography>}
           {spyglass &&
             <div className={classes.spyglassDiv}>
               <div onClick={(e)=>{e.stopPropagation()}} className={classes.snippetDiv_left}></div>
@@ -212,9 +249,15 @@ class UnstyledPanel extends React.Component {
         >
           {children}
         </ExpansionPanelDetails>
-        { showbutton &&
+          { (emph && !showAll && showbutton) &&
+            <div className={classes.truncate}>
+              <span className={classes.dot}></span>
+              <span className={classes.dot}></span>
+              <span className={classes.dot}></span>
+            </div>
+          }
           <div className={classes.showButtonDiv}>
-            {emph?<button className={classes.showButton} onClick={this.props.onShowAll}>{showAll?'Show Less':`Show All (${listLength})`}</button>:''}
+            {(emph && showbutton)?<button className={classes.showButton} onClick={this.onShowAll}>{showAll?'Show fewer':'Show all'}</button>:''}
           </div>
         }
       </ExpansionPanel>
@@ -226,7 +269,7 @@ const BaseStyledPanel = withRouter(withStyles(styles)(UnstyledPanel));
 
 class TopLevelPanel extends React.Component {
     render() {
-      const {id, classes, label, startExpanded, children, displayMode, emph, spyglass, showAll, listLength, showbutton} = this.props;
+      const {id, classes, label, startExpanded, children, displayMode, emph, spyglass, showAll, showbutton} = this.props;
       
       const panelClasses = {
         expanded: classes.expanded
@@ -253,7 +296,6 @@ class TopLevelPanel extends React.Component {
         emph={emph}
         spyglass={spyglass}
         showAll={showAll}
-        listLength={listLength}
         showbutton={showbutton}
         onShowAll = {this.props.onShowAll}
       >
@@ -264,7 +306,7 @@ class TopLevelPanel extends React.Component {
 
 class InteriorPanel extends React.Component {
   render() {
-    const {id, classes, label, startExpanded, children, displayMode, emph, spyglass, showAll, listLength, showbutton} = this.props;
+    const {id, classes, label, startExpanded, children, displayMode, emph, spyglass, showAll, showbutton} = this.props;
     
     const panelClasses = {
       expanded: classes.expanded
@@ -291,7 +333,6 @@ class InteriorPanel extends React.Component {
       emph={emph}
       spyglass={spyglass}
       showAll={showAll}
-      listLength={listLength}
       showbutton={showbutton}
       onShowAll = {this.props.onShowAll}
     >
@@ -302,7 +343,7 @@ class InteriorPanel extends React.Component {
 
 class LeafPanel extends React.Component {
   render() {
-    const {id, classes, label, children, startExpanded, displayMode, emph, spyglass, showAll, listLength, showbutton} = this.props;
+    const {id, classes, label, children, startExpanded, displayMode, emph, spyglass, showAll, showbutton} = this.props;
     
     const panelClasses = {
       expanded: classes.expanded
@@ -329,7 +370,6 @@ class LeafPanel extends React.Component {
       emph={emph}
       spyglass={spyglass}
       showAll={showAll}
-      listLength={listLength}
       showbutton={showbutton}
       onShowAll = {this.props.onShowAll}
     >
@@ -344,18 +384,18 @@ const StyledTopLevelPanel = withStyles(styles)(TopLevelPanel);
 
 class StyledPanel extends React.Component {
     render() {
-      const {id, displayMode, label, startExpanded, children, emph, spyglass, showAll, listLength, showbutton} = this.props;
+      const {id, displayMode, label, startExpanded, children, emph, spyglass, showAll, showbutton} = this.props;
       if (displayMode==="always") {
       const {id, displayMode, label, startExpanded, children, emph, spyglass, showAll} = this.props;
-        return (<StyledTopLevelPanel emph={emph} spyglass={spyglass} id={id} label={label} startExpanded={startExpanded} displayMode={displayMode} showAll={showAll} listLength={listLength} showbutton={showbutton} onShowAll = {this.props.onShowAll}>
+        return (<StyledTopLevelPanel emph={emph} spyglass={spyglass} id={id} label={label} startExpanded={startExpanded} displayMode={displayMode} showAll={showAll} showbutton={showbutton} onShowAll = {this.props.onShowAll}>
           {children}
         </StyledTopLevelPanel>);
       } else if (displayMode==="expand") {
-        return (<StyledInteriorPanel emph={emph} spyglass={spyglass} id={id} label={label} startExpanded={startExpanded} displayMode={displayMode} showAll={showAll} listLength={listLength} showbutton={showbutton} onShowAll = {this.props.onShowAll}>
+        return (<StyledInteriorPanel emph={emph} spyglass={spyglass} id={id} label={label} startExpanded={startExpanded} displayMode={displayMode} showAll={showAll} showbutton={showbutton} onShowAll = {this.props.onShowAll}>
           {children}
         </StyledInteriorPanel>);
       } else if (displayMode==="never") {
-        return (<StyledLeafPanel emph={emph} spyglass={spyglass} id={id} label={label} startExpanded={startExpanded} displayMode={displayMode} showAll={showAll} listLength={listLength} showbutton={showbutton} onShowAll = {this.props.onShowAll}>
+        return (<StyledLeafPanel emph={emph} spyglass={spyglass} id={id} label={label} startExpanded={startExpanded} displayMode={displayMode} showAll={showAll} showbutton={showbutton} onShowAll = {this.props.onShowAll}>
           {children}
         </StyledLeafPanel>);
       } else {

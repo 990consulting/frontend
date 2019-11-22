@@ -3,6 +3,7 @@
  */
 
 import React from 'react';
+import ReactDOM from 'react-dom'
 import withStyles from '@material-ui/core/styles/withStyles';
 import OrgDataTable from './OrgDataTable';
 import StyledPanel from "./StyledPanel";
@@ -22,17 +23,14 @@ class OrgExpansionPanel extends React.Component {
 		this.state = ({
 			showbutton: false,
 			showAll : false,
-			listLength : 0,
 		})
 	}
 
 	componentDidMount() {
-		let childContent = this.props.raw.content;
-		let listLength = childContent.length;
+		let listLength = this.props.raw.content.length;
 		let showbutton = false;
 		if(listLength > showListCount) { showbutton = true; }
 		this.setState({
-			listLength,
 			showbutton
 		})
 	}
@@ -55,11 +53,11 @@ class OrgExpansionPanel extends React.Component {
 			  <Grid container spacing={24}>
 				  <Grid item xs={12}>
 					  <OrgExpansionPanel
-						scrollAllTables
-						raw={childData}
-						periods={this.props.periods}
-						emph={emph}
-						spyglass={spyglass}
+							scrollAllTables
+							raw={childData}
+							periods={this.props.periods}
+							emph={emph}
+							spyglass={spyglass}
 					  />
 				  </Grid>
 			  </Grid>
@@ -74,6 +72,7 @@ class OrgExpansionPanel extends React.Component {
 		let childType = childData["type"]; // Is "type" a protected keyword in Javascript?
 		let emph = childData["emph"] ? true : false ; // check if the emph is true.
 		let spyglass = childData["spyglass"] ? true : false ; // check if the spyglass is true.
+
 		if(!spyglassBoolean) spyglass = false;
 		if (childType === "table") {
 			return this.constructTableChild(childData);
@@ -117,9 +116,9 @@ class OrgExpansionPanel extends React.Component {
 	
 	constructExpansionPanel() {
 		const {card, card_id} = this.props.raw;
-		const {showAll, listLength, showbutton} = this.state;
+		const {showAll, showbutton} = this.state;
 		return (
-		  <StyledPanel id={card_id} label={this.getLabel()} startExpanded={this.startExpanded()} displayMode={card} emph={this.props.emph} spyglass={this.props.spyglass} showAll={showAll} listLength={listLength} showbutton={showbutton} onShowAll = {this.onShowAll}>
+		  <StyledPanel id={card_id} label={this.getLabel()} startExpanded={this.startExpanded()} displayMode={card} emph={this.props.emph} spyglass={this.props.spyglass} showAll={showAll} showbutton={showbutton} onShowAll = {this.onShowAll}>
 			  <Grid container spacing={24}>
 				  {this.constructChildren()}
 			  </Grid>
