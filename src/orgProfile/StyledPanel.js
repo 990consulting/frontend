@@ -147,15 +147,16 @@ const styles = (theme) => ({
       }
     },
     truncate: {
-      marginBottom: 30,
+      marginTop: -20,
+      marginBottom: 25,
     },
     dot: {
-      height: 10,
-      width: 10,
+      height: 5,
+      width: 5,
       backgroundColor: theme.color.primary.desaturated,
       borderRadius: '50%',
       display: 'block',
-      margin: '0 70px 10px',
+      margin: '0 70px 5px',
     }
 });
 
