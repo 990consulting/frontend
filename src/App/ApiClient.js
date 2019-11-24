@@ -7,7 +7,7 @@ import axios from 'axios';
 class ApiClient {
   
   axiosBinding = axios.create({
-    baseURL: 'http://m9i97xhjzujxnp5s.us-east-1.elasticbeanstalk.com/',
+    baseURL: 'http://open990demobackend-env-1.3x3uibyjqp.us-east-1.elasticbeanstalk.com/',
     headers: {
       contentType: 'application/json'
     }
