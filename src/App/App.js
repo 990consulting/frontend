@@ -11,7 +11,6 @@ import withStyles from '@material-ui/core/styles/withStyles';
 import SiteRouter from 'App/SiteRouter';
 import AppMenu from 'App/AppMenu';
 import AppFooter from 'App/AppFooter';
-import ContactUsFab from "../Common/ContactUsFab";
 const styles = theme => ({
   root: {
     height: '100%',
@@ -45,7 +44,6 @@ class App extends React.Component {
         </main>
         <AppFooter />
       </div>
-      <ContactUsFab/>
     </Fragment>
     );
   }
