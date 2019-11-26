@@ -3,6 +3,7 @@
  */
 
 import React, { Component, Fragment } from "react";
+import ReactDOM from 'react-dom';
 import NavLink from "react-router-dom/NavLink";
 import { withRouter } from "react-router-dom";
 
@@ -28,11 +29,12 @@ class NavigationHeader extends Component {
     super(props);
     this.anchorListMenuEl = null;
     this.state = {
-      anchorEl: null,
-      openMenuList: false,
+      isMenuOpen: false,
+      isMenuListOpen: false,
       isSearchBarActive: false
     };
     this.asField = this.makeAsField();
+    this.menuIcon = React.createRef();
   }
 
   makeAsField = () => {
@@ -65,20 +67,20 @@ class NavigationHeader extends Component {
     });
   };
 
-  handleClick = event => {
+  handleClick = () => {
     this.setState({
-      anchorEl: event.currentTarget
+      isMenuOpen: true
     });
   };
 
   handleClose = () => {
     this.setState({
-      anchorEl: null
+      isMenuOpen: false
     });
   };
 
   handleListMenuToggle = () => {
-    this.setState(state => ({ openMenuList: !state.openMenuList }));
+    this.setState(state => ({ isMenuListOpen: !state.isMenuListOpen }));
   };
 
   handleListMenuClose = event => {
@@ -86,7 +88,7 @@ class NavigationHeader extends Component {
       return;
     }
 
-    this.setState({ openMenuList: false });
+    this.setState({ isMenuListOpen: false });
   };
 
   submit() {
@@ -107,8 +109,7 @@ class NavigationHeader extends Component {
 
   render() {
     const { classes, isViewSm } = this.props;
-    const { anchorEl, isSearchBarActive } = this.state;
-    const open = Boolean(anchorEl);
+    const { isSearchBarActive, isMenuOpen } = this.state;
     const onSubmitClick = this.onSubmitclick.bind(this);
 
     const links = [
@@ -131,45 +132,46 @@ class NavigationHeader extends Component {
         <Hidden smUp>
           <Grid item xs={isSearchBarActive ? 2 : 3}>
             <MenuIcon
+              ref={this.menuIcon}
               className={classes.icon}
               aria-label="More"
-              aria-owns={open ? "long-menu" : null}
+              aria-owns={isMenuOpen ? "long-menu" : null}
               aria-haspopup="true"
               onClick={this.handleClick}
-            >
-              {/* <MoreVertIcon /> */}
-            </MenuIcon>
+            />
           </Grid>
         </Hidden>
-        <Menu
-          id="long-menu"
-          anchorEl={anchorEl}
-          open={open}
-          onClose={this.handleClose}
-          PaperProps={{
-            style: {
-              width: 200
-            }
-          }}
-        >
-          <div className={classes.column}>
-            {links.map((link, index) => {
-              if (link) {
-                return (
-                  <MenuItem
-                    classes={{ root: classes.menuListItem }}
-                    key={`links-${index}`}
-                    onClick={this.handleClose}
-                  >
-                    {link}
-                  </MenuItem>
-                );
-              } else {
-                return undefined;
+        {this.menuIcon.current && (
+          <Menu
+            id="long-menu"
+            anchorEl={ReactDOM.findDOMNode(this.menuIcon.current)}
+            open={isMenuOpen}
+            onClose={this.handleClose}
+            PaperProps={{
+              style: {
+                width: 200
               }
-            })}
-          </div>
-        </Menu>
+            }}
+          >
+            <div className={classes.column}>
+              {links.map((link, index) => {
+                if (link) {
+                  return (
+                    <MenuItem
+                      classes={{ root: classes.menuListItem }}
+                      key={`links-${index}`}
+                      onClick={this.handleClose}
+                    >
+                      {link}
+                    </MenuItem>
+                  );
+                } else {
+                  return undefined;
+                }
+              })}
+            </div>
+          </Menu>
+        )}
         {isViewSm && isSearchBarActive && (
           <Grid item xs={6} sm={3} lg={4} className={classes.logoMenu}>
             <NavLink to={root}>
