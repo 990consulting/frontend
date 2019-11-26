@@ -580,10 +580,6 @@ html {
     z-index: 9999999 !important;
 }
 
-.pagination-bottom * {
-    font-family: system-ui !important;
-}
-
 .multiple-select > div > div > div > div > div > div:first-child {
     white-space: normal !important;
 }
