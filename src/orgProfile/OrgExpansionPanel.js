@@ -3,7 +3,6 @@
  */
 
 import React from 'react';
-import ReactDOM from 'react-dom'
 import withStyles from '@material-ui/core/styles/withStyles';
 import OrgDataTable from './OrgDataTable';
 import StyledPanel from "./StyledPanel";

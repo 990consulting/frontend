@@ -15,7 +15,6 @@ import foundationIcon from '../Static/icons/foundations.png';
 
 import cardText from 'Catalog/catalogText';
 import CatalogButton from "./CatalogButton";
-import ContactUsButton from "./ContactUsButton";
 
 const styles = (theme) => ({
   root: {

@@ -44,7 +44,7 @@ class OrgDataTable extends Component {
 
 	updateTable () {
 		if (this.columnsByYear()) {
-			document.querySelectorAll('.rt-tr').forEach(row => {
+			const updateColumns = () => document.querySelectorAll('.rt-tr').forEach(row => {
 				const column = row.querySelector('.sticky-column');
 				const ghostColumn = row.querySelector('.sticky-ghost');
 				
@@ -53,6 +53,30 @@ class OrgDataTable extends Component {
 					column.style.height = `${ghostColumn.offsetHeight}px`;
 				}
 			});
+
+			updateColumns();
+
+			const setTableWidth = element => {
+				const hasGhost = element.querySelector('.sticky-ghost');
+				
+				if (hasGhost) {
+					const firstColWidth = (
+						(element.querySelector('.rt-td') && element.querySelector('.rt-td').offsetWidth) 
+						|| 
+						(element.querySelector('.rt-th') && element.querySelector('.rt-th').offsetWidth)
+					);
+
+					if (firstColWidth > window.outerWidth) {
+						element.style.width = '100%';
+					}
+				}
+			}
+
+			document.querySelectorAll('.rt-thead').forEach(setTableWidth);
+			document.querySelectorAll('.rt-tbody').forEach(setTableWidth);
+			document.querySelector('header').style.width = document.querySelector('main').offsetWidth;
+
+			updateColumns();
 		}
 	}
 
@@ -147,8 +171,6 @@ class OrgDataTable extends Component {
 			return (<div>&nbsp;</div>);
 		} else {
 			const {periods, table_id} = this.props;
-			const columns = this.createColumns();
-			const width = 40 + 20 * (columns.length - 1);
 			const earliestPeriod = periods[periods.length - 1];
 			const latestPeriod = periods[0];
 
