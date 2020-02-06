@@ -105,10 +105,10 @@ const HomeCardRibbon = ({
               extendedText: classes.text,
               extendedPaper: classes.paper
             }}
-            headerText={'OPEN990.ORG'}
-            bodyText={['Is a new 501(c)(3) organization']}
-            linkText={'Stay Tuned'}
-            linkHref="#"
+            headerText={'FOUNDATIONS DATA'}
+            bodyText={['Dataset for grant-seekers']}
+            linkText={'Learn more'}
+            linkHref={catalog}
           />
         </Grid>
         <Grid item>

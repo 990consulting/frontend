@@ -288,7 +288,7 @@ class Resources extends React.Component {
                 </Grid>
                 <Grid item xs={12} md={8}>
                   <p className={classes.bodyText}>
-                    Looking for data that’s more user-friendly? Check out Open990’s free <Link to={catalog}>100-variable snack sets</Link>, featuring some of the most commonly used variables.
+                    Looking for data that’s more recent and user-friendly? Check out Open990’s free <Link to={catalog}>100-variable snack sets</Link>, featuring some of the most commonly used variables.
                   </p>
                   <div className={classes.lineHeader}>
                     <h2 className={classes.bigHeadline}>Additional Free Resources</h2>

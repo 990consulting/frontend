@@ -13,7 +13,7 @@ import Grid from '@material-ui/core/Grid';
 import { styles } from 'HomePage/HomeBannerStyles';
 
 class HomePeople extends React.Component {
-  headline = (<h1>View executive compensation and trustee data from {this.props.isViewLg && <br/>} <span>1,813,867</span>  organizations.</h1>);
+  headline = (<h1>View executive compensation and trustee data from {this.props.isViewLg && <br/>} <span>1.9 million</span>  organizations.</h1>);
 
   afterContent = <Fragment>
     <Grid item xs={12} className={this.props.classes.bannerAdvancedSearch}>
