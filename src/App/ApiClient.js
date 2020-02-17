@@ -71,7 +71,26 @@ class ApiClient {
       "url": url
     };
     return this.axiosBinding.post(`/api/contact/`, params);
-  }
+  };
+
+  subscribeToMailingList = (email) => {
+    let params = {
+      "email": email
+    };
+    return this.axiosBinding.post(`/api/subscribe/`, params)
+  };
+
+  doDownload = (dataset) => {
+    apiClient.downloadDataset(dataset)
+        .then(res => {
+          // window.open(res.data, "_blank");
+          const link = document.createElement('a');
+          link.href = res.data;
+          document.body.appendChild(link);
+          link.click();
+          document.body.removeChild(link);
+        });
+  };
 }
 
 const apiClient = new ApiClient();
