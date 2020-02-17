@@ -12,6 +12,10 @@ import TermsOfService from 'Static/TermsOfService';
 import PrivacyPolicy from 'Static/PrivacyPolicy';
 import Contact from 'Static/Contact';
 import Resources from 'Static/Resources';
+import FoundationsAndGrants from 'Static/Datasets/FoundationsAndGrants';
+import NonprofitGovernance from 'Static/Datasets/NonprofitGovernance';
+import ContractorCompensation from 'Static/Datasets/ContractorCompensation';
+import ExecutiveCompensation from 'Static/Datasets/ExecutiveCompensation';
 import Catalog from 'Catalog/Catalog';
 import OrgSearchResults from 'searchResults/OrgSearchResults';
 import PeopleSearchResults from 'searchResults/PeopleSearchResults';
@@ -30,6 +34,10 @@ import {
   //pro,
   //customData,
   resources,
+  foundationsAndGrants,
+  nonprofitGovernance,
+  contractorCompensation,
+  executiveCompensation,
   //api,
   catalog,
   data,
@@ -66,6 +74,10 @@ class SiteRouter extends React.Component {
         <Route path={orgSearch} component={OrgSearchResults} /> {/* Helmeted */}
         <Route path={peopleSearch} component={PeopleSearchResults} /> {/* Helmeted */}
         <Route path={dataSearch} component={DataSearchResults} /> {/* Helmeted */}
+        <Route path={foundationsAndGrants} component={FoundationsAndGrants} /> {/* Helmeted */}
+        <Route path={nonprofitGovernance} component={NonprofitGovernance} /> {/* Helmeted */}
+        <Route path={contractorCompensation} component={ContractorCompensation} /> {/* Helmeted */}
+        <Route path={executiveCompensation} component={ExecutiveCompensation} /> {/* Helmeted */}
         <Route path = {orgProfile} component={OrgProfile} />
         <Route path = {orgProfileExtended} component={OrgProfile} />
         

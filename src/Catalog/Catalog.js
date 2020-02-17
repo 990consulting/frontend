@@ -90,18 +90,6 @@ const Catalog = ({
                    classes,
                    history
                  }) => {
-  
-  const doDownload = (dataset) => {
-    apiClient.downloadDataset(dataset)
-        .then(res => {
-          // window.open(res.data, "_blank");
-          const link = document.createElement('a');
-          link.href = res.data;
-          document.body.appendChild(link);
-          link.click();
-          document.body.removeChild(link);
-        });
-  };
 
   const externalLink = (url) => {
     const link = document.createElement('a');
@@ -142,7 +130,7 @@ const Catalog = ({
                     >
                       <CatalogButton
                           buttonText="Download"
-                          onClickTarget = {() => doDownload("Open990_SnackSet_Foundations_Grants.zip")}
+                          onClickTarget = {() => apiClient.doDownload("Open990_SnackSet_Foundations_Grants.zip")}
                       />
                     </ProductCard>
                   </Grid>
@@ -153,7 +141,7 @@ const Catalog = ({
                     >
                       <CatalogButton
                           buttonText="Download"
-                          onClickTarget = {() => doDownload("Open990_Governance_Snack_Set_Public.zip")}
+                          onClickTarget = {() => apiClient.doDownload("Open990_Governance_Snack_Set_Public.zip")}
                       />
                     </ProductCard>
                   </Grid>
@@ -164,7 +152,7 @@ const Catalog = ({
                     >
                       <CatalogButton
                           buttonText="Download"
-                          onClickTarget = {() => doDownload("Open990_Contractor_Compensation_Snack_Set_Public.zip")}
+                          onClickTarget = {() => apiClient.doDownload("Open990_Contractor_Compensation_Snack_Set_Public.zip")}
                       />
                     </ProductCard>
                   </Grid>
