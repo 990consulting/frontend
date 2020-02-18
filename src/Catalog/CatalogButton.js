@@ -7,14 +7,14 @@ import withStyles from '@material-ui/core/styles/withStyles';
 
 class CatalogButton extends React.Component {
     render() {
-        const { id, classes, onClickTarget, buttonText } = this.props;
+        const { classes, onClickTarget, buttonText, id } = this.props;
         return (<Grid item xs={5}>
             <Button
-                id={id}
                 className={classes.button}
                 onClick={onClickTarget}
+                id={id}
             >
-                {buttonText}
+                <span id={"span-" + id}>{buttonText}</span>
             </Button>
         </Grid>);
     }
