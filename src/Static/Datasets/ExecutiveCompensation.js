@@ -83,10 +83,10 @@ const executiveCompensation = ({ classes }) => {
   return (
     <Fragment>
       <Helmet>
-        <title>Executive Compensation</title>
+        <title>2020 Compensation Dataset for Nonprofits | Open990</title>
         <meta
           name="description"
-          content="Researchers, nonprofit professionals, fundraising consultants, journalists, donors...Welcome to Open990."
+          content="Open990.org has the most in-depth nonprofit compensation dataset based on IRS data. And it’s free!"
         />
         <meta name="robots" content="all" />
         <link rel="canonical" href="https://www.open990.org/contact/" />
@@ -99,7 +99,11 @@ const executiveCompensation = ({ classes }) => {
               <h2>Your source for data-driven compensation decision-making</h2>
             </Grid>
             <Grid item xs={12}>
-              <Button className={classes.button} onClick={() => null}>
+              <Button
+                  className={classes.button}
+                  onClick={() => null}
+                  id="landingpage-subscribe-executive"
+              >
                 Get notified when it’s ready
               </Button>
               <p className={classes.textContent}>

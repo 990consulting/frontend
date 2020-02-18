@@ -65,13 +65,13 @@ const nonprofitGovernance = ({ classes }) => {
   return (
     <Fragment>
       <Helmet>
-        <title>Nonprofit Governance</title>
+        <title>Nonprofit governance and finance dataset | Open990</title>
         <meta
           name="description"
-          content="Researchers, nonprofit professionals, fundraising consultants, journalists, donors...Welcome to Open990."
+          content="Download free data on the finances, governance, and accountability of than 300,000 charities. Explore trends over time and across all nonprofits."
         />
         <meta name="robots" content="all" />
-        <link rel="canonical" href="https://www.open990.org/contact/" />
+        <link rel="canonical" href="https://www.open990.org/dataset/nonprofit_governance/" />
       </Helmet>
       <div className={classNames('DatasetPage', classes.root)}>
         <MaxContainer classes={{ container: classes.container }}>
@@ -101,6 +101,7 @@ const nonprofitGovernance = ({ classes }) => {
                 if you have questions about whether your use case is eligible.
               </small>
               <Button
+                id="landingpage-download-governance"
                 className={classes.button}
                 onClick={() =>
                   apiClient.doDownload(
