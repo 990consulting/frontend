@@ -5,10 +5,9 @@
 import axios from 'axios';
 
 class ApiClient {
-  
   axiosBinding = axios.create({
     //baseURL: 'http://open990demobackend-env-1.3x3uibyjqp.us-east-1.elasticbeanstalk.com/',
-    baseURL: process.env.REACT_APP_API_BASE,
+    //baseURL: process.env.REACT_APP_API_BASE,
     headers: {
       contentType: 'application/json'
     }
@@ -17,37 +16,37 @@ class ApiClient {
   getListOfOrganizationSuggestion = (query) => {
     return this.axiosBinding.get(`/api/search/org/suggest/${query}/`);
   };
-  
+
   getListOfPeopleSuggestion = (query) => {
     return this.axiosBinding.get(`/api/search/people/suggest/${query}/`);
   };
-  
+
   searchOrganizationByQuery = (query) => {
     return this.axiosBinding.get(`/api/search/org/simple/${query}/`);
   };
-  
+
   searchPeopleByQuery = (query) => {
     return this.axiosBinding.get(`/api/search/people/simple/${query}/`);
   };
-  
+
   searchOrganizationsWithParams = (paramsQuery) => {
     return this.axiosBinding.get(`/api/search/org/${paramsQuery}`);
   };
-  
+
   searchPeopleWithParams = (paramsQuery) => {
     return this.axiosBinding.get(`/api/search/people/${paramsQuery}`);
   };
-  
+
   searchDataByQuery = (searchQuery) => {
-    return this.axiosBinding.get(`/api/search/data/${searchQuery}`)
+    return this.axiosBinding.get(`/api/search/data/${searchQuery}`);
   };
-  
+
   downloadIRSFile = (url) => {
-    return this.axiosBinding.get(`/zip${url}/`)
+    return this.axiosBinding.get(`/zip${url}/`);
   };
 
   downloadDataset = (ds) => {
-    return this.axiosBinding.get(`/dl/ds/${ds}/`)
+    return this.axiosBinding.get(`/dl/ds/${ds}/`);
   };
 
   getOrgSkeleton = (ein) => {
@@ -59,7 +58,7 @@ class ApiClient {
   };
 
   getFocusOptions = (ntee_major) => {
-    return this.axiosBinding.get(`/api/search/options/focus/${ntee_major}/`)
+    return this.axiosBinding.get(`/api/search/options/focus/${ntee_major}/`);
   };
 
   submitContactForm = (address, inquiry, form, name, url) => {
@@ -73,23 +72,15 @@ class ApiClient {
     return this.axiosBinding.post(`/api/contact/`, params);
   };
 
-  subscribeToMailingList = (email) => {
-    let params = {
-      "email": email
-    };
-    return this.axiosBinding.post(`/api/subscribe/`, params)
-  };
-
-  doDownload = (dataset) => {
-    apiClient.downloadDataset(dataset)
-        .then(res => {
-          // window.open(res.data, "_blank");
-          const link = document.createElement('a');
-          link.href = res.data;
-          document.body.appendChild(link);
-          link.click();
-          document.body.removeChild(link);
-        });
+  doDownload = dataset => {
+    apiClient.downloadDataset(dataset).then(res => {
+      // window.open(res.data, "_blank");
+      const link = document.createElement('a');
+      link.href = res.data;
+      document.body.appendChild(link);
+      link.click();
+      document.body.removeChild(link);
+    });
   };
 }
 
