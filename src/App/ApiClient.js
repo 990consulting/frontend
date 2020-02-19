@@ -72,6 +72,14 @@ class ApiClient {
     return this.axiosBinding.post(`/api/contact/`, params);
   };
 
+  subscribeToMailingList = (email, reference) => {
+    let params = {
+      "email": email,
+      "reference": reference
+    };
+    return this.axiosBinding.post(`/api/subscribe/`, params);
+  };
+
   doDownload = dataset => {
     apiClient.downloadDataset(dataset).then(res => {
       // window.open(res.data, "_blank");
