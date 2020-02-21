@@ -60,9 +60,9 @@ class ApiClient {
   getFocusOptions = (ntee_major) => {
     return this.axiosBinding.get(`/api/search/options/focus/${ntee_major}/`);
   };
-
+  
   submitContactForm = (address, inquiry, form, name, url) => {
-    let params = {
+    const params = {
       "address": address,
       "body": inquiry,
       "form": form,
@@ -71,9 +71,17 @@ class ApiClient {
     };
     return this.axiosBinding.post(`/api/contact/`, params);
   };
+  
+  subscribeToMailingList = (email, reference) => {
+    const params = {
+      "email": email,
+      "reference": reference
+    };
+    return this.axiosBinding.post(`/api/subscribe/`, params);
+  };
 
   doDownload = dataset => {
-    apiClient.downloadDataset(dataset).then(res => {
+    return apiClient.downloadDataset(dataset).then(res => {
       // window.open(res.data, "_blank");
       const link = document.createElement('a');
       link.href = res.data;

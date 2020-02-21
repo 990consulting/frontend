@@ -2,7 +2,7 @@
  * Copyright (c) 2019 Open990.org, Inc.. All rights reserved.
  */
 
-import React, { Fragment } from 'react';
+import React, { Component, Fragment } from 'react';
 import { Helmet } from 'react-helmet';
 import { withRouter } from 'react-router-dom';
 import classNames from 'classnames';
@@ -14,17 +14,17 @@ import apiClient from 'App/ApiClient';
 import foundationIcon from '../Static/icons/foundations.png';
 
 import cardText from 'Catalog/catalogText';
-import CatalogButton from "./CatalogButton";
+import CatalogButton from './CatalogButton';
+import MailSubscriptionDialog from '../Common/MailSubscriptionDialog';
 
-const styles = (theme) => ({
+const styles = theme => ({
   root: {
     ...theme.open990.pageContainer,
     [theme.breakpoints.down('sm')]: {
       marginBottom: '1.75rem'
     }
   },
-  paper: {
-  },
+  paper: {},
   container: {
     width: '100%'
   },
@@ -80,109 +80,165 @@ const styles = (theme) => ({
     textDecoration: 'underline',
     color: theme.color.primary.desaturated
   },
-  subHeader:{
+  subHeader: {
     fontSize: '1.2rem',
     margin: '1rem 0 2rem'
   }
 });
 
-const Catalog = ({
-                   classes,
-                   history
-                 }) => {
+class Catalog extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      datasetId: '',
+      datasetDownloadRef: '',
+      showSubscriptionDialog: false
+    };
+  }
 
-
-  const externalLink = (url) => {
-    const link = document.createElement('a');
-    link.href = url;
-    link.target = "_blank";
-    document.body.appendChild(link);
-    link.click();
-    document.body.removeChild(link);
+  onDatasetDownload = (event, downloadRef) => {
+    const datasetId = event.currentTarget.id;
+    apiClient.doDownload(downloadRef).then(() =>
+      this.setState({
+        datasetId,
+        datasetDownloadRef: downloadRef,
+        showSubscriptionDialog: true
+      })
+    );
   };
 
-  return (
-    <Fragment>
-      <Helmet>
-        <title>Nonprofit Data &ndash; Explore Open990.org datasets</title>
-        <meta name="description" content="Datasets on foundations and grants, nonprofit governance, contractor compensation, and more." />
-        <meta name="robots" content="all"/>
-      </Helmet>
-      <div className={classNames("Catalog", classes.root)}>
-        <MaxContainer classes={{ container: classes.container }}>
-          <Grid item xs={12}>
-            <Grid container justify="center">
-              <Grid item xs={12} md={10} lg={8} className={classes.lineHeader}>
-                <h1>Datasets</h1>
-              </Grid>
-              <Grid item xs={12} md={10} lg={8} className={classes.subHeader}>
-                Please note: Open990 datasets are for non-commercial use only (academic research, journalism, intra-organization analysis).
+  handleCloseSubscriptionDialog = () => {
+    this.setState({ showSubscriptionDialog: false });
+  };
+
+  render() {
+    const { classes } = this.props;
+
+    const externalLink = url => {
+      const link = document.createElement('a');
+      link.href = url;
+      link.target = '_blank';
+      document.body.appendChild(link);
+      link.click();
+      document.body.removeChild(link);
+    };
+
+    return (
+      <Fragment>
+        <Helmet>
+          <title>Nonprofit Data &ndash; Explore Open990.org datasets</title>
+          <meta
+            name="description"
+            content="Datasets on foundations and grants, nonprofit governance, contractor compensation, and more."
+          />
+          <meta name="robots" content="all" />
+        </Helmet>
+        <div className={classNames('Catalog', classes.root)}>
+          <MailSubscriptionDialog
+            isOpen={this.state.showSubscriptionDialog}
+            datasetId={this.state.datasetId}
+            downloadRef={this.state.datasetDownloadRef}
+            closeDialog={this.handleCloseSubscriptionDialog}
+          />
+          <MaxContainer classes={{ container: classes.container }}>
+            <Grid item xs={12}>
+              <Grid container justify="center">
+                <Grid
+                  item
+                  xs={12}
+                  md={10}
+                  lg={8}
+                  className={classes.lineHeader}
+                >
+                  <h1>Datasets</h1>
+                </Grid>
+                <Grid item xs={12} md={10} lg={8} className={classes.subHeader}>
+                  Please note: Open990 datasets are for non-commercial use only
+                  (academic research, journalism, intra-organization analysis).
+                </Grid>
               </Grid>
             </Grid>
-          </Grid>
-          <Grid item xs={12}>
-            <Grid container justify="center">
-              <Grid item xs={12} md={10} lg={8}>
-                <Grid container justify="center" spacing={40}>
-                  <Grid item xs={12} sm={6}>
-                    <ProductCard
+            <Grid item xs={12}>
+              <Grid container justify="center">
+                <Grid item xs={12} md={10} lg={8}>
+                  <Grid container justify="center" spacing={40}>
+                    <Grid item xs={12} sm={6}>
+                      <ProductCard
                         title={'Foundations & Grants Dataset'}
                         text={cardText.foundation}
-                    >
-                      <CatalogButton
+                      >
+                        <CatalogButton
                           buttonText="Download"
-                          onClickTarget = {() => apiClient.doDownload("Open990_SnackSet_Foundations_Grants.zip")}
+                          onClickTarget={e =>
+                            this.onDatasetDownload(
+                              e,
+                              'Open990_SnackSet_Foundations_Grants.zip'
+                            )
+                          }
                           id="catalog-download-foundation"
-                      />
-                    </ProductCard>
-                  </Grid>
-                  <Grid item xs={12} sm={6}>
-                    <ProductCard
+                        />
+                      </ProductCard>
+                    </Grid>
+                    <Grid item xs={12} sm={6}>
+                      <ProductCard
                         title={'Governance Dataset'}
                         text={cardText.governanceDataset}
-                    >
-                      <CatalogButton
+                      >
+                        <CatalogButton
                           buttonText="Download"
-                          onClickTarget = {() => apiClient.doDownload("Open990_Governance_Snack_Set_Public.zip")}
+                          onClickTarget={e =>
+                            this.onDatasetDownload(
+                              e,
+                              'Open990_Governance_Snack_Set_Public.zip'
+                            )
+                          }
                           id="catalog-download-governance"
-                      />
-                    </ProductCard>
-                  </Grid>
-                  <Grid item xs={12} sm={6}>
-                    <ProductCard
+                        />
+                      </ProductCard>
+                    </Grid>
+                    <Grid item xs={12} sm={6}>
+                      <ProductCard
                         title={'Contractor Compensation Dataset'}
                         text={cardText.contractorDataset}
-                    >
-                      <CatalogButton
+                      >
+                        <CatalogButton
                           buttonText="Download"
-                          onClickTarget = {() => apiClient.doDownload("Open990_Contractor_Compensation_Snack_Set_Public.zip")}
+                          onClickTarget={e =>
+                            this.onDatasetDownload(
+                              e,
+                              'Open990_Contractor_Compensation_Snack_Set_Public.zip'
+                            )
+                          }
                           id="catalog-download-contractor"
-                      />
-                    </ProductCard>
-                  </Grid>
-                  <Grid item xs={12} sm={6}>
-                    <ProductCard
+                        />
+                      </ProductCard>
+                    </Grid>
+                    <Grid item xs={12} sm={6}>
+                      <ProductCard
                         icon={foundationIcon}
                         title={'EO-BMF from IRS'}
                         text={cardText.bmf}
-                    >
-                      <CatalogButton
+                      >
+                        <CatalogButton
                           buttonText="IRS.gov"
-                          onClickTarget = {() => externalLink("https://www.irs.gov/charities-non-profits/exempt-organizations-business-master-file-extract-eo-bmf")}
-                      />
-                    </ProductCard>
+                          onClickTarget={() =>
+                            externalLink(
+                              'https://www.irs.gov/charities-non-profits/exempt-organizations-business-master-file-extract-eo-bmf'
+                            )
+                          }
+                        />
+                      </ProductCard>
+                    </Grid>
                   </Grid>
+                  <Grid item xs={12}></Grid>
                 </Grid>
-                <Grid item xs={12}>
-              </Grid>
               </Grid>
             </Grid>
-          </Grid>
-        </MaxContainer>
-      </div>
-    </Fragment>
-  )
+          </MaxContainer>
+        </div>
+      </Fragment>
+    );
+  }
 }
 
 export default withRouter(withStyles(styles)(withRouter(Catalog)));
-
