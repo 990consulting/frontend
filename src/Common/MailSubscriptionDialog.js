@@ -73,13 +73,15 @@ class MailSubscriptionDialog extends Component {
 
   onSubmit = () => {
     const email = document.getElementById('email-field').value;
-    if(!isEmail(email)) {
+    if (!isEmail(email)) {
       this.showEmailWarning();
       return;
     }
 
-    apiClient.subscribeToMailingList(email, this.props.downloadRef);
-  }
+    apiClient
+      .subscribeToMailingList(email, this.props.downloadRef)
+      .then(() => this.props.closeDialog());
+  };
 
   render() {
     const { classes, isOpen, datasetId, closeDialog } = this.props;
