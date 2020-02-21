@@ -35,10 +35,10 @@ const foundationsAndGrants = ({ classes }) => {
         <title>Foundations And Grants</title>
         <meta
           name="description"
-          content="Researchers, nonprofit professionals, fundraising consultants, journalists, donors...Welcome to Open990."
+          content="Streamline your grant search with Open990's free Foundations & Grants dataset. Contains historical grants, contact info, and application guidelines."
         />
         <meta name="robots" content="all" />
-        <link rel="canonical" href="https://www.open990.org/contact/" />
+        <link rel="canonical" href="https://www.open990.org/dataset/foundations_and_grants/" />
       </Helmet>
       <div className={classNames('DatasetPage', classes.root)}>
         <MaxContainer classes={{ container: classes.container }}>
@@ -91,6 +91,7 @@ const foundationsAndGrants = ({ classes }) => {
                 if you have questions about your use case.
               </small>
               <Button
+                id="landingpage-download-foundation"
                 className={classes.button}
                 onClick={() =>
                   apiClient.doDownload(

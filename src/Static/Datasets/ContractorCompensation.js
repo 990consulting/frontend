@@ -23,13 +23,13 @@ const contractorCompensation = ({ classes }) => {
   return (
     <Fragment>
       <Helmet>
-        <title>Contractor Compensatione</title>
+        <title>Nonprofit contractor compensation dataset | Open990</title>
         <meta
           name="description"
-          content="Researchers, nonprofit professionals, fundraising consultants, journalists, donors...Welcome to Open990."
+          content="Download this free dataset to identify highly compensated contractors across the nonprofit sector."
         />
         <meta name="robots" content="all" />
-        <link rel="canonical" href="https://www.open990.org/contact/" />
+        <link rel="canonical" href="https://www.open990.org/datasets/contractor_compensation/" />
       </Helmet>
       <div className={classNames('DatasetPage', classes.root)}>
         <MaxContainer classes={{ container: classes.container }}>
@@ -57,6 +57,7 @@ const contractorCompensation = ({ classes }) => {
                 if you have questions about your use case.
               </small>
               <Button
+                id="landingpage-download-contractor"
                 className={classes.button}
                 onClick={() =>
                   apiClient.doDownload(

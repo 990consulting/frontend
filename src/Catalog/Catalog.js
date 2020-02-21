@@ -91,6 +91,7 @@ const Catalog = ({
                    history
                  }) => {
 
+
   const externalLink = (url) => {
     const link = document.createElement('a');
     link.href = url;
@@ -131,6 +132,7 @@ const Catalog = ({
                       <CatalogButton
                           buttonText="Download"
                           onClickTarget = {() => apiClient.doDownload("Open990_SnackSet_Foundations_Grants.zip")}
+                          id="catalog-download-foundation"
                       />
                     </ProductCard>
                   </Grid>
@@ -142,6 +144,7 @@ const Catalog = ({
                       <CatalogButton
                           buttonText="Download"
                           onClickTarget = {() => apiClient.doDownload("Open990_Governance_Snack_Set_Public.zip")}
+                          id="catalog-download-governance"
                       />
                     </ProductCard>
                   </Grid>
@@ -153,6 +156,7 @@ const Catalog = ({
                       <CatalogButton
                           buttonText="Download"
                           onClickTarget = {() => apiClient.doDownload("Open990_Contractor_Compensation_Snack_Set_Public.zip")}
+                          id="catalog-download-contractor"
                       />
                     </ProductCard>
                   </Grid>
