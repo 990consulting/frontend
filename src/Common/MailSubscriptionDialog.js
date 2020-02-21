@@ -50,9 +50,8 @@ const styles = theme => ({
     }
   },
   cancelButton: {
-    backgroundColor: '#f5f5f5',
     '& span': {
-      color: '#bdbdbd',
+      color: '#616161',
       textTransform: 'none',
       fontSize: '0.78rem'
     }
