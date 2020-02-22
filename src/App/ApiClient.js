@@ -73,12 +73,17 @@ class ApiClient {
   };
   
   subscribeToMailingList = (email, reference) => {
-    const params = {
-      "email": email,
-      "reference": reference
-    };
-    return this.axiosBinding.post(`/api/subscribe/`, params);
-  };
+    return axios.post(
+      'https://open990.us4.list-manage.com/subscribe/post-json?u=1111052a043165cfad59cf43c&id=e9ee9c8031',
+      null,
+      {
+        params: {
+          MERGE0: email,
+          MERGE6: reference
+        }
+      }
+    ).catch(e => null);
+  }
 
   doDownload = dataset => {
     return apiClient.downloadDataset(dataset).then(res => {
