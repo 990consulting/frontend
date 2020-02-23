@@ -31,9 +31,7 @@ class ContractorCompensation extends Component {
   }
 
   onDatasetDownload = (event, downloadRef) => {
-    const datasetId = event.currentTarget.id
-      ? event.currentTarget.id
-      : event.currentTarget.getAttribute('refId');
+    const datasetId = event.currentTarget.id;
     apiClient.doDownload(downloadRef).then(() =>
       this.setState({
         datasetId,
@@ -95,7 +93,7 @@ class ContractorCompensation extends Component {
                   if you have questions about your use case.
                 </small>
                 <Button
-                  id="landingpage-download-contractor"
+                  id="landingpage-download-contractor-button"
                   className={classes.button}
                   onClick={e =>
                     this.onDatasetDownload(
@@ -108,7 +106,7 @@ class ContractorCompensation extends Component {
                 </Button>
                 <p className={classes.textContent}>
                   <span
-                    refId="landingpage-download-contractor"
+                    id="landingpage-download-contractor-link"
                     className={classes.accentElement}
                     onClick={e =>
                       this.onDatasetDownload(

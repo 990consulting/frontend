@@ -30,9 +30,7 @@ class NonprofitGovernance extends Component {
   }
 
   onDatasetDownload = (event, downloadRef) => {
-    const datasetId = event.currentTarget.id
-      ? event.currentTarget.id
-      : event.currentTarget.getAttribute('refId');
+    const datasetId = event.currentTarget.id;
     apiClient.doDownload(downloadRef).then(() =>
       this.setState({
         datasetId,
@@ -98,7 +96,7 @@ class NonprofitGovernance extends Component {
                   if you have questions about whether your use case is eligible.
                 </small>
                 <Button
-                  id="landingpage-download-governance"
+                  id="landingpage-download-governance-button"
                   className={classes.button}
                   onClick={e =>
                     this.onDatasetDownload(
@@ -111,7 +109,7 @@ class NonprofitGovernance extends Component {
                 </Button>
                 <p className={classes.textContent}>
                   <span
-                    refId="landingpage-download-governance"
+                    id="landingpage-download-governance-link"
                     className={classes.accentElement}
                     onClick={e =>
                       this.onDatasetDownload(

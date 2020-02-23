@@ -40,9 +40,7 @@ class FoundationsAndGrants extends Component {
   }
 
   onDatasetDownload = (event, downloadRef) => {
-    const datasetId = event.currentTarget.id
-      ? event.currentTarget.id
-      : event.currentTarget.getAttribute('refId');
+    const datasetId = event.currentTarget.id;
     apiClient.doDownload(downloadRef).then(() =>
       this.setState({
         datasetId,
@@ -130,7 +128,7 @@ class FoundationsAndGrants extends Component {
                   if you have questions about your use case.
                 </small>
                 <Button
-                  id="landingpage-download-foundation"
+                  id="landingpage-download-foundation-button"
                   className={classes.button}
                   onClick={e =>
                     this.onDatasetDownload(
@@ -143,7 +141,7 @@ class FoundationsAndGrants extends Component {
                 </Button>
                 <p className={classes.textContent}>
                   <span
-                    refId="landingpage-download-foundation"
+                    id="landingpage-download-foundation-link"
                     className={classes.accentElement}
                     onClick={e =>
                       this.onDatasetDownload(
