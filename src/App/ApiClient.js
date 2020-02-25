@@ -83,18 +83,10 @@ class ApiClient {
         }
       }
     ).catch(e => null);
-  }
-
-  subscribeToMailingList = (email, reference) => {
-    let params = {
-      "email": email,
-      "reference": reference
-    };
-    return this.axiosBinding.post(`/api/subscribe/`, params);
   };
 
   doDownload = dataset => {
-    return apiClient.downloadDataset(dataset).then(res => {
+    return this.downloadDataset(dataset).then(res => {
       // window.open(res.data, "_blank");
       const link = document.createElement('a');
       link.href = res.data;
