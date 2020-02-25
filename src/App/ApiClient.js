@@ -83,10 +83,10 @@ class ApiClient {
         }
       }
     ).catch(e => null);
-  }
+  };
 
   doDownload = dataset => {
-    return apiClient.downloadDataset(dataset).then(res => {
+    return this.downloadDataset(dataset).then(res => {
       // window.open(res.data, "_blank");
       const link = document.createElement('a');
       link.href = res.data;
