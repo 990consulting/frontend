@@ -108,7 +108,7 @@ const executiveCompensation = ({
                 if you have questions about your use case.
               </small>
               <Button
-                id="landingpage-subscribe-executive-button"
+                id="landingpage-download-executive-button"
                 className={classes.button}
                 onClick={e => onDatasetDownload(e, downloadRef)}
               >
@@ -116,7 +116,7 @@ const executiveCompensation = ({
               </Button>
               <p className={classes.textContent}>
                 <span
-                  id="landingpage-subscribe-executive-link"
+                  id="landingpage-download-executive-link"
                   className={classes.accentElement}
                   onClick={e => onDatasetDownload(e, downloadRef)}
                 >
