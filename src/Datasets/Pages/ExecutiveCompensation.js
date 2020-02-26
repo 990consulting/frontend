@@ -2,8 +2,7 @@
  * Copyright (c) 2019 Open990.org, Inc. All rights reserved.
  */
 
-import React, { Fragment } from 'react';
-import { Helmet } from 'react-helmet';
+import React from 'react';
 
 import withStyles from '@material-ui/core/styles/withStyles';
 import Button from '@material-ui/core/Button';
@@ -13,6 +12,7 @@ import MaxContainer from 'hoc/MaxContainer';
 import classNames from 'classnames';
 
 import { info } from 'App/routes';
+import DatasetsPageHelmet from '../DatasetsPageHelmet';
 import pageStyles from './pageStyles';
 
 const styles = theme => {
@@ -48,18 +48,19 @@ const styles = theme => {
   };
 };
 
-const executiveCompensation = ({ classes }) => {
+const executiveCompensation = ({
+  classes,
+  onDatasetDownload,
+  downloadRef,
+  path
+}) => {
   return (
-    <Fragment>
-      <Helmet>
-        <title>2020 Compensation Dataset for Nonprofits | Open990</title>
-        <meta
-          name="description"
-          content="Open990.org has the most in-depth nonprofit compensation dataset based on IRS data. And it’s free!"
-        />
-        <meta name="robots" content="all" />
-        <link rel="canonical" href="https://www.open990.org/contact/" />
-      </Helmet>
+    <>
+      <DatasetsPageHelmet
+        title="2020 Compensation Dataset for Nonprofits | Open990"
+        description="Open990.org has the most in-depth nonprofit compensation dataset based on IRS data. And it’s free!"
+        path={path}
+      />
       <div className={classNames('DatasetPage', classes.root)}>
         <MaxContainer classes={{ container: classes.container }}>
           <Grid container justify="center">
@@ -68,13 +69,6 @@ const executiveCompensation = ({ classes }) => {
               <h2>Your source for data-driven compensation decision-making</h2>
             </Grid>
             <Grid item xs={12}>
-              <Button
-                  className={classes.button}
-                  onClick={() => null}
-                  id="landingpage-subscribe-executive"
-              >
-                Get notified when it’s ready
-              </Button>
               <p className={classes.textContent}>
                 Open990.org has the most in-depth nonprofit compensation dataset
                 based on IRS data. And it’s free!*
@@ -113,6 +107,23 @@ const executiveCompensation = ({ classes }) => {
                 </a>{' '}
                 if you have questions about your use case.
               </small>
+              <Button
+                id="landingpage-download-executive-button"
+                className={classes.button}
+                onClick={e => onDatasetDownload(e, downloadRef)}
+              >
+                Download now!
+              </Button>
+              <p className={classes.textContent}>
+                <span
+                  id="landingpage-download-executive-link"
+                  className={classes.accentElement}
+                  onClick={e => onDatasetDownload(e, downloadRef)}
+                >
+                  Download
+                </span>{' '}
+                contains two datasets (.csv), license, and documentation.
+              </p>
               <p className={classes.textContent}>
                 Nonprofits: create your own nonprofit executive compensation
                 report, benchmarking compensation against similar organizations
@@ -129,7 +140,7 @@ const executiveCompensation = ({ classes }) => {
           </Grid>
         </MaxContainer>
       </div>
-    </Fragment>
+    </>
   );
 };
 
