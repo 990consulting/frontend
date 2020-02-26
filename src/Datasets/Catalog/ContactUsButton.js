@@ -1,7 +1,7 @@
 import React from 'react';
 import Button from '@material-ui/core/Button';
 import Grid from '@material-ui/core/Grid';
-import { styles } from "Catalog/productCardStyles";
+import { styles } from "./productCardStyles";
 import { withRouter } from 'react-router-dom';
 import withStyles from '@material-ui/core/styles/withStyles';
 import {inquiriesMail} from "App/routes";

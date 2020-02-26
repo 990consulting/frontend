@@ -3,6 +3,7 @@
  */
 
 const text = {
+  executiveDataset: `Use this dataset to create your own report on nonprofit executive compensation. Includes salary, benefits, and other compensation data for individuals listed on 475,050 Forms 990, 990-EZ, or 990-PF electronically filed for TY 2017, 2018, or 2019. Covers officers, directors, trustees, key employees, and highest compensated employees. Free, with attribution, for non-commercial use. Download the dataset (2 csv files), license, and documentation.`,
   foundation: `Snack-sized dataset of 123,000 private foundations updated October 2019! Data include basic financial information, contact information, and NTEE codes. For e-filers of the 990-PF, this dataset includes 913,000 grants (recipients, purposes, amounts) as well as application submission info and charitable activities. Free, with attribution, for non-commercial use. Download the data (2 csv files), license, and documentation.`,
   customDataset: `Customized dataset containing the nonprofits and variables of interest to you. For example, track
   CEO compensation and program expenses over time.`,
