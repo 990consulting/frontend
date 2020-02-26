@@ -1,7 +1,7 @@
 import React from 'react';
 import { Helmet } from 'react-helmet';
 
-const DatasetsWrapper = ({title, description, path}) => {
+const DatasetPageHelmet = ({title, description, path}) => {
   return (
     <Helmet>
       <title>{title}</title>
@@ -15,4 +15,4 @@ const DatasetsWrapper = ({title, description, path}) => {
   );
 };
 
-export default DatasetsWrapper;
+export default DatasetPageHelmet;
