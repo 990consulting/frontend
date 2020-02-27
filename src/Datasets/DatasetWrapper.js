@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { Component, Fragment } from 'react';
 import { withRouter } from 'react-router-dom';
 
 import apiClient from 'App/ApiClient';
@@ -28,7 +28,7 @@ class DatasetWrapper extends Component {
 
   render() {
     return (
-      <>
+      <Fragment>
         <MailSubscriptionDialog
           isOpen={this.state.showSubscriptionDialog}
           datasetId={this.state.datasetId}
@@ -36,7 +36,7 @@ class DatasetWrapper extends Component {
           closeDialog={this.handleCloseSubscriptionDialog}
         />
         {this.props.children(this.handleDatasetDownload)}
-      </>
+      </Fragment>
     );
   }
 }
