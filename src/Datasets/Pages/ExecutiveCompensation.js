@@ -2,7 +2,7 @@
  * Copyright (c) 2019 Open990.org, Inc. All rights reserved.
  */
 
-import React from 'react';
+import React, { Fragment } from 'react';
 
 import withStyles from '@material-ui/core/styles/withStyles';
 import Button from '@material-ui/core/Button';
@@ -52,7 +52,7 @@ const styles = theme => {
 const ExecutiveCompensation = ({ classes }) => {
   const downloadRef = 'Open990_SnackSet_Executive_Compensation.zip';
   return (
-    <>
+    <Fragment>
       <DatasetPageHelmet
         title="2020 Compensation Dataset for Nonprofits | Open990"
         description="Open990.org has the most in-depth nonprofit compensation dataset based on IRS data. And it’s free!"
@@ -145,7 +145,7 @@ const ExecutiveCompensation = ({ classes }) => {
           </div>
         )}
       </DatasetWrapper>
-    </>
+    </Fragment>
   );
 };
 
