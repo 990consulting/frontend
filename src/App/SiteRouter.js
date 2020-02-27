@@ -12,7 +12,11 @@ import TermsOfService from 'Static/TermsOfService';
 import PrivacyPolicy from 'Static/PrivacyPolicy';
 import Contact from 'Static/Contact';
 import Resources from 'Static/Resources';
-import DatasetsWrapper from 'Datasets/DatasetsWrapper';
+import Catalog from 'Datasets/Catalog/Catalog';
+import FoundationsAndGrants from 'Datasets/Pages/FoundationsAndGrants';
+import NonprofitGovernance from 'Datasets/Pages/NonprofitGovernance';
+import ContractorCompensation from 'Datasets/Pages/ContractorCompensation';
+import ExecutiveCompensation from 'Datasets/Pages/ExecutiveCompensation';
 import OrgSearchResults from 'searchResults/OrgSearchResults';
 import PeopleSearchResults from 'searchResults/PeopleSearchResults';
 import OrgProfile from '../orgProfile/OrgProfile';
@@ -32,7 +36,10 @@ import {
   resources,
   //api,
   catalog,
-  dataset,
+  foundationsAndGrants,
+  nonprofitGovernance,
+  contractorCompensation,
+  executiveCompensation,
   data,
   orgSearch,
   peopleSearch,
@@ -67,9 +74,31 @@ class SiteRouter extends React.Component {
         {/* Helmeted */}
         <Route path={contact} exact component={Contact} /> {/* Helmeted */}
         <Route path={resources} exact component={Resources} /> {/* Helmeted */}
-        <Route path={catalog} exact component={DatasetsWrapper} />{' '}
+        <Route path={catalog} exact component={Catalog} />{' '}
         {/* Helmeted */}
-        <Route path={`${dataset}:id`} exact component={DatasetsWrapper} />{' '}
+        <Route
+          path={foundationsAndGrants}
+          exact
+          component={FoundationsAndGrants}
+        />{' '}
+        {/* Helmeted */}
+        <Route
+          path={nonprofitGovernance}
+          exact
+          component={NonprofitGovernance}
+        />{' '}
+        {/* Helmeted */}
+        <Route
+          path={contractorCompensation}
+          exact
+          component={ContractorCompensation}
+        />{' '}
+        {/* Helmeted */}
+        <Route
+          path={executiveCompensation}
+          exact
+          component={ExecutiveCompensation}
+        />{' '}
         {/* Helmeted */}
         <Route path={orgSearch} component={OrgSearchResults} /> {/* Helmeted */}
         <Route path={peopleSearch} component={PeopleSearchResults} />{' '}

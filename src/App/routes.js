@@ -20,7 +20,6 @@ export const nonprofitGovernance = '/dataset/nonprofit_governance/';
 export const contractorCompensation = '/dataset/contractor_compensation/';
 export const executiveCompensation = '/dataset/executive_compensation/';
 export const catalog = '/catalog/';
-export const dataset = '/dataset/';
 export const data = '/data/';  // redirects to /resources
 export const notFound = '/not-found/';
 export const exampleSearch = '/org/135562162/helen-keller-international-incorporated/';
