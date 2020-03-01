@@ -27,7 +27,7 @@ const styles = theme => ({
   }
 });
 
-const FoundationsAndGrants = ({ classes }) => {
+export const FoundationsAndGrants = ({ classes }) => {
   const downloadRef = 'Open990_SnackSet_Foundations_Grants.zip';
   return (
     <Fragment>

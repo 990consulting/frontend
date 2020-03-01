@@ -4,7 +4,7 @@ import { withRouter } from 'react-router-dom';
 import apiClient from 'App/ApiClient';
 import MailSubscriptionDialog from 'Common/MailSubscriptionDialog';
 
-class DatasetWrapper extends Component {
+export class DatasetWrapper extends Component {
   state = {
     datasetId: '',
     datasetDownloadRef: '',
@@ -13,15 +13,22 @@ class DatasetWrapper extends Component {
 
   handleDatasetDownload = (event, downloadRef) => {
     const datasetId = event.currentTarget.id;
-    apiClient.doDownload(downloadRef).then(() =>
-      this.setState({
-        datasetId,
-        datasetDownloadRef: downloadRef,
-        showSubscriptionDialog: true
-      })
+    return this.startDownload(downloadRef).then(() =>
+      this.openSubscriptionDialog(datasetId, downloadRef)
     );
   };
 
+  startDownload = downloadRef => {
+    return apiClient.doDownload(downloadRef);
+  };
+
+  openSubscriptionDialog = (datasetId, downloadRef) =>
+    this.setState({
+      datasetId,
+      datasetDownloadRef: downloadRef,
+      showSubscriptionDialog: true
+    });
+    
   handleCloseSubscriptionDialog = () => {
     this.setState({ showSubscriptionDialog: false });
   };

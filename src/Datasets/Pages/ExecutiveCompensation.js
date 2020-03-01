@@ -49,7 +49,7 @@ const styles = theme => {
   };
 };
 
-const ExecutiveCompensation = ({ classes }) => {
+export const ExecutiveCompensation = ({ classes }) => {
   const downloadRef = 'Open990_SnackSet_Executive_Compensation.zip';
   return (
     <Fragment>

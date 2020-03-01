@@ -18,7 +18,7 @@ import pageStyles from './pageStyles';
 
 const styles = theme => pageStyles(theme);
 
-const NonprofitGovernance = ({ classes }) => {
+export const NonprofitGovernance = ({ classes }) => {
   const downloadRef = 'Open990_Governance_Snack_Set_Public.zip';
   return (
     <Fragment>

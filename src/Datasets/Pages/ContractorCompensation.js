@@ -18,7 +18,7 @@ import pageStyles from './pageStyles';
 
 const styles = theme => pageStyles(theme);
 
-const ContractorCompensation = ({ classes }) => {
+export const ContractorCompensation = ({ classes }) => {
   const downloadRef = 'Open990_Contractor_Compensation_Snack_Set_Public.zip';
   return (
     <Fragment>
