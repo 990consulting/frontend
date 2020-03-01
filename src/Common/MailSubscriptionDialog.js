@@ -89,7 +89,7 @@ export class MailSubscriptionDialog extends Component {
 
   render() {
     const { classes, isOpen, datasetId, closeDialog } = this.props;
-    
+
     return (
       <div>
         <Dialog
@@ -130,9 +130,12 @@ export class MailSubscriptionDialog extends Component {
             <Button
               id={`subscribe_${datasetId}`}
               className={classes.okButton}
-              onClick={() =>
-                this.onSubmit(document.getElementById('email-field') ? document.getElementById('email-field').value : '')
-              }
+              onClick={() => {
+                let email = '';
+                if (document.getElementById('email-field'))
+                  email = document.getElementById('email-field').value;
+                this.onSubmit(email);
+              }}
             >
               Keep me informed
             </Button>

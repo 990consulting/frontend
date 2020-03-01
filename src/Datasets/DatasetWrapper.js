@@ -13,13 +13,9 @@ export class DatasetWrapper extends Component {
 
   handleDatasetDownload = (event, downloadRef) => {
     const datasetId = event.currentTarget.id;
-    return this.startDownload(downloadRef).then(() =>
-      this.openSubscriptionDialog(datasetId, downloadRef)
-    );
-  };
-
-  startDownload = downloadRef => {
-    return apiClient.doDownload(downloadRef);
+    return apiClient
+      .doDownload(downloadRef)
+      .then(() => this.openSubscriptionDialog(datasetId, downloadRef));
   };
 
   openSubscriptionDialog = (datasetId, downloadRef) =>
@@ -28,7 +24,7 @@ export class DatasetWrapper extends Component {
       datasetDownloadRef: downloadRef,
       showSubscriptionDialog: true
     });
-    
+
   handleCloseSubscriptionDialog = () => {
     this.setState({ showSubscriptionDialog: false });
   };

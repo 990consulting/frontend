@@ -17,19 +17,12 @@ const setupWrapper = (additionalProps = {}) => {
 
 const promiseMock = () => jest.fn(() => Promise.resolve('Success'));
 
-describe('"Keep me informed" with a valid email address calls the API', () => {
-  it('"Keep me informed" triggers subscription', () => {
-    const wrapper = setupWrapper();
-    wrapper.instance().onSubmit = jest.fn();
-    wrapper.find('#subscribe_').simulate('click');
-    expect(wrapper.instance().onSubmit.mock.calls.length).toEqual(1);
-  });
+describe('[Tests #5,6] Clicking "Keep me informed" inside the subscription dialog with a valid email address results in a call to MailChimp\'s API and closes the dialog', () => {
+  const closeDialogMock = jest.fn();
+  const wrapper = setupWrapper({ closeDialog: closeDialogMock });
+  wrapper.instance().subscribeToMailingList = promiseMock();
 
-  it('Subscriptios happens with a valid email + closing the dialog', done => {
-    const closeDialogMock = jest.fn();
-    const wrapper = setupWrapper({ closeDialog: closeDialogMock });
-    wrapper.instance().subscribeToMailingList = promiseMock();
-    expect.assertions(2);
+  it('The dialog got closed', done => {
     wrapper
       .instance()
       .onSubmit('test@gmail.com')
@@ -37,52 +30,84 @@ describe('"Keep me informed" with a valid email address calls the API', () => {
         expect(closeDialogMock.mock.calls.length).toEqual(1);
         done();
       });
+  });
+
+  it('The click calls the API', () => {
     expect(wrapper.instance().subscribeToMailingList.mock.calls.length).toEqual(
       1
     );
   });
 });
 
-it('Show a message if email is invalid', () => {
+/* it('"Keep me informed" triggers subscription', () => {
+  const wrapper = setupWrapper();
+  wrapper.instance().onSubmit = jest.fn();
+  wrapper.find('#subscribe_').simulate('click');
+  expect(wrapper.instance().onSubmit.mock.calls.length).toEqual(1);
+}); */
+
+it('[Test #7] Clicking "Keep me informed" inside the subscription dialog with an invalid email address results in a message that the content is invalid', () => {
   const wrapper = setupWrapper();
   wrapper.find('#subscribe_').simulate('click');
   expect(wrapper.find('#email-warning').text().length).toBeTruthy();
 });
 
-it("Invalid email address doesn't close the dialog and call the API", () => {
+describe('[Tests #8,9] Clicking "Keep me informed" inside the subscription dialog with an invalid email address doesn\'t result in closing the dialog and calling the mailchimp API', () => {
   const closeDialogMock = jest.fn();
   const wrapper = setupWrapper({ closeDialog: closeDialogMock });
   wrapper.find('#subscribe_').simulate('click');
   wrapper.instance().subscribeToMailingList = promiseMock();
-  expect(closeDialogMock.mock.calls.length).toEqual(0);
-  expect(wrapper.instance().subscribeToMailingList.mock.calls.length).toEqual(
-    0
-  );
+  it("The click doesn't close the dialog", () => {
+    expect(closeDialogMock.mock.calls.length).toEqual(0);
+  });
+  it("The click doesn't call the API", () => {
+    expect(wrapper.instance().subscribeToMailingList.mock.calls.length).toEqual(
+      0
+    );
+  });
 });
 
-describe('Dialog gets closed without calling the API', () => {
+describe('[Test #10] Clicking "No thanks" closes the dialog without making an API call', () => {
   const closeDialogMock = jest.fn();
   const wrapper = setupWrapper({ closeDialog: closeDialogMock });
 
   wrapper.instance().subscribeToMailingList = promiseMock();
 
-  it('"No thanks" button click closes the dialog', () => {
+  it('The click closes the dialog', () => {
     wrapper.find('#cancel-subscription-btn').simulate('click');
-    expect(wrapper.instance().subscribeToMailingList.mock.calls.length).toEqual(
-      0
-    );
     expect(closeDialogMock.mock.calls.length).toEqual(1);
   });
 
-  it('Click outside of the dialog window closes the dialog', () => {
+  it("The API call didn't happen", () => {
+    expect(wrapper.instance().subscribeToMailingList.mock.calls.length).toEqual(
+      0
+    );
+  });
+});
+
+describe('[Test #10, 11] Clicking "No thanks" and outside of the dialog closes the dialog without making an API call', () => {
+  const closeDialogMock = jest.fn();
+  const wrapper = setupWrapper({ closeDialog: closeDialogMock });
+
+  wrapper.instance().subscribeToMailingList = promiseMock();
+
+  it('Clicking "No thanks" closes the dialog', () => {
+    wrapper.find('#cancel-subscription-btn').simulate('click');
+    expect(closeDialogMock.mock.calls.length).toEqual(1);
+  });
+
+  it('Clicking outside of the dialog closes the dialog', () => {
     closeDialogMock.mockClear();
     wrapper
       .find('[aria-labelledby="subscription-dialog-title"]')
       .props()
       .onClose();
+    expect(closeDialogMock.mock.calls.length).toEqual(1);
+  });
+
+  it("The API call didn't happen", () => {
     expect(wrapper.instance().subscribeToMailingList.mock.calls.length).toEqual(
       0
     );
-    expect(closeDialogMock.mock.calls.length).toEqual(1);
   });
 });

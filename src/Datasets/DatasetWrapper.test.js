@@ -5,6 +5,7 @@ import { ContractorCompensation } from './Pages/ContractorCompensation';
 import { ExecutiveCompensation } from './Pages/ExecutiveCompensation';
 import { FoundationsAndGrants } from './Pages/FoundationsAndGrants';
 import { NonprofitGovernance } from './Pages/NonprofitGovernance';
+import apiClient from 'App/ApiClient';
 
 const datasetPages = [
   {
@@ -29,28 +30,29 @@ const datasetPages = [
   }
 ];
 
-describe('Dataset Pages download button click tests', () => {
+describe('[Test #1] Clicking on Dataset Pages download button & donwload link triggers a download', () => {
   datasetPages.map(page => {
     const { PageComponent, pageName, buttonId } = page;
-    it(`Download button triggers a download on ${pageName}`, () => {
-      const wrapper = shallow(<PageComponent classes={{ root: '' }} />);
-      const onDatasetDownload = jest.fn();
-      const insideLayout = shallow(
-        wrapper.find(DatasetWrapper).prop('children')(onDatasetDownload)
-      );
+    const wrapper = shallow(<PageComponent classes={{ root: '' }} />);
+    const onDatasetDownload = jest.fn();
+    const insideLayout = shallow(
+      wrapper.find(DatasetWrapper).prop('children')(onDatasetDownload)
+    );
+    it(`Clicking on download button triggers a download on ${pageName}`, () => {
       insideLayout.find(`#${buttonId}-button`).simulate('click');
       expect(onDatasetDownload.mock.calls.length).toEqual(1);
+    });
+    it(`Clicking on download link triggers a download on ${pageName}`, () => {
       insideLayout.find(`#${buttonId}-link`).simulate('click');
       expect(onDatasetDownload.mock.calls.length).toEqual(2);
     });
   });
 });
 
-it('Download triggers a subscription dialog', done => {
+it('[Test #2] Clicking on "Download now" on a dataset page brings up a subscription dialog', done => {
   const { DatasetWrapper } = unconnectedDatasetWrapper;
   const wrapper = shallow(<DatasetWrapper children={jest.fn()} />);
-  wrapper.instance().startDownload = jest.fn(() => Promise.resolve('Success'));
-  expect.assertions(1);
+  apiClient.doDownload = jest.fn(() => Promise.resolve('Success'));
   wrapper
     .instance()
     .handleDatasetDownload({ currentTarget: { id: '' } }, '')

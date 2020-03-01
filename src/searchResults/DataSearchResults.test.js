@@ -4,16 +4,17 @@ import PeopleSearchResults from './DataSearchResults';
 import SearchResults, * as unconnectedSearchResults from './SearchResults';
 import SidebarPage from 'sidebarPage/SidebarPage';
 import { SearchResultsBody } from './SearchResultsBody';
+import apiClient from 'App/ApiClient';
 
-describe('Clicking on data search result triggers a download', () => {
-  it('Handler is passed as a prop to <SearchResults />', () => {
+describe('[Test #3] Clicking on a data search result triggers a download', () => {
+  it('A click handler is passed as a prop to <SearchResults /> component', () => {
     const wrapper = shallow(<PeopleSearchResults />).dive();
     expect(wrapper.find(SearchResults).prop('handleClick')).toBe(
       wrapper.instance().handleClick
     );
   });
 
-  it('Handler is passed as a prop to <SearchResults />', () => {
+  it('The click handler is passed as a prop to <SearchResultsBody /> component', () => {
     const { SearchResults } = unconnectedSearchResults;
     const handleClickMock = jest.fn();
     delete window.location;
@@ -24,7 +25,7 @@ describe('Clicking on data search result triggers a download', () => {
     ).toBe(wrapper.instance().props.handleClick);
   });
 
-  it('Click triggers a download', () => {
+  it('The click actually triggers the download', () => {
     const props = {
       history: {
         location: {
@@ -50,14 +51,11 @@ describe('Clicking on data search result triggers a download', () => {
   });
 });
 
-it('Click opens a subscribtion dialog', done => {
+it('[Test #4] Clicking on a data search result brings up a subscription dialog', done => {
   const wrapper = shallow(<PeopleSearchResults />).dive();
-  wrapper.instance().startDownload = jest.fn(() =>
-    Promise.resolve({ data: {} })
-  );
+  apiClient.downloadIRSFile = jest.fn(() => Promise.resolve({ data: {} }));
   delete window.open;
   window.open = jest.fn();
-  expect.assertions(1);
   wrapper
     .instance()
     .handleClick([{ 'IRS Path': '' }], 0, {})
