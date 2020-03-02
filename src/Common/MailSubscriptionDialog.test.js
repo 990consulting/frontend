@@ -39,13 +39,6 @@ describe('[Tests #5,6] Clicking "Keep me informed" inside the subscription dialo
   });
 });
 
-/* it('"Keep me informed" triggers subscription', () => {
-  const wrapper = setupWrapper();
-  wrapper.instance().onSubmit = jest.fn();
-  wrapper.find('#subscribe_').simulate('click');
-  expect(wrapper.instance().onSubmit.mock.calls.length).toEqual(1);
-}); */
-
 it('[Test #7] Clicking "Keep me informed" inside the subscription dialog with an invalid email address results in a message that the content is invalid', () => {
   const wrapper = setupWrapper();
   wrapper.find('#subscribe_').simulate('click');
