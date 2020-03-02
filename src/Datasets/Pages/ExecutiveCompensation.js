@@ -14,38 +14,14 @@ import classNames from 'classnames';
 import { info, executiveCompensation } from 'App/routes';
 import DatasetPageHelmet from '../DatasetPageHelmet';
 import DatasetWrapper from '../DatasetWrapper';
-import pageStyles from './pageStyles';
+import { pageStyles, subHeader, unorderedDashedList } from './pageStyles';
 
 const styles = theme => {
   const inheritedStyles = pageStyles(theme);
   return {
     ...inheritedStyles,
-    policyHeader: {
-      ...inheritedStyles.policyHeader,
-      '& h2': {
-        fontWeight: '300',
-        fontStyle: 'italic'
-      }
-    },
-    contentList: {
-      margin: '0 auto 1.875rem auto',
-      fontSize: '1.06rem',
-      maxWidth: '40rem',
-      listStyleType: 'none',
-      '& li': {
-        margin: '0 0 0.5rem',
-        textAlign: 'left',
-        '&:before': {
-          content: `'\\2014'`,
-          position: 'absolute',
-          marginLeft: '-20px'
-        }
-      }
-    },
-    button: {
-      ...inheritedStyles.button,
-      margin: '0 auto 1.875rem'
-    }
+    ...subHeader(inheritedStyles),
+    ...unorderedDashedList
   };
 };
 

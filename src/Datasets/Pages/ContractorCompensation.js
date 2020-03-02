@@ -14,7 +14,7 @@ import classNames from 'classnames';
 import { info, contractorCompensation } from 'App/routes';
 import DatasetPageHelmet from '../DatasetPageHelmet';
 import DatasetWrapper from '../DatasetWrapper';
-import pageStyles from './pageStyles';
+import { pageStyles } from './pageStyles';
 
 const styles = theme => pageStyles(theme);
 
