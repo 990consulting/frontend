@@ -54,7 +54,7 @@ export const ExecutiveCompensation = ({ classes }) => {
                 <Grid container justify="center">
                   <ul className={classes.contentList}>
                     <li>
-                      Includes job titles, hours, position, and 19 compensation
+                      Includes job titles, hours, positions, and 19 compensation
                       metrics
                     </li>
                     <li>
@@ -62,8 +62,7 @@ export const ExecutiveCompensation = ({ classes }) => {
                       highest compensated employees
                     </li>
                     <li>
-                      Data from electronically-filed Form 990, 990-EZ, 990-PF,
-                      and Schedule J filings for TY 2018
+                      Data from the most recent electronically-filed Form 990, 990-EZ, 990-PF, and Schedule J filings
                     </li>
                     <li>
                       Individual-level data in spreadsheet format make it easy
@@ -71,7 +70,7 @@ export const ExecutiveCompensation = ({ classes }) => {
                       important to your organization
                     </li>
                     <li>
-                      Analyze by gender, geography, cause area, assets, and more
+                      Analyze by geography, cause area, assets, and more
                     </li>
                   </ul>
                 </Grid>
@@ -102,9 +101,9 @@ export const ExecutiveCompensation = ({ classes }) => {
                     contains two datasets (.csv), license, and documentation.
                   </p>
                   <p className={classes.textContent}>
-                    Nonprofits: create your own nonprofit executive compensation
-                    report, benchmarking compensation against similar
-                    organizations
+                    Nonprofits: create your own nonprofit executive
+                    compensation report by benchmarking compensation against
+                    similar organizations
                     <br />
                     Researchers: uncover patterns in nonprofit compensation
                     <br />

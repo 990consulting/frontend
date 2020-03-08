@@ -10,7 +10,7 @@ import Grid from '@material-ui/core/Grid';
 import InfoCard from 'Common/InfoCard';
 import MaxContainer from 'hoc/MaxContainer';
 
-import { catalog } from 'App/routes';
+import { foundationsAndGrants, executiveCompensation } from 'App/routes';
 
 const styles = (theme) => ({
   container: {
@@ -100,15 +100,28 @@ const HomeCardRibbon = ({
         </h2>
         <Grid item>
           <InfoCard
+              classes={{
+                extendedCardContent: classes.cardContent,
+                extendedText: classes.text,
+                extendedPaper: classes.paper
+              }}
+              headerText={'EXECUTIVE COMPENSATION DATASET'}
+              bodyText={['The most in-depth compensation dataset based on IRS data -- and it\'s free!']}
+              linkText={'Learn more'}
+              linkHref={executiveCompensation}
+          />
+        </Grid>
+        <Grid item>
+          <InfoCard
             classes={{
               extendedCardContent: classes.cardContent,
               extendedText: classes.text,
               extendedPaper: classes.paper
             }}
             headerText={'FOUNDATIONS DATA'}
-            bodyText={['Dataset for grant-seekers']}
+            bodyText={['Streamline your nonprofit grant search with this free dataset.']}
             linkText={'Learn more'}
-            linkHref={catalog}
+            linkHref={foundationsAndGrants}
           />
         </Grid>
         <Grid item>
@@ -122,19 +135,6 @@ const HomeCardRibbon = ({
             bodyText={['New law mandates electronic filing of nonprofit tax returns']}
             linkText={'Learn More'}
             extHref="https://www.aspeninstitute.org/blog-posts/new-law-brings-overdue-changes-to-nonprofit-tax-filings-form-990/"
-          />
-        </Grid>
-        <Grid item>
-          <InfoCard
-            classes={{
-              extendedCardContent: classes.cardContent,
-              extendedText: classes.text,
-              extendedPaper: classes.paper
-            }}
-            headerText={'SNACK-SIZED DATASETS'}
-            bodyText={['For noncommercial use']}
-            linkText={'Learn more'}
-            linkHref={catalog}
           />
         </Grid>
     </MaxContainer>
