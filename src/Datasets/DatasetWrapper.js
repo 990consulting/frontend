@@ -1,10 +1,10 @@
-import React, { Component } from 'react';
+import React, { Component, Fragment } from 'react';
 import { withRouter } from 'react-router-dom';
 
 import apiClient from 'App/ApiClient';
 import MailSubscriptionDialog from 'Common/MailSubscriptionDialog';
 
-class DatasetWrapper extends Component {
+export class DatasetWrapper extends Component {
   state = {
     datasetId: '',
     datasetDownloadRef: '',
@@ -13,14 +13,17 @@ class DatasetWrapper extends Component {
 
   handleDatasetDownload = (event, downloadRef) => {
     const datasetId = event.currentTarget.id;
-    apiClient.doDownload(downloadRef).then(() =>
-      this.setState({
-        datasetId,
-        datasetDownloadRef: downloadRef,
-        showSubscriptionDialog: true
-      })
-    );
+    return apiClient
+      .doDownload(downloadRef)
+      .then(() => this.openSubscriptionDialog(datasetId, downloadRef));
   };
+
+  openSubscriptionDialog = (datasetId, downloadRef) =>
+    this.setState({
+      datasetId,
+      datasetDownloadRef: downloadRef,
+      showSubscriptionDialog: true
+    });
 
   handleCloseSubscriptionDialog = () => {
     this.setState({ showSubscriptionDialog: false });
@@ -28,7 +31,7 @@ class DatasetWrapper extends Component {
 
   render() {
     return (
-      <>
+      <Fragment>
         <MailSubscriptionDialog
           isOpen={this.state.showSubscriptionDialog}
           datasetId={this.state.datasetId}
@@ -36,7 +39,7 @@ class DatasetWrapper extends Component {
           closeDialog={this.handleCloseSubscriptionDialog}
         />
         {this.props.children(this.handleDatasetDownload)}
-      </>
+      </Fragment>
     );
   }
 }

@@ -11,7 +11,7 @@ import { styles } from 'searchResults/searchStyles';
 import SearchParams from './SearchParams'
 //import apiClient from 'App/ApiClient';
 
-class SearchResults extends React.Component {
+export class SearchResults extends React.Component {
 
   state = {
     isLoading: null,

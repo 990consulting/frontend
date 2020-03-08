@@ -1,4 +1,4 @@
-const pageStyles = theme => ({
+export const pageStyles = theme => ({
   root: {
     ...theme.open990.pageContainer,
     padding: '0 1.75rem 1.75rem'
@@ -44,4 +44,41 @@ const pageStyles = theme => ({
   }
 });
 
-export default pageStyles;
+export const subHeader = inheritedStyles => ({
+  policyHeader: {
+    ...inheritedStyles.policyHeader,
+    '& h2': {
+      fontWeight: '300',
+      fontStyle: 'italic'
+    }
+  }
+});
+
+export const unorderedDashedList = {
+  contentList: {
+    margin: '0 auto 1.875rem auto',
+    fontSize: '1.06rem',
+    maxWidth: '40rem',
+    listStyleType: 'none',
+    '& li': {
+      margin: '0 0 0.5rem',
+      textAlign: 'left',
+      '&:before': {
+        content: `'\\2014'`,
+        position: 'absolute',
+        marginLeft: '-20px'
+      }
+    }
+  }
+};
+
+export const orderedList = {
+  contentList: {
+    margin: '0 auto 1.875rem auto',
+    fontSize: '1.06rem',
+    '& li': {
+      margin: '0 0 0.5rem',
+      textAlign: 'left'
+    }
+  }
+};

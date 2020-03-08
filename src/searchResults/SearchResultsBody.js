@@ -10,7 +10,7 @@ import Grid from '@material-ui/core/Grid';
 import { styles } from 'searchResults/searchStyles';
 import Loader from 'react-loader-spinner'
 
-class SearchResultsBody extends React.Component {
+export class SearchResultsBody extends React.Component {
   state = {
     page: (+this.props.history.location.hash.slice(1) || 1) - 1,
     caption: '',

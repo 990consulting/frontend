@@ -23,7 +23,7 @@ class Home extends React.Component {
     return (
       <Fragment>
         <Helmet>
-          <title>Open990 | Nonprofit lookup with 2+ million free reports</title>
+          <title>Open990 | Nonprofit lookup with 1.9+ million free reports</title>
           <meta name="description" content="Use our non-profit organization search engine to find up-to-date revenue, fundraising, compensation, etc. details on charities, foundations, & other nonprofits." />
           <meta name="robots" content="all"/>
           <link rel="canonical" href="https://www.open990.org/org/" />

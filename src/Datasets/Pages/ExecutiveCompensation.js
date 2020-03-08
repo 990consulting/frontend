@@ -2,7 +2,7 @@
  * Copyright (c) 2019 Open990.org, Inc. All rights reserved.
  */
 
-import React from 'react';
+import React, { Fragment } from 'react';
 
 import withStyles from '@material-ui/core/styles/withStyles';
 import Button from '@material-ui/core/Button';
@@ -14,45 +14,21 @@ import classNames from 'classnames';
 import { info, executiveCompensation } from 'App/routes';
 import DatasetPageHelmet from '../DatasetPageHelmet';
 import DatasetWrapper from '../DatasetWrapper';
-import pageStyles from './pageStyles';
+import { pageStyles, subHeader, unorderedDashedList } from './pageStyles';
 
 const styles = theme => {
   const inheritedStyles = pageStyles(theme);
   return {
     ...inheritedStyles,
-    policyHeader: {
-      ...inheritedStyles.policyHeader,
-      '& h2': {
-        fontWeight: '300',
-        fontStyle: 'italic'
-      }
-    },
-    contentList: {
-      margin: '0 auto 1.875rem auto',
-      fontSize: '1.06rem',
-      maxWidth: '40rem',
-      listStyleType: 'none',
-      '& li': {
-        margin: '0 0 0.5rem',
-        textAlign: 'left',
-        '&:before': {
-          content: `'\\2014'`,
-          position: 'absolute',
-          marginLeft: '-20px'
-        }
-      }
-    },
-    button: {
-      ...inheritedStyles.button,
-      margin: '0 auto 1.875rem'
-    }
+    ...subHeader(inheritedStyles),
+    ...unorderedDashedList
   };
 };
 
-const ExecutiveCompensation = ({ classes }) => {
+export const ExecutiveCompensation = ({ classes }) => {
   const downloadRef = 'Open990_SnackSet_Executive_Compensation.zip';
   return (
-    <>
+    <Fragment>
       <DatasetPageHelmet
         title="2020 Compensation Dataset for Nonprofits | Open990"
         description="Open990.org has the most in-depth nonprofit compensation dataset based on IRS data. And it’s free!"
@@ -78,7 +54,7 @@ const ExecutiveCompensation = ({ classes }) => {
                 <Grid container justify="center">
                   <ul className={classes.contentList}>
                     <li>
-                      Includes job titles, hours, position, and 19 compensation
+                      Includes job titles, hours, positions, and 19 compensation
                       metrics
                     </li>
                     <li>
@@ -86,8 +62,7 @@ const ExecutiveCompensation = ({ classes }) => {
                       highest compensated employees
                     </li>
                     <li>
-                      Data from electronically-filed Form 990, 990-EZ, 990-PF,
-                      and Schedule J filings for TY 2018
+                      Data from the most recent electronically-filed Form 990, 990-EZ, 990-PF, and Schedule J filings
                     </li>
                     <li>
                       Individual-level data in spreadsheet format make it easy
@@ -95,7 +70,7 @@ const ExecutiveCompensation = ({ classes }) => {
                       important to your organization
                     </li>
                     <li>
-                      Analyze by gender, geography, cause area, assets, and more
+                      Analyze by geography, cause area, assets, and more
                     </li>
                   </ul>
                 </Grid>
@@ -126,9 +101,9 @@ const ExecutiveCompensation = ({ classes }) => {
                     contains two datasets (.csv), license, and documentation.
                   </p>
                   <p className={classes.textContent}>
-                    Nonprofits: create your own nonprofit executive compensation
-                    report, benchmarking compensation against similar
-                    organizations
+                    Nonprofits: create your own nonprofit executive
+                    compensation report by benchmarking compensation against
+                    similar organizations
                     <br />
                     Researchers: uncover patterns in nonprofit compensation
                     <br />
@@ -145,7 +120,7 @@ const ExecutiveCompensation = ({ classes }) => {
           </div>
         )}
       </DatasetWrapper>
-    </>
+    </Fragment>
   );
 };
 

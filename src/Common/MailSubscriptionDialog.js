@@ -58,7 +58,7 @@ const styles = theme => ({
   }
 });
 
-class MailSubscriptionDialog extends Component {
+export class MailSubscriptionDialog extends Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -70,16 +70,21 @@ class MailSubscriptionDialog extends Component {
 
   hideEmailWarning = () => this.setState({ isEmailValid: true });
 
-  onSubmit = () => {
-    const email = document.getElementById('email-field').value;
+  onSubmit = email => {
     if (!isEmail(email)) {
       this.showEmailWarning();
       return;
     }
 
-    apiClient
-      .subscribeToMailingList(email, this.props.downloadRef)
-      .then(() => this.props.closeDialog());
+    return this.subscribeToMailingList(email, this.props.downloadRef).then(
+      () => {
+        this.props.closeDialog();
+      }
+    );
+  };
+
+  subscribeToMailingList = (email, downloadRef) => {
+    return apiClient.subscribeToMailingList(email, downloadRef);
   };
 
   render() {
@@ -116,7 +121,7 @@ class MailSubscriptionDialog extends Component {
               onChange={this.hideEmailWarning}
             />
             {!this.state.isEmailValid && (
-              <span className={classes.errorMsg}>
+              <span id="email-warning" className={classes.errorMsg}>
                 Please enter a valid email address
               </span>
             )}
@@ -125,12 +130,18 @@ class MailSubscriptionDialog extends Component {
             <Button
               id={`subscribe_${datasetId}`}
               className={classes.okButton}
-              onClick={this.onSubmit}
+              onClick={() => {
+                let email = '';
+                if (document.getElementById('email-field'))
+                  email = document.getElementById('email-field').value;
+                this.onSubmit(email);
+              }}
             >
               Keep me informed
             </Button>
             <Button
               autoFocus
+              id="cancel-subscription-btn"
               onClick={closeDialog}
               className={classes.cancelButton}
             >

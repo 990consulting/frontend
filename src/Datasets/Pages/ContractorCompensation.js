@@ -2,7 +2,7 @@
  * Copyright (c) 2019 Open990.org, Inc. All rights reserved.
  */
 
-import React from 'react';
+import React, { Fragment } from 'react';
 
 import withStyles from '@material-ui/core/styles/withStyles';
 import Button from '@material-ui/core/Button';
@@ -14,14 +14,14 @@ import classNames from 'classnames';
 import { info, contractorCompensation } from 'App/routes';
 import DatasetPageHelmet from '../DatasetPageHelmet';
 import DatasetWrapper from '../DatasetWrapper';
-import pageStyles from './pageStyles';
+import { pageStyles } from './pageStyles';
 
 const styles = theme => pageStyles(theme);
 
-const ContractorCompensation = ({ classes }) => {
+export const ContractorCompensation = ({ classes }) => {
   const downloadRef = 'Open990_Contractor_Compensation_Snack_Set_Public.zip';
   return (
-    <>
+    <Fragment>
       <DatasetPageHelmet
         title="Nonprofit contractor compensation dataset | Open990"
         description="Download this free dataset to identify highly compensated contractors across the nonprofit sector."
@@ -92,7 +92,7 @@ const ContractorCompensation = ({ classes }) => {
           </div>
         )}
       </DatasetWrapper>
-    </>
+    </Fragment>
   );
 };
 

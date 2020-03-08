@@ -2,7 +2,7 @@
  * Copyright (c) 2019 Open990.org, Inc. All rights reserved.
  */
 
-import React from 'react';
+import React, { Fragment } from 'react';
 
 import withStyles from '@material-ui/core/styles/withStyles';
 import Button from '@material-ui/core/Button';
@@ -14,14 +14,14 @@ import classNames from 'classnames';
 import { info, nonprofitGovernance } from 'App/routes';
 import DatasetPageHelmet from '../DatasetPageHelmet';
 import DatasetWrapper from '../DatasetWrapper';
-import pageStyles from './pageStyles';
+import { pageStyles } from './pageStyles';
 
 const styles = theme => pageStyles(theme);
 
-const NonprofitGovernance = ({ classes }) => {
+export const NonprofitGovernance = ({ classes }) => {
   const downloadRef = 'Open990_Governance_Snack_Set_Public.zip';
   return (
-    <>
+    <Fragment>
       <DatasetPageHelmet
         title="Nonprofit governance and finance dataset | Open990"
         description="Download free data on the finances, governance, and accountability of than 300,000 charities. Explore trends over time and across all nonprofits."
@@ -88,7 +88,7 @@ const NonprofitGovernance = ({ classes }) => {
           </div>
         )}
       </DatasetWrapper>
-    </>
+    </Fragment>
   );
 };
 

@@ -18,14 +18,14 @@ class PeopleSearchResults extends React.Component {
 
   handleClick = (matches, index, history) => {
     const url = matches[index]['IRS Path'];
-    apiClient.downloadIRSFile(url).then(res => {
-      this.setState({
+    return apiClient.downloadIRSFile(url).then(res => {
+      window.open(res.data);
+      return this.setState({
         datasetDownloadRef: url,
         showSubscriptionDialog: true
       });
-      window.open(res.data);
     });
-  }
+  };
 
   handleCloseSubscriptionDialog = () => {
     this.setState({ showSubscriptionDialog: false });

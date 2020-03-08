@@ -13,21 +13,14 @@ import classNames from 'classnames';
 import { info, foundationsAndGrants } from 'App/routes';
 import DatasetPageHelmet from '../DatasetPageHelmet';
 import DatasetWrapper from '../DatasetWrapper';
-import pageStyles from './pageStyles';
+import { pageStyles, orderedList } from './pageStyles';
 
 const styles = theme => ({
   ...pageStyles(theme),
-  contentList: {
-    margin: '0 auto 1.875rem auto',
-    fontSize: '1.06rem',
-    '& li': {
-      margin: '0 0 0.5rem',
-      textAlign: 'left'
-    }
-  }
+  ...orderedList
 });
 
-const FoundationsAndGrants = ({ classes }) => {
+export const FoundationsAndGrants = ({ classes }) => {
   const downloadRef = 'Open990_SnackSet_Foundations_Grants.zip';
   return (
     <Fragment>
