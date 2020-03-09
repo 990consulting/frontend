@@ -70,7 +70,10 @@ export class MailSubscriptionDialog extends Component {
 
   hideEmailWarning = () => this.setState({ isEmailValid: true });
 
-  onSubmit = email => {
+  onSubmit = (email = '') => {
+    if (document.getElementById('email-field'))
+      email = document.getElementById('email-field').value;
+
     if (!isEmail(email)) {
       this.showEmailWarning();
       return;
@@ -130,12 +133,7 @@ export class MailSubscriptionDialog extends Component {
             <Button
               id={`subscribe_${datasetId}`}
               className={classes.okButton}
-              onClick={() => {
-                let email = '';
-                if (document.getElementById('email-field'))
-                  email = document.getElementById('email-field').value;
-                this.onSubmit(email);
-              }}
+              onClick={this.onSubmit}
             >
               Keep me informed
             </Button>
