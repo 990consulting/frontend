@@ -75,6 +75,7 @@ export const ExecutiveCompensation = ({ classes }) => {
                   </ul>
                 </Grid>
                 <Grid item xs={12} className={classes.headingContent}>
+                  <a rel="license" href="http://creativecommons.org/licenses/by-nc/4.0/"><img alt="Creative Commons License" src="https://i.creativecommons.org/l/by-nc/4.0/88x31.png" /></a><br/>
                   <small style={{ display: 'block', marginBottom: '1.875rem' }}>
                     *Free for non-commercial use only, with attribution to
                     Open990.org. Contact{' '}

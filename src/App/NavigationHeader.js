@@ -21,7 +21,7 @@ import MenuIcon from "@material-ui/icons/Menu";
 import { styles } from "App/NavigationHeaderStyles";
 import apiClient from "App/ApiClient";
 import { orgASProps } from "../Common/autosuggestProperties";
-import { contact, root, catalog, resources } from "App/routes";
+import { contact, root, catalog, resources, customData } from "App/routes";
 //import Api from "../Static/Api";
 
 class NavigationHeader extends Component {
@@ -118,6 +118,9 @@ class NavigationHeader extends Component {
       </span>,
       <span className={classes.simpleLink}>
         <NavLink to={catalog}>Datasets</NavLink>
+      </span>,
+      <span className={classes.simpleLink}>
+        <NavLink to={customData}>Services</NavLink>
       </span>,
       <span className={classes.simpleLink}>
         <NavLink to={resources}>Resources</NavLink>

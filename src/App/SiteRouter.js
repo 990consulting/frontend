@@ -21,6 +21,7 @@ import OrgSearchResults from 'searchResults/OrgSearchResults';
 import PeopleSearchResults from 'searchResults/PeopleSearchResults';
 import OrgProfile from '../orgProfile/OrgProfile';
 import DataSearchResults from '../searchResults/DataSearchResults';
+import CustomData from "../Static/CustomData";
 
 import {
   root,
@@ -32,7 +33,7 @@ import {
   //benchmark,
   contact,
   //pro,
-  //customData,
+  customData,
   resources,
   //api,
   catalog,
@@ -60,51 +61,42 @@ class SiteRouter extends React.Component {
     window.scrollTo(0, 0);
   }
 
+  // TODO Remove inexplicable {' '} blocks
   render() {
     return (
       <Switch>
-        <Route path={homeOrg} exact component={HomeOrg} /> {/* Helmeted */}
-        <Route path={homePeople} exact component={HomePeople} />{' '}
-        {/* Helmeted */}
-        <Route path={copyrightPolicy} exact component={CopyrightPolicy} />{' '}
-        {/* Helmeted */}
-        <Route path={termsOfService} exact component={TermsOfService} />{' '}
-        {/* Helmeted */}
-        <Route path={privacyPolicy} exact component={PrivacyPolicy} />{' '}
-        {/* Helmeted */}
-        <Route path={contact} exact component={Contact} /> {/* Helmeted */}
-        <Route path={resources} exact component={Resources} /> {/* Helmeted */}
-        <Route path={catalog} exact component={Catalog} />{' '}
-        {/* Helmeted */}
+        <Route path={homeOrg} exact component={HomeOrg} /> 
+        <Route path={homePeople} exact component={HomePeople} />
+        <Route path={copyrightPolicy} exact component={CopyrightPolicy} />
+        <Route path={termsOfService} exact component={TermsOfService} />
+        <Route path={privacyPolicy} exact component={PrivacyPolicy} />
+        <Route path={customData} exact component={CustomData} />
+        <Route path={contact} exact component={Contact} /> 
+        <Route path={resources} exact component={Resources} /> 
+        <Route path={catalog} exact component={Catalog} />
         <Route
           path={foundationsAndGrants}
           exact
           component={FoundationsAndGrants}
-        />{' '}
-        {/* Helmeted */}
+        />
         <Route
           path={nonprofitGovernance}
           exact
           component={NonprofitGovernance}
-        />{' '}
-        {/* Helmeted */}
+        />
         <Route
           path={contractorCompensation}
           exact
           component={ContractorCompensation}
-        />{' '}
-        {/* Helmeted */}
+        />
         <Route
           path={executiveCompensation}
           exact
           component={ExecutiveCompensation}
-        />{' '}
-        {/* Helmeted */}
-        <Route path={orgSearch} component={OrgSearchResults} /> {/* Helmeted */}
-        <Route path={peopleSearch} component={PeopleSearchResults} />{' '}
-        {/* Helmeted */}
-        <Route path={dataSearch} component={DataSearchResults} />{' '}
-        {/* Helmeted */}
+        />
+        <Route path={orgSearch} component={OrgSearchResults} />
+        <Route path={peopleSearch} component={PeopleSearchResults} />
+        <Route path={dataSearch} component={DataSearchResults} />
         <Route path={orgProfile} component={OrgProfile} />
         <Route path={orgProfileExtended} component={OrgProfile} />
         <Route path={root} exact render={() => <Redirect to={homeOrg} />} />

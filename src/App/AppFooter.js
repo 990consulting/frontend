@@ -61,7 +61,7 @@ class AppFooter extends Component {
           <Grid item xs={12} className={classes.container}>
             <Grid container>
               <Grid item xs={12}>
-                Website copyright © 2020 Open990.org. Displayed data and downloadable datasets copyright © 2020 <a href="https://appliednonprofitresearch.com" target="_blank" rel="noopener noreferrer">Applied Nonprofit Research, LLC</a>. <a rel="license" href="http://creativecommons.org/licenses/by-nc/4.0/"><img alt="Creative Commons License" src="https://i.creativecommons.org/l/by-nc/4.0/88x31.png" /></a><br/>
+                Website copyright © 2020 Open990.org. Displayed data and downloadable datasets copyright © 2020 <a href="https://appliednonprofitresearch.com" target="_blank" rel="noopener noreferrer">Applied Nonprofit Research, LLC</a>.<br/>
                 The profiles and downloadable datasets on this site are licensed under a <a rel="license" href="http://creativecommons.org/licenses/by-nc/4.0/">Creative Commons Attribution-NonCommercial 4.0 International License</a>. <br />
                 {/* Link to Open990 profiles by EIN: <code>https://www.open990.org/org/&lt;EIN&gt;/</code> <br /> */}
                 Found a mistake? <Link to="/contact">Let us know.</Link>
