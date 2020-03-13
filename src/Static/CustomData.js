@@ -173,7 +173,7 @@ const CustomData = ({
                       extendedPaper: classes.paper
                     }}
                     icon={faDownload}
-                    text={'Provide the custom extract in .json (hierarchical) or .csv (flat) format'}
+                    text={'Provide the custom extract in delimited (.csv) or Excel (.xlsx) format'}
                   />
                 </Grid>
               </Grid>
@@ -257,7 +257,7 @@ const CustomData = ({
             </Grid>
             <Grid item xs={12} md={10} className={classes.lineText}>
               <p>Data sources include IRS Forms 990, 990-PF, 990-EZ, schedules, IRS Business Master File, and National
-                Center for Charitable Statistics. Academic discounts are available.</p>
+                Center for Charitable Statistics. </p>
             </Grid>
             <Grid item xs={12} md={10}>
               <ContactForm
