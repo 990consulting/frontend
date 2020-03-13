@@ -131,9 +131,8 @@ const Catalog = ({ history, classes }) => {
                     lg={8}
                     className={classes.subHeader}
                   >
-                    Please note: Open990 datasets are for non-commercial use
-                    only (academic research, journalism, intra-organization
-                    analysis).
+                    <a rel="license" href="http://creativecommons.org/licenses/by-nc/4.0/"><img alt="Creative Commons License" src="https://i.creativecommons.org/l/by-nc/4.0/88x31.png" /></a><br/>
+                    Open990's free datasets are licensed under a <a rel="license" href="http://creativecommons.org/licenses/by-nc/4.0/">Creative Commons Attribution-NonCommercial 4.0 International License</a>.
                   </Grid>
                 </Grid>
               </Grid>

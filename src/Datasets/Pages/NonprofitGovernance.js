@@ -52,6 +52,7 @@ export const NonprofitGovernance = ({ classes }) => {
                     sector.
                   </p>
                   <small>
+                    <a rel="license" href="http://creativecommons.org/licenses/by-nc/4.0/"><img alt="Creative Commons License" src="https://i.creativecommons.org/l/by-nc/4.0/88x31.png" /></a><br/>
                     *Free for non-commercial use with attribution to
                     Open990.org. Contact{' '}
                     <a href={info} className={classes.accentElement}>

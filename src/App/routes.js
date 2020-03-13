@@ -22,6 +22,7 @@ export const executiveCompensation = '/dataset/executive_compensation/';
 export const catalog = '/catalog/';
 export const data = '/data/';  // redirects to /resources
 export const notFound = '/not-found/';
+export const customData = '/customdata/';
 export const exampleSearch = '/org/135562162/helen-keller-international-incorporated/';
 export const dataSearch = '/search/data/';
 
