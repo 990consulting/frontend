@@ -10,9 +10,9 @@ import classNames from 'classnames';
 import withStyles from '@material-ui/core/styles/withStyles';
 import Grid from '@material-ui/core/Grid';
 
-import {faFilter} from '@fortawesome/free-solid-svg-icons';
-import {faCogs} from '@fortawesome/free-solid-svg-icons';
-import {faDownload} from '@fortawesome/free-solid-svg-icons';
+import { faFilter } from '@fortawesome/free-solid-svg-icons';
+import { faCogs } from '@fortawesome/free-solid-svg-icons';
+import { faDownload } from '@fortawesome/free-solid-svg-icons';
 
 import MaxContainer from 'hoc/MaxContainer';
 import ContactForm from 'Common/ContactForm';
@@ -25,28 +25,35 @@ const styles = theme => ({
   underlinedHeader: {
     margin: '0 0 1.875rem 0',
     padding: 0,
-    '& div': {
-      display: 'flex',
+    '& h3': {
       padding: '0 0 0.625rem',
-      justifyContent: 'center',
-      alignItems: 'center',
+      margin: 0,
       borderBottom: `2px solid ${theme.color.primary.desaturated}`,
-      '& h3, ul': {
-        margin: 0,
-        fontSize: '1.5rem'
-      },
+      fontSize: '1.5rem',
       letterSpacing: '0.033rem',
-      '& ul': {
-        display: 'flex',
-        fontFamily: `'Lato', sans-serif`,
-        fontWeight: 'bold',
-        '& li': {
-          marginRight: '2rem'
+      '& > span': {
+        '& span': {
+          margin: '0 1rem'
+        },
+        [theme.breakpoints.down(1000)]: {
+          '&:last-child': {
+            display: 'block'
+          }
+        },
+        [theme.breakpoints.down(645)]: {
+          '&': {
+            display: 'block'
+          }
+        },
+        [theme.breakpoints.down(360)]: {
+          '& span': {
+            margin: '0 0.3rem'
+          }
         }
       },
-      [theme.breakpoints.down(1005)]: {
-        '&, ul': {
-          flexDirection: 'column'
+      [theme.breakpoints.down(360)]: {
+        '&': {
+          fontSize: '1.4rem'
         }
       }
     }
@@ -145,9 +152,7 @@ const styles = theme => ({
   }
 });
 
-const CustomData = ({
-                      classes,
-                    }) => {
+const CustomData = ({ classes }) => {
   return (
     <Fragment>
       <Helmet>
@@ -170,13 +175,15 @@ const CustomData = ({
             justify="center"
           >
             <Grid item xs={12} md={10} className={classes.underlinedHeader}>
-              <div>
-                <h3>IRS nonprofit data</h3>
-                <ul>
-                  <li>1.9 million organizations</li>
-                  <li>5.4 million filings</li>
-                </ul>
-              </div>
+              <h3>
+                <span>
+                  IRS nonprofit data <span>•</span>
+                </span>{' '}
+                <span>
+                  1.9 million organizations <span>•</span>
+                </span>{' '}
+                <span>5.4 million filings</span>
+              </h3>
             </Grid>
             <Grid item xs={12} md={10} className={classes.lineText}>
               <p>
