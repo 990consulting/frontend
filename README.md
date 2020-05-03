@@ -1,3 +1,4 @@
+## Running locally (without Docker)
 To run a dev server against the test API (wide open CORS):
 ```
 REACT_APP_API_BASE=http://open990demobackend-env-1.3x3uibyjqp.us-east-1.elasticbeanstalk.com/ npm start
@@ -15,4 +16,11 @@ REACT_APP_API_BASE https://path/to/api npm build
 serve -s build
 ```
 
-Testing API url (wide open CORS): `http://open990demobackend-env-1.3x3uibyjqp.us-east-1.elasticbeanstalk.com/
+## Running with Docker
+```
+docker build -t open990 .
+docker run -p 3000:3000 -d open990
+```
+
+## Testing API url (wide open CORS): 
+http://open990demobackend-env-1.3x3uibyjqp.us-east-1.elasticbeanstalk.com/
