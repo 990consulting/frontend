@@ -252,7 +252,7 @@ const CustomData = ({ classes }) => {
             </Grid>
             <Grid item xs={12} md={10} className={classes.lineText}>
               <p>
-                We track over 350 dimensions on tax-exempt organizations from
+                We track over 900 dimensions on tax-exempt organizations from
                 2010 to present. Our proprietary records linkage algorithm
                 identifies amounts spent on individual people and programs over
                 time – even if they are written differently on each tax return.

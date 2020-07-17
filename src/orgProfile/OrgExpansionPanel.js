@@ -10,7 +10,7 @@ import Grid from '@material-ui/core/Grid';
 
 const styles = () => ({});
 
-const spyglassBoolean = true; //set the value as false to shut off the spyglass
+const spyglassBoolean = false; //set the value as false to shut off the spyglass
 
 const showListCount = 4; //update the number of lists with emph
 

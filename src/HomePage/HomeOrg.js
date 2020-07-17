@@ -22,7 +22,7 @@ class HomeOrg extends React.Component {
       </Link>
     </Grid>
     <Grid item xs={12} className={this.props.classes.bannerAdvancedSearch}>
-      <div className={this.props.classes.belowSearchText} >Example: <Link to={'/org/221539720/new-eyes-for-the-needy-inc/'}>New Eyes for the Needy</Link>, <Link to={'/org/221539720/new-eyes-for-the-needy-inc/'}>22-1539720</Link></div>
+      <div className={this.props.classes.belowSearchText} >Example: <Link to={'/org/954300662/relief-international-inc/'}>Relief International</Link>, <Link to={'/org/954300662/relief-international-inc/'}>95-4300662</Link></div>
     </Grid>
   </Fragment>);
 
