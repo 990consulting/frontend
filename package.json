@@ -35,7 +35,7 @@
     "react-select": "^2.3.0",
     "react-select-material-ui": "1.1.2",
     "react-table": "^6.10.3",
-    "validator": "^10.11.0"
+    "validator": "^13.7.0"
   },
   "scripts": {
     "start": "react-scripts start",
